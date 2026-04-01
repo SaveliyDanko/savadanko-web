@@ -1,8 +1,8 @@
 import {
   Hero,
   About,
-  CoreExpertise,
   Projects,
+  CoreExpertise,
   Experience,
   Contact,
 } from "@/sections";
