@@ -136,22 +136,25 @@ export function Hero() {
           </div>
 
           {/* Stats */}
-          <div className="mt-10 flex gap-10 sm:mt-12 sm:gap-12">
+          <div className="mt-10 grid w-full max-w-xl grid-cols-3 gap-4 sm:mt-12 sm:gap-6">
             {stats.map((stat, i) => (
               <motion.div
                 key={stat.label}
+                className="min-w-0"
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.8 + i * 0.15 }}
               >
-                <p className="text-3xl font-bold text-[#4b5395] sm:text-4xl">
+                <p className="bg-gradient-to-r from-[#9fb5ff] via-primary-light to-primary bg-clip-text text-3xl font-bold text-transparent sm:text-4xl">
                   <CountUp
                     target={stat.value}
                     suffix={stat.suffix}
                     delay={200 + i * 150}
                   />
                 </p>
-                <p className="mt-0.5 text-sm text-[#4b5395]">{stat.label}</p>
+                <p className="mt-1 text-[15px] text-[#4b5395] sm:text-base">
+                  {stat.label}
+                </p>
               </motion.div>
             ))}
           </div>
