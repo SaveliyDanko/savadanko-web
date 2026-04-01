@@ -69,22 +69,22 @@ export function Hero() {
           transition={{ duration: 0.6 }}
         >
           {/* Role badge */}
-          <span className="inline-flex items-center gap-2 rounded-full border border-accent-green/20 bg-accent-green/5 px-4 py-1.5 text-xs font-medium text-accent-green">
-            <span className="h-1.5 w-1.5 rounded-full bg-accent-green" />
+          <span className="inline-flex items-center gap-2 rounded-full border border-[#7195ff]/20 bg-[#7195ff]/5 px-5 py-2 text-sm font-medium text-[#7195ff]">
+            <span className="h-2 w-2 rounded-full bg-[#7195ff]" />
             Frontend Developer
           </span>
 
           {/* Name */}
-          <h1 className="mt-6 text-6xl font-bold leading-[1.1] tracking-tight sm:text-7xl lg:text-8xl">
+          <h1 className="mt-6 text-7xl font-bold leading-[1.1] tracking-tight sm:text-8xl lg:text-9xl">
             Sava
             <br />
-            <span className="bg-gradient-to-r from-primary-light to-primary bg-clip-text text-transparent">
+            <span className="animate-shimmer bg-[length:200%_200%] bg-gradient-to-br from-primary-light via-[#c084fc] to-primary bg-clip-text text-transparent">
               Danko
             </span>
           </h1>
 
           {/* Description */}
-          <p className="mt-6 max-w-lg text-lg leading-relaxed text-text-muted sm:text-xl">
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-text-muted sm:text-xl lg:text-[22px]">
             I design and build{" "}
             <strong className="text-text">modern web applications</strong>,{" "}
             <strong className="text-text">responsive interfaces</strong>, and{" "}
@@ -136,7 +136,7 @@ export function Hero() {
           </div>
 
           {/* Stats */}
-          <div className="mt-10 flex gap-8 sm:mt-12">
+          <div className="mt-10 flex gap-10 sm:mt-12 sm:gap-12">
             {stats.map((stat, i) => (
               <motion.div
                 key={stat.label}
@@ -144,14 +144,14 @@ export function Hero() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.8 + i * 0.15 }}
               >
-                <p className="text-2xl font-bold sm:text-3xl">
+                <p className="text-3xl font-bold text-[#4b5395] sm:text-4xl">
                   <CountUp
                     target={stat.value}
                     suffix={stat.suffix}
                     delay={200 + i * 150}
                   />
                 </p>
-                <p className="mt-0.5 text-xs text-text-muted">{stat.label}</p>
+                <p className="mt-0.5 text-sm text-[#4b5395]">{stat.label}</p>
               </motion.div>
             ))}
           </div>

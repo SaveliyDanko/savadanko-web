@@ -11,10 +11,10 @@ export function Header() {
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         {/* Logo + domain */}
         <a href="#hero" className="group flex items-center gap-2.5">
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/15 text-xs font-bold text-primary transition-transform duration-200 group-hover:scale-110">
+          <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/15 text-sm font-bold text-primary transition-transform duration-200 group-hover:scale-110">
             SD
           </span>
-          <span className="text-sm text-text-muted transition-colors duration-200 group-hover:text-text">
+          <span className="text-xl text-text-muted transition-colors duration-200 group-hover:text-text">
             savadanko.dev
           </span>
         </a>
@@ -25,7 +25,7 @@ export function Header() {
             <li key={link.href}>
               <a
                 href={link.href}
-                className="text-sm text-text-muted transition-colors hover:text-text"
+                className="text-[15px] font-medium text-text-muted transition-colors hover:text-text"
               >
                 {link.label}
               </a>
@@ -59,7 +59,7 @@ export function Header() {
             <li key={link.href}>
               <a
                 href={link.href}
-                className="text-sm text-text-muted transition-colors hover:text-text"
+                className="text-[15px] font-medium text-text-muted transition-colors hover:text-text"
                 onClick={() => setMenuOpen(false)}
               >
                 {link.label}

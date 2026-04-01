@@ -131,7 +131,7 @@ const skillsConfig: SkillConfig[] = [
   // Inner Orbit
   {
     id: "html",
-    orbitRadius: 100,
+    orbitRadius: 138,
     size: 40,
     speed: 1,
     iconType: "html",
@@ -141,7 +141,7 @@ const skillsConfig: SkillConfig[] = [
   },
   {
     id: "css",
-    orbitRadius: 100,
+    orbitRadius: 138,
     size: 45,
     speed: 1,
     iconType: "css",
@@ -151,7 +151,7 @@ const skillsConfig: SkillConfig[] = [
   },
   {
     id: "javascript",
-    orbitRadius: 100,
+    orbitRadius: 138,
     size: 40,
     speed: 1,
     iconType: "javascript",
@@ -162,7 +162,7 @@ const skillsConfig: SkillConfig[] = [
   // Outer Orbit
   {
     id: "react",
-    orbitRadius: 180,
+    orbitRadius: 242,
     size: 50,
     speed: -0.6,
     iconType: "react",
@@ -172,7 +172,7 @@ const skillsConfig: SkillConfig[] = [
   },
   {
     id: "node",
-    orbitRadius: 180,
+    orbitRadius: 242,
     size: 45,
     speed: -0.6,
     iconType: "node",
@@ -182,7 +182,7 @@ const skillsConfig: SkillConfig[] = [
   },
   {
     id: "tailwind",
-    orbitRadius: 180,
+    orbitRadius: 242,
     size: 40,
     speed: -0.6,
     iconType: "tailwind",
@@ -307,14 +307,14 @@ export function OrbitingSkills() {
     glowColor: GlowColor;
     delay: number;
   }> = [
-    { radius: 100, glowColor: "cyan", delay: 0 },
-    { radius: 180, glowColor: "purple", delay: 1.5 },
+    { radius: 138, glowColor: "cyan", delay: 0 },
+    { radius: 242, glowColor: "purple", delay: 1.5 },
   ];
 
   return (
-    <div className="flex w-full items-center justify-center overflow-hidden">
+    <div className="flex w-full items-center justify-center">
       <div
-        className="relative flex h-[min(calc(100vw-80px),420px)] w-[min(calc(100vw-80px),420px)] items-center justify-center"
+        className="relative flex h-[min(calc(100vw-80px),575px)] w-[min(calc(100vw-80px),575px)] items-center justify-center"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
       >

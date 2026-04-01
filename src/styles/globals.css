@@ -11,7 +11,7 @@
   --color-accent-green: #34d399;
   --color-accent-green-dark: #059669;
 
-  --color-surface: #09090b;
+  --color-surface: #010105;
   --color-surface-light: #111113;
   --color-surface-lighter: #1a1a1f;
   --color-surface-card: #0f0f13;
@@ -22,6 +22,15 @@
 
   --color-border: #1e1e24;
   --color-border-light: #27272a;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0%; }
+  100% { background-position: -200% 100%; }
+}
+
+@utility animate-shimmer {
+  animation: shimmer 6s ease-in-out infinite;
 }
 
 @layer base {
