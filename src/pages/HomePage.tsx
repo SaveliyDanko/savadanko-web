@@ -4,8 +4,6 @@ import {
   Projects,
   TechStack,
   CoreExpertise,
-  Experience,
-  Contact,
 } from "@/sections";
 
 export function HomePage() {
@@ -16,8 +14,6 @@ export function HomePage() {
       <CoreExpertise />
       <Projects />
       <TechStack />
-      <Experience />
-      <Contact />
     </>
   );
 }
