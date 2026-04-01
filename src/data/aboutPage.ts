@@ -37,3 +37,59 @@ export const aboutPagePrinciples = [
       "Every decision is a tradeoff. I make them explicitly, document them, and revisit when constraints change.",
   },
 ] as const;
+
+export const aboutPageCertifications = [
+  {
+    code: "AZ-305",
+    title: "Azure Solutions Architect Expert",
+    issuer: "Microsoft",
+  },
+  {
+    code: "AZ-400",
+    title: "Azure DevOps Engineer Expert",
+    issuer: "Microsoft",
+  },
+  {
+    code: "AZ-204",
+    title: "Azure Developer Associate",
+    issuer: "Microsoft",
+  },
+  {
+    code: "AI-102",
+    title: "Azure AI Engineer Associate",
+    issuer: "Microsoft",
+  },
+  {
+    code: "AZ-104",
+    title: "Azure Administrator",
+    issuer: "Microsoft",
+  },
+  {
+    code: "AI-900",
+    title: "Azure AI Fundamentals",
+    issuer: "Microsoft",
+  },
+  {
+    code: "Databricks",
+    title: "Databricks Fundamentals Accreditation",
+    issuer: "Databricks",
+  },
+  {
+    code: "CKA",
+    title: "Certified Kubernetes Administrator",
+    issuer: "CNCF / Udemy",
+  },
+] as const;
+
+export const aboutPageEducation = [
+  {
+    degree: "Master of Science, Computer Engineering",
+    school: "Pune University",
+    years: "2014 — 2016",
+  },
+  {
+    degree: "Bachelor of Science, Computer Engineering",
+    school: "Pune University",
+    years: "2011 — 2014",
+  },
+] as const;

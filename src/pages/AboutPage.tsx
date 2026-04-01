@@ -2,6 +2,8 @@ import { Download } from "lucide-react";
 import { motion } from "framer-motion";
 import { Section } from "@/components/layout";
 import {
+  aboutPageCertifications,
+  aboutPageEducation,
   aboutPageHero,
   aboutPageIntro,
   aboutPagePrinciples,
@@ -32,6 +34,53 @@ function PortraitCard() {
         <circle cx="69" cy="18" r="14" fill="rgba(255,255,255,0.12)" />
       </svg>
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),transparent_42%,rgba(0,0,0,0.12))]" />
+    </div>
+  );
+}
+
+function ExternalMiniIcon() {
+  return (
+    <svg
+      viewBox="0 0 16 16"
+      className="h-3.5 w-3.5"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M6 4h6v6M12 4 7 9"
+        stroke="currentColor"
+        strokeWidth="1.35"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M10 7.5V11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h3.5"
+        stroke="currentColor"
+        strokeWidth="1.35"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function CertificationBadge({ code }: { code: string }) {
+  return (
+    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[14px] border border-[#24418f]/60 bg-[radial-gradient(circle_at_top,rgba(97,137,255,0.28),rgba(18,28,61,0.96)_62%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+      <svg viewBox="0 0 44 44" className="h-9 w-9" aria-hidden="true">
+        <path
+          d="M22 3 34.5 7.4v11.3c0 8.4-5.1 15.5-12.5 18.3C14.6 34.2 9.5 27.1 9.5 18.7V7.4L22 3Z"
+          fill="#f3f7ff"
+        />
+        <path
+          d="M22 6.5 31.6 9.8v8.6c0 6.4-3.8 11.9-9.6 14.3-5.8-2.4-9.6-7.9-9.6-14.3V9.8L22 6.5Z"
+          fill="#2560FF"
+        />
+        <path d="M14.2 19.4h15.6" stroke="#ffffff" strokeWidth="1.4" />
+        <path d="M17 23.6h10" stroke="#ffffff" strokeWidth="1.2" />
+        <path d="M22 11.5 23.4 14.3 26.5 14.7 24.2 16.8 24.8 19.8 22 18.3 19.2 19.8 19.8 16.8 17.5 14.7 20.6 14.3 22 11.5Z" fill="#ffffff" />
+      </svg>
+      <span className="sr-only">{code}</span>
     </div>
   );
 }
@@ -112,6 +161,72 @@ export function AboutPage() {
                 </h3>
                 <p className="mt-3 max-w-[95%] text-[15px] leading-7 text-[#636b84] sm:text-[16px]">
                   {principle.description}
+                </p>
+              </article>
+            ))}
+          </div>
+        </motion.div>
+
+        <motion.div
+          className="mt-28"
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, delay: 0.16 }}
+        >
+          <h2 className="text-[42px] font-bold tracking-[-0.04em] text-white sm:text-[52px] lg:text-[58px]">
+            Certifications
+          </h2>
+
+          <div className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            {aboutPageCertifications.map((certification) => (
+              <article
+                key={certification.code + certification.title}
+                className="rounded-[22px] border border-white/[0.04] bg-[linear-gradient(180deg,rgba(5,7,14,0.96),rgba(4,6,12,0.98))] px-5 py-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.02)]"
+              >
+                <div className="flex items-start gap-3">
+                  <CertificationBadge code={certification.code} />
+
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-start justify-between gap-2">
+                      <span className="font-mono text-[12px] tracking-[0.06em] text-[#5e82ff]">
+                        {certification.code}
+                      </span>
+                      <span className="mt-0.5 text-[#59617c]">
+                        <ExternalMiniIcon />
+                      </span>
+                    </div>
+
+                    <h3 className="mt-2 text-[15px] font-medium leading-6 text-white/92">
+                      {certification.title}
+                    </h3>
+                    <p className="mt-1 text-[14px] text-[#59617c]">
+                      {certification.issuer}
+                    </p>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </motion.div>
+
+        <motion.div
+          className="mt-28 pb-4"
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, delay: 0.2 }}
+        >
+          <h2 className="text-[42px] font-bold tracking-[-0.04em] text-white sm:text-[52px] lg:text-[58px]">
+            Education
+          </h2>
+
+          <div className="mt-12 space-y-8">
+            {aboutPageEducation.map((item) => (
+              <article key={item.degree}>
+                <h3 className="text-[17px] font-medium tracking-[-0.02em] text-white/92 sm:text-[18px]">
+                  {item.degree}
+                </h3>
+                <p className="mt-1 text-[15px] text-[#59617c] sm:text-[16px]">
+                  {item.school} · {item.years}
                 </p>
               </article>
             ))}
