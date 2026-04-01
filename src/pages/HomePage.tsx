@@ -1,11 +1,18 @@
-import { Hero, About, TechStack, Projects, Experience, Contact } from "@/sections";
+import {
+  Hero,
+  About,
+  CoreExpertise,
+  Projects,
+  Experience,
+  Contact,
+} from "@/sections";
 
 export function HomePage() {
   return (
     <>
       <Hero />
       <About />
-      <TechStack />
+      <CoreExpertise />
       <Projects />
       <Experience />
       <Contact />
