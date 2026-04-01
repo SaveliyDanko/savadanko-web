@@ -2,6 +2,7 @@ import {
   Hero,
   About,
   Projects,
+  TechStack,
   CoreExpertise,
   Experience,
   Contact,
@@ -14,6 +15,7 @@ export function HomePage() {
       <About />
       <CoreExpertise />
       <Projects />
+      <TechStack />
       <Experience />
       <Contact />
     </>
