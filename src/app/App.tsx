@@ -1,12 +1,50 @@
+import { useEffect, useLayoutEffect } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { Header, Footer } from "@/components/layout";
-import { HomePage } from "@/pages/HomePage";
+import {
+  AboutPage,
+  BlogPage,
+  ContactPage,
+  HomePage,
+  NotFoundPage,
+  WorkPage,
+} from "@/pages";
+
+function ScrollManager() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    if (!("scrollRestoration" in window.history)) return;
+
+    const previous = window.history.scrollRestoration;
+    window.history.scrollRestoration = "manual";
+
+    return () => {
+      window.history.scrollRestoration = previous;
+    };
+  }, []);
+
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
 
 export function App() {
   return (
     <div className="relative flex min-h-screen flex-col">
+      <ScrollManager />
       <Header />
       <main className="flex-1 pt-16">
-        <HomePage />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/work" element={<WorkPage />} />
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
       </main>
       <Footer />
     </div>
