@@ -20,13 +20,24 @@ const translations: Record<Language, Translations> = { en, ru };
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
 const STORAGE_KEY = "language";
+const PREFERENCE_KEY = "languagePreferenceSet";
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguage] = useState<Language>(() => {
+  const [language, setLanguageState] = useState<Language>(() => {
     const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored === "en" || stored === "ru") return stored;
-    return "en";
+    const hasExplicitPreference = localStorage.getItem(PREFERENCE_KEY) === "true";
+
+    if (hasExplicitPreference && (stored === "en" || stored === "ru")) {
+      return stored;
+    }
+
+    return "ru";
   });
+
+  const setLanguage = (lang: Language) => {
+    localStorage.setItem(PREFERENCE_KEY, "true");
+    setLanguageState(lang);
+  };
 
   useEffect(() => {
     document.documentElement.setAttribute("lang", language);

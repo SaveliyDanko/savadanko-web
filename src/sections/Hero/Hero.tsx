@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Mail } from "lucide-react";
 import { motion, useInView } from "framer-motion";
 import { OrbitingSkills } from "@/components/ui";
-import { useTranslation } from "@/app/providers";
+import { useLanguage, useTranslation } from "@/app/providers";
 
 function CountUp({
   target,
@@ -48,6 +48,7 @@ function CountUp({
 
 export function Hero() {
   const t = useTranslation();
+  const { language } = useLanguage();
 
   return (
     <section
@@ -69,10 +70,10 @@ export function Hero() {
           </span>
 
           <h1 className="mt-6 text-7xl font-bold leading-[1.1] tracking-tight sm:text-8xl lg:text-9xl">
-            Савелий
+            {language === "en" ? "Sava" : "Савелий"}
             <br />
             <span className="animate-shimmer bg-[length:200%_200%] bg-gradient-to-br from-primary-light via-[#c084fc] to-primary bg-clip-text text-transparent">
-              Данько
+              {language === "en" ? "Danko" : "Данько"}
             </span>
           </h1>
 

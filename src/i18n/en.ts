@@ -6,7 +6,7 @@ export const en = {
     contact: "Contact",
   },
   header: {
-    brand: "savadanko.dev",
+    brand: "SavaDanko",
   },
   hero: {
     badge: "Full Stack Developer",
@@ -41,7 +41,7 @@ export const en = {
       { value: "3", label: "Focus areas" },
     ],
     profile: [
-      { label: "name", value: "Sava Danko" },
+      { label: "name", value: "SavaDanko" },
       { label: "role", value: "Frontend Developer" },
       { label: "location", value: "Remote / Worldwide" },
       { label: "experience", value: "3+ years" },
@@ -142,7 +142,7 @@ export const en = {
     resumeDescription:
       "with my current experience, projects, and education.",
     resumeDownload: "Download PDF",
-    photoAlt: "Portrait of Savely Danko",
+    photoAlt: "Portrait of SavaDanko",
     principlesTitle: "How I Think About Architecture",
     principles: [
       {
@@ -207,7 +207,7 @@ export const en = {
     sendMessage: "Send a message",
     footerDescription:
       "Design and build modern web applications, responsive interfaces, and scalable solutions.",
-    copyright: "Sava Danko. All rights reserved.",
+    copyright: "SavaDanko. All rights reserved.",
     builtWith: "Built with React + Vite + Tailwind",
   },
   notFound: {
