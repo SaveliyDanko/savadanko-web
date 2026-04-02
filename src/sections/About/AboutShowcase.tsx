@@ -93,13 +93,13 @@ export function AboutShowcase({
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6, delay: 0.08 }}
         >
-          <div className="glow absolute inset-0 rounded-[28px] bg-[radial-gradient(circle_at_top_left,rgba(111,135,255,0.18),transparent_42%)] blur-2xl" />
-          <div className="relative overflow-hidden rounded-[24px] border border-[#5c73ff]/20 bg-[linear-gradient(180deg,rgba(9,11,21,0.94),rgba(5,6,12,0.98))] p-5 shadow-[0_18px_60px_rgba(0,0,0,0.45),0_0_0_1px_rgba(92,115,255,0.06)] backdrop-blur">
-            <div className="flex items-center gap-2 border-b border-white/5 pb-4">
+          <div className="glow absolute inset-0 rounded-[28px] bg-[radial-gradient(circle_at_top_left,rgba(111,135,255,0.12),transparent_48%)] blur-2xl" />
+          <div className="relative overflow-hidden rounded-[24px] border border-card-border bg-card-featured p-5 shadow-card-featured sm:p-6">
+            <div className="flex items-center gap-2 border-b border-card-border pb-4">
               <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
               <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
               <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
-              <span className="ml-3 text-[11px] tracking-[0.18em] text-white/20">
+              <span className="ml-3 text-[11px] tracking-[0.18em] text-body-secondary">
                 ~/savadanko.dev
               </span>
             </div>
@@ -110,17 +110,17 @@ export function AboutShowcase({
                   key={item.label}
                   className="grid grid-cols-[14px_minmax(86px,auto)_10px_1fr] items-start gap-3 leading-relaxed"
                 >
-                  <ChevronRight className="mt-[2px] h-3.5 w-3.5 text-white/25" />
-                  <span className="font-semibold tracking-wide text-[#6f87ff]">
+                  <ChevronRight className="mt-[2px] h-3.5 w-3.5 text-body-secondary" />
+                  <span className="font-semibold tracking-wide text-section-label">
                     {item.label}
                   </span>
-                  <span className="text-white/25">-</span>
-                  <span className="text-white/80">{item.value}</span>
+                  <span className="text-body-secondary">-</span>
+                  <span className="text-heading/85">{item.value}</span>
                 </div>
               ))}
 
               <div className="flex items-center gap-2 pt-1">
-                <span className="h-4 w-2 animate-pulse rounded-sm bg-[#6f87ff]" />
+                <span className="h-4 w-2 animate-pulse rounded-sm bg-section-label" />
               </div>
             </div>
           </div>
