@@ -4,11 +4,8 @@ import { Section } from "@/components/layout";
 import {
   aboutPageCertifications,
   aboutPageEducation,
-  aboutPageHero,
-  aboutPageIntro,
-  aboutPagePrinciples,
-  aboutPageResumeButtons,
 } from "@/data/aboutPage";
+import { useTranslation } from "@/app/providers";
 
 function PortraitCard() {
   return (
@@ -28,9 +25,20 @@ function PortraitCard() {
         <rect width="92" height="92" rx="20" fill="url(#aboutPortraitSky)" />
         <rect y="56" width="92" height="36" fill="#27313f" />
         <circle cx="45" cy="36" r="12.5" fill="#b96f4f" />
-        <path d="M30 80c4-15.2 12.2-22.8 23.8-22.8 11.4 0 18.7 7.6 22.2 22.8H30Z" fill="url(#aboutPortraitShirt)" />
-        <path d="M36.5 34.5c1.2-7 5.1-11.1 10.8-11.1 6.1 0 10.5 4.7 10.9 11.7-2.2-1-3.9-2.3-5.3-3.8-4.4 3.3-10.2 4.4-16.4 3.2Z" fill="#201a19" />
-        <path d="M37.8 49.3c2.6 2.2 5.2 3.3 8.1 3.3 3.3 0 6.4-1.3 9.3-3.9" stroke="#9a563c" strokeWidth="1.5" strokeLinecap="round" />
+        <path
+          d="M30 80c4-15.2 12.2-22.8 23.8-22.8 11.4 0 18.7 7.6 22.2 22.8H30Z"
+          fill="url(#aboutPortraitShirt)"
+        />
+        <path
+          d="M36.5 34.5c1.2-7 5.1-11.1 10.8-11.1 6.1 0 10.5 4.7 10.9 11.7-2.2-1-3.9-2.3-5.3-3.8-4.4 3.3-10.2 4.4-16.4 3.2Z"
+          fill="#201a19"
+        />
+        <path
+          d="M37.8 49.3c2.6 2.2 5.2 3.3 8.1 3.3 3.3 0 6.4-1.3 9.3-3.9"
+          stroke="#9a563c"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+        />
         <circle cx="69" cy="18" r="14" fill="rgba(255,255,255,0.12)" />
       </svg>
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),transparent_42%,rgba(0,0,0,0.12))]" />
@@ -78,7 +86,10 @@ function CertificationBadge({ code }: { code: string }) {
         />
         <path d="M14.2 19.4h15.6" stroke="#ffffff" strokeWidth="1.4" />
         <path d="M17 23.6h10" stroke="#ffffff" strokeWidth="1.2" />
-        <path d="M22 11.5 23.4 14.3 26.5 14.7 24.2 16.8 24.8 19.8 22 18.3 19.2 19.8 19.8 16.8 17.5 14.7 20.6 14.3 22 11.5Z" fill="#ffffff" />
+        <path
+          d="M22 11.5 23.4 14.3 26.5 14.7 24.2 16.8 24.8 19.8 22 18.3 19.2 19.8 19.8 16.8 17.5 14.7 20.6 14.3 22 11.5Z"
+          fill="#ffffff"
+        />
       </svg>
       <span className="sr-only">{code}</span>
     </div>
@@ -86,10 +97,12 @@ function CertificationBadge({ code }: { code: string }) {
 }
 
 export function AboutPage() {
+  const t = useTranslation();
+
   return (
     <Section className="relative min-h-[calc(100vh-64px)] overflow-hidden py-18 sm:py-22 lg:py-24">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#22346a] to-transparent" />
-      <div className="pointer-events-none absolute left-1/2 top-24 h-72 w-[42rem] -translate-x-1/2 bg-[radial-gradient(circle,rgba(46,74,166,0.12),transparent_68%)] blur-3xl" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-section-label/40 to-transparent" />
+      <div className="glow pointer-events-none absolute left-1/2 top-24 h-72 w-[42rem] -translate-x-1/2 bg-[radial-gradient(circle,rgba(46,74,166,0.12),transparent_68%)] blur-3xl" />
 
       <div className="mx-auto max-w-[1008px]">
         <motion.div
@@ -97,14 +110,14 @@ export function AboutPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45 }}
         >
-          <h1 className="text-[48px] font-bold tracking-[-0.04em] text-white sm:text-[60px] lg:text-[64px]">
-            {aboutPageHero.title}
+          <h1 className="text-[48px] font-bold tracking-[-0.04em] text-heading sm:text-[60px] lg:text-[64px]">
+            {t.aboutPage.title}
           </h1>
-          <p className="mt-5 max-w-[720px] text-[17px] leading-8 text-[#6e748b] sm:text-[18px]">
-            {aboutPageHero.subtitle}
+          <p className="mt-5 max-w-[720px] text-[17px] leading-8 text-body sm:text-[18px]">
+            {t.aboutPage.subtitle}
           </p>
-          <div className="mt-10 h-px w-full bg-[linear-gradient(90deg,rgba(62,94,186,0.68),rgba(31,39,70,0.9)_22%,rgba(255,255,255,0.04)_72%,transparent)]" />
-          <div className="mt-2 h-7 w-full bg-[linear-gradient(180deg,rgba(6,10,21,0.62),rgba(4,7,14,0))]" />
+          <div className="mt-10 h-px w-full bg-gradient-to-r from-section-label/60 via-section-label/20 to-transparent" />
+          <div className="mt-2 h-7 w-full bg-gradient-to-b from-surface/60 to-transparent" />
         </motion.div>
 
         <motion.div
@@ -115,20 +128,20 @@ export function AboutPage() {
         >
           <PortraitCard />
 
-          <div className="max-w-[820px] space-y-6 pt-1 text-[17px] leading-8 text-[#666d85]">
-            {aboutPageIntro.map((paragraph) => (
+          <div className="max-w-[820px] space-y-6 pt-1 text-[17px] leading-8 text-body">
+            {t.aboutPage.intro.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
 
             <div className="flex flex-wrap gap-3 pt-1">
-              {aboutPageResumeButtons.map((button) => (
+              {t.aboutPage.resumeButtons.map((label) => (
                 <button
-                  key={button.label}
+                  key={label}
                   type="button"
-                  className="inline-flex items-center gap-2 rounded-full border border-white/[0.06] bg-[linear-gradient(180deg,rgba(17,20,31,0.92),rgba(10,12,20,0.96))] px-4 py-2 text-[12px] font-semibold tracking-[0.01em] text-[#d8dbe5] shadow-[inset_0_1px_0_rgba(255,255,255,0.03)] transition-colors duration-300 hover:border-[#25386f] hover:text-white"
+                  className="inline-flex items-center gap-2 rounded-full border border-card-border bg-card-gradient px-4 py-2 text-[12px] font-semibold tracking-[0.01em] text-heading/85 shadow-card transition-colors duration-300 hover:border-section-label/30 hover:text-heading"
                 >
                   <Download size={13} strokeWidth={2} />
-                  {button.label}
+                  {label}
                 </button>
               ))}
             </div>
@@ -141,25 +154,25 @@ export function AboutPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.12 }}
         >
-          <h2 className="text-[42px] font-bold tracking-[-0.04em] text-white sm:text-[52px] lg:text-[58px]">
-            How I Think About Architecture
+          <h2 className="text-[42px] font-bold tracking-[-0.04em] text-heading sm:text-[52px] lg:text-[58px]">
+            {t.aboutPage.principlesTitle}
           </h2>
 
           <div className="mt-12 grid gap-4 lg:grid-cols-2 lg:gap-5">
-            {aboutPagePrinciples.map((principle) => (
+            {t.aboutPage.principles.map((principle, index) => (
               <article
                 key={principle.title}
                 className={[
                   "rounded-[22px] border px-5 py-5 sm:px-6 sm:py-6",
-                  principle.featured
-                    ? "border-[#20356b] bg-[linear-gradient(180deg,rgba(7,10,20,0.98),rgba(5,8,16,0.98))] shadow-[inset_0_0_0_1px_rgba(58,92,184,0.08),0_0_0_1px_rgba(25,37,77,0.18)]"
-                    : "border-white/[0.04] bg-[linear-gradient(180deg,rgba(5,7,14,0.96),rgba(4,6,12,0.98))]",
+                  index === 0
+                    ? "border-[var(--card-featured-border)] bg-card-featured shadow-card-featured"
+                    : "border-card-border bg-card-gradient shadow-card",
                 ].join(" ")}
               >
-                <h3 className="text-[17px] font-semibold tracking-[-0.02em] text-white/92">
+                <h3 className="text-[17px] font-semibold tracking-[-0.02em] text-heading/92">
                   {principle.title}
                 </h3>
-                <p className="mt-3 max-w-[95%] text-[15px] leading-7 text-[#636b84] sm:text-[16px]">
+                <p className="mt-3 max-w-[95%] text-[15px] leading-7 text-body sm:text-[16px]">
                   {principle.description}
                 </p>
               </article>
@@ -173,33 +186,33 @@ export function AboutPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.16 }}
         >
-          <h2 className="text-[42px] font-bold tracking-[-0.04em] text-white sm:text-[52px] lg:text-[58px]">
-            Certifications
+          <h2 className="text-[42px] font-bold tracking-[-0.04em] text-heading sm:text-[52px] lg:text-[58px]">
+            {t.aboutPage.certificationsTitle}
           </h2>
 
           <div className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {aboutPageCertifications.map((certification) => (
               <article
                 key={certification.code + certification.title}
-                className="rounded-[22px] border border-white/[0.04] bg-[linear-gradient(180deg,rgba(5,7,14,0.96),rgba(4,6,12,0.98))] px-5 py-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.02)]"
+                className="rounded-[22px] border border-card-border bg-card-gradient px-5 py-5 shadow-card"
               >
                 <div className="flex items-start gap-3">
                   <CertificationBadge code={certification.code} />
 
                   <div className="min-w-0 flex-1">
                     <div className="flex items-start justify-between gap-2">
-                      <span className="font-mono text-[12px] tracking-[0.06em] text-[#5e82ff]">
+                      <span className="font-mono text-[12px] tracking-[0.06em] text-section-label">
                         {certification.code}
                       </span>
-                      <span className="mt-0.5 text-[#59617c]">
+                      <span className="mt-0.5 text-body">
                         <ExternalMiniIcon />
                       </span>
                     </div>
 
-                    <h3 className="mt-2 text-[15px] font-medium leading-6 text-white/92">
+                    <h3 className="mt-2 text-[15px] font-medium leading-6 text-heading/92">
                       {certification.title}
                     </h3>
-                    <p className="mt-1 text-[14px] text-[#59617c]">
+                    <p className="mt-1 text-[14px] text-body">
                       {certification.issuer}
                     </p>
                   </div>
@@ -215,17 +228,17 @@ export function AboutPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.2 }}
         >
-          <h2 className="text-[42px] font-bold tracking-[-0.04em] text-white sm:text-[52px] lg:text-[58px]">
-            Education
+          <h2 className="text-[42px] font-bold tracking-[-0.04em] text-heading sm:text-[52px] lg:text-[58px]">
+            {t.aboutPage.educationTitle}
           </h2>
 
           <div className="mt-12 space-y-8">
             {aboutPageEducation.map((item) => (
               <article key={item.degree}>
-                <h3 className="text-[17px] font-medium tracking-[-0.02em] text-white/92 sm:text-[18px]">
+                <h3 className="text-[17px] font-medium tracking-[-0.02em] text-heading/92 sm:text-[18px]">
                   {item.degree}
                 </h3>
-                <p className="mt-1 text-[15px] text-[#59617c] sm:text-[16px]">
+                <p className="mt-1 text-[15px] text-body sm:text-[16px]">
                   {item.school} · {item.years}
                 </p>
               </article>

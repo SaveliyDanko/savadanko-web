@@ -18,7 +18,7 @@ export interface Experience {
 }
 
 export interface NavLink {
-  label: string;
+  key: string;
   href: string;
 }
 

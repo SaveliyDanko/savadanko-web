@@ -1,11 +1,15 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, Moon, Sun, X } from "lucide-react";
 import { NAV_LINKS } from "@/constants/navigation";
 import { cn } from "@/utils";
+import { useTheme, useTranslation, useLanguage } from "@/app/providers";
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
+  const { language, setLanguage } = useLanguage();
+  const t = useTranslation();
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-border/50 bg-surface/80 backdrop-blur-md">
@@ -15,7 +19,7 @@ export function Header() {
             SD
           </span>
           <span className="text-xl text-text-muted transition-colors duration-200 group-hover:text-text">
-            savadanko.dev
+            {t.header.brand}
           </span>
         </Link>
 
@@ -31,21 +35,55 @@ export function Header() {
                   )
                 }
               >
-                {link.label}
+                {t.nav[link.key as keyof typeof t.nav]}
               </NavLink>
             </li>
           ))}
         </ul>
 
-        <div className="flex items-center">
+        <div className="flex items-center gap-1">
+          {/* Language toggle */}
           <button
-            className="text-text-muted md:hidden"
+            onClick={() => setLanguage(language === "en" ? "ru" : "en")}
+            className="flex items-center gap-1 rounded-lg px-2 py-1.5 text-xs font-semibold tracking-wide transition-colors hover:bg-surface-lighter"
+            aria-label="Switch language"
+          >
+            <span
+              className={cn(
+                "transition-colors",
+                language === "en" ? "text-text" : "text-text-muted",
+              )}
+            >
+              EN
+            </span>
+            <span className="text-text-muted">/</span>
+            <span
+              className={cn(
+                "transition-colors",
+                language === "ru" ? "text-text" : "text-text-muted",
+              )}
+            >
+              RU
+            </span>
+          </button>
+
+          {/* Theme toggle */}
+          <button
+            onClick={toggleTheme}
+            className="flex h-9 w-9 items-center justify-center rounded-lg text-text-muted transition-colors hover:bg-surface-lighter hover:text-text"
+            aria-label="Toggle theme"
+          >
+            {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+          </button>
+
+          {/* Mobile menu button */}
+          <button
+            className="ml-1 text-text-muted md:hidden"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
           >
             {menuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
-          <div className="hidden w-[150px] md:block" />
         </div>
       </nav>
 
@@ -68,7 +106,7 @@ export function Header() {
                 }
                 onClick={() => setMenuOpen(false)}
               >
-                {link.label}
+                {t.nav[link.key as keyof typeof t.nav]}
               </NavLink>
             </li>
           ))}

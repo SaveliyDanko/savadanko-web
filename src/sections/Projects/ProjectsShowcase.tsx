@@ -19,6 +19,7 @@ import type { LucideIcon } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { projects } from "@/data/projects";
+import { useTranslation } from "@/app/providers";
 
 const techIcons: Record<string, LucideIcon> = {
   Noir: ShieldCheck,
@@ -58,7 +59,7 @@ function ProjectLogo({
   if (variant === "artistskonnect") {
     return (
       <div className="rounded-full bg-[conic-gradient(from_180deg_at_50%_50%,#4cc9f0,#f472b6,#f59e0b,#4cc9f0)] p-px shadow-[0_10px_25px_rgba(76,201,240,0.12)]">
-        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#0b1018] text-[10px] font-semibold text-white/80">
+        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-surface text-[10px] font-semibold text-heading/80">
           AK
         </div>
       </div>
@@ -84,90 +85,95 @@ export function ProjectsShowcase({
   viewAllHref = "/work",
 }: ProjectsShowcaseProps) {
   const TitleTag = titleAs;
+  const t = useTranslation();
 
   return (
     <div className="relative">
       <div className="max-w-xl">
         <div className="flex items-center gap-3">
-          <span className="h-px w-7 bg-gradient-to-r from-[#6f87ff] to-transparent" />
-          <span className="text-[11px] font-semibold uppercase tracking-[0.32em] text-[#6f87ff]">
-            Portfolio
+          <span className="h-px w-7 bg-gradient-to-r from-section-label to-transparent" />
+          <span className="text-[11px] font-semibold uppercase tracking-[0.32em] text-section-label">
+            {t.projects.label}
           </span>
         </div>
 
-        <TitleTag className="mt-5 text-4xl font-bold tracking-tight sm:text-5xl lg:text-[56px]">
-          Featured Work
+        <TitleTag className="mt-5 text-4xl font-bold tracking-tight text-heading sm:text-5xl lg:text-[56px]">
+          {t.projects.title}
         </TitleTag>
 
-        <p className="mt-5 text-[15px] leading-8 text-[#656c89] sm:text-base">
-          Selected projects with architecture deep-dives
+        <p className="mt-5 text-[15px] leading-8 text-body sm:text-base">
+          {t.projects.description}
         </p>
       </div>
 
       <div className="mt-12 space-y-5">
-        {projects.map((project, index) => (
-          <motion.a
-            key={project.id}
-            href={project.href}
-            className="group block rounded-[28px] border border-white/[0.04] bg-[linear-gradient(180deg,rgba(8,10,19,0.72),rgba(4,5,11,0.96))] px-7 py-7 shadow-[inset_0_1px_0_rgba(255,255,255,0.02)] transition-colors duration-300 hover:border-[#5f77ff]/16"
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.45, delay: index * 0.08 }}
-          >
-            <div className="flex items-start justify-between gap-6">
-              <div className="min-w-0 flex-1">
-                <div className="flex flex-wrap items-center gap-3">
-                  <ProjectLogo variant={project.logo} />
-                  <h3 className="text-[18px] font-semibold tracking-tight text-white/90 sm:text-[19px]">
-                    {project.title}
-                  </h3>
-                  <span className="rounded-full border border-white/[0.04] bg-[#12182a] px-2.5 py-1 text-[11px] font-medium text-white/60">
-                    {project.category}
-                  </span>
+        {projects.map((project, index) => {
+          const text = t.projects.items[index];
+
+          return (
+            <motion.a
+              key={project.id}
+              href={project.href}
+              className="group block rounded-[28px] border border-card-border bg-card-gradient px-7 py-7 shadow-card transition-colors duration-300 hover:border-card-hover"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.45, delay: index * 0.08 }}
+            >
+              <div className="flex items-start justify-between gap-6">
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-wrap items-center gap-3">
+                    <ProjectLogo variant={project.logo} />
+                    <h3 className="text-[18px] font-semibold tracking-tight text-heading/90 sm:text-[19px]">
+                      {project.title}
+                    </h3>
+                    <span className="rounded-full border border-card-border bg-surface-light px-2.5 py-1 text-[11px] font-medium text-heading/60">
+                      {text?.category ?? project.category}
+                    </span>
+                  </div>
+
+                  <p className="mt-5 max-w-3xl text-[15px] leading-7 text-body">
+                    {text?.description ?? project.description}
+                  </p>
+
+                  <div className="mt-5 flex flex-wrap items-center gap-2.5">
+                    {project.technologies.map((technology) => {
+                      const Icon = techIcons[technology] ?? Braces;
+
+                      return (
+                        <span
+                          key={technology}
+                          className="inline-flex items-center gap-1.5 rounded-full border border-card-border bg-surface/95 px-3 py-1.5 text-[12px] text-body"
+                        >
+                          <Icon size={12} strokeWidth={1.8} />
+                          {technology}
+                        </span>
+                      );
+                    })}
+
+                    <span className="ml-1 text-sm text-body">
+                      +{project.extraTechnologies}
+                    </span>
+                  </div>
                 </div>
 
-                <p className="mt-5 max-w-3xl text-[15px] leading-7 text-[#646b85]">
-                  {project.description}
-                </p>
-
-                <div className="mt-5 flex flex-wrap items-center gap-2.5">
-                  {project.technologies.map((technology) => {
-                    const Icon = techIcons[technology] ?? Braces;
-
-                    return (
-                      <span
-                        key={technology}
-                        className="inline-flex items-center gap-1.5 rounded-full border border-white/[0.04] bg-[#0c1018]/95 px-3 py-1.5 text-[12px] text-[#6b728d]"
-                      >
-                        <Icon size={12} strokeWidth={1.8} />
-                        {technology}
-                      </span>
-                    );
-                  })}
-
-                  <span className="ml-1 text-sm text-[#6b728d]">
-                    +{project.extraTechnologies}
-                  </span>
-                </div>
+                <ArrowUpRight
+                  size={18}
+                  className="mt-1 shrink-0 text-heading/20 transition-colors duration-300 group-hover:text-section-label"
+                />
               </div>
-
-              <ArrowUpRight
-                size={18}
-                className="mt-1 shrink-0 text-white/20 transition-colors duration-300 group-hover:text-[#8fa2ff]"
-              />
-            </div>
-          </motion.a>
-        ))}
+            </motion.a>
+          );
+        })}
       </div>
 
       {showViewAllLink ? (
         <div className="mt-10 flex justify-center">
           <Link
             to={viewAllHref}
-            className="inline-flex items-center gap-2 text-sm font-medium text-[#7288d8] transition-colors duration-300 hover:text-[#a6b6ff]"
+            className="inline-flex items-center gap-2 text-sm font-medium text-section-label transition-colors duration-300 hover:text-primary-light"
           >
-            View all work
+            {t.projects.viewAll}
             <ArrowRight size={15} />
           </Link>
         </div>

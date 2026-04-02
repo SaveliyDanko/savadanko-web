@@ -2,12 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Mail } from "lucide-react";
 import { motion, useInView } from "framer-motion";
 import { OrbitingSkills } from "@/components/ui";
-
-const stats = [
-  { value: 2, suffix: "+", label: "Years building" },
-  { value: 10, suffix: "+", label: "Projects" },
-  { value: 5, suffix: "+", label: "Technologies" },
-];
+import { useTranslation } from "@/app/providers";
 
 function CountUp({
   target,
@@ -52,29 +47,27 @@ function CountUp({
 }
 
 export function Hero() {
+  const t = useTranslation();
+
   return (
     <section
       id="hero"
       className="relative flex min-h-screen items-center overflow-hidden"
     >
-      {/* Background glow */}
-      <div className="pointer-events-none absolute -left-40 top-1/4 h-[500px] w-[500px] rounded-full bg-primary/5 blur-[120px]" />
-      <div className="pointer-events-none absolute -right-40 bottom-1/4 h-[400px] w-[400px] rounded-full bg-primary/3 blur-[100px]" />
+      <div className="glow pointer-events-none absolute -left-40 top-1/4 h-[500px] w-[500px] rounded-full bg-primary/5 blur-[120px]" />
+      <div className="glow pointer-events-none absolute -right-40 bottom-1/4 h-[400px] w-[400px] rounded-full bg-primary/3 blur-[100px]" />
 
       <div className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-12 px-6 py-28 lg:grid-cols-2 lg:gap-16 lg:py-0">
-        {/* Left — content */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          {/* Role badge */}
-          <span className="inline-flex items-center gap-2 rounded-full border border-[#7195ff]/20 bg-[#7195ff]/5 px-5 py-2 text-sm font-medium text-[#7195ff]">
-            <span className="h-2 w-2 rounded-full bg-[#7195ff]" />
-            Frontend Developer
+          <span className="inline-flex items-center gap-2 rounded-full border border-section-label/20 bg-section-label/5 px-5 py-2 text-sm font-medium text-section-label">
+            <span className="h-2 w-2 rounded-full bg-section-label" />
+            {t.hero.badge}
           </span>
 
-          {/* Name */}
           <h1 className="mt-6 text-7xl font-bold leading-[1.1] tracking-tight sm:text-8xl lg:text-9xl">
             Sava
             <br />
@@ -83,16 +76,16 @@ export function Hero() {
             </span>
           </h1>
 
-          {/* Description */}
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-text-muted sm:text-xl lg:text-[22px]">
-            I design and build{" "}
-            <strong className="text-text">modern web applications</strong>,{" "}
-            <strong className="text-text">responsive interfaces</strong>, and{" "}
-            <strong className="text-text">interactive SPAs</strong>. Focused on
-            performance, clean code, and quality user experience.
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-body sm:text-xl lg:text-[22px]">
+            {t.hero.descriptionStart}
+            <strong className="text-heading">{t.hero.bold1}</strong>
+            {t.hero.comma1}
+            <strong className="text-heading">{t.hero.bold2}</strong>
+            {t.hero.comma2}
+            <strong className="text-heading">{t.hero.bold3}</strong>
+            {t.hero.descriptionEnd}
           </p>
 
-          {/* CTA */}
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:gap-4">
             <motion.button
               onClick={() =>
@@ -101,12 +94,15 @@ export function Hero() {
                   ?.scrollIntoView({ behavior: "smooth" })
               }
               className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-primary to-primary-dark px-7 py-3.5 text-sm font-medium text-white shadow-lg shadow-primary/25"
-              whileHover={{ scale: 1.04, boxShadow: "0 0 30px rgba(139,92,246,0.4)" }}
+              whileHover={{
+                scale: 1.04,
+                boxShadow: "0 0 30px rgba(139,92,246,0.4)",
+              }}
               whileTap={{ scale: 0.97 }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
             >
               <span className="relative z-10 flex items-center gap-2">
-                View my Work
+                {t.hero.ctaPrimary}
                 <ArrowRight
                   size={16}
                   className="transition-transform duration-300 group-hover:translate-x-1"
@@ -122,7 +118,10 @@ export function Hero() {
                   ?.scrollIntoView({ behavior: "smooth" })
               }
               className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full border border-border-light bg-transparent px-7 py-3.5 text-sm font-medium text-text-muted transition-colors duration-300 hover:text-text"
-              whileHover={{ scale: 1.04, borderColor: "rgba(139,92,246,0.4)" }}
+              whileHover={{
+                scale: 1.04,
+                borderColor: "rgba(139,92,246,0.4)",
+              }}
               whileTap={{ scale: 0.97 }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
             >
@@ -130,14 +129,13 @@ export function Hero() {
                 size={16}
                 className="transition-transform duration-300 group-hover:rotate-[-8deg] group-hover:scale-110"
               />
-              Get in Touch
+              {t.hero.ctaSecondary}
               <span className="absolute inset-0 rounded-full bg-primary/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
             </motion.button>
           </div>
 
-          {/* Stats */}
           <div className="mt-10 grid w-full max-w-xl grid-cols-3 gap-4 sm:mt-12 sm:gap-6">
-            {stats.map((stat, i) => (
+            {t.hero.stats.map((stat, i) => (
               <motion.div
                 key={stat.label}
                 className="min-w-0"
@@ -152,7 +150,7 @@ export function Hero() {
                     delay={200 + i * 150}
                   />
                 </p>
-                <p className="mt-1 text-[15px] text-[#4b5395] sm:text-base">
+                <p className="mt-1 text-[15px] text-body-secondary sm:text-base">
                   {stat.label}
                 </p>
               </motion.div>
@@ -160,9 +158,8 @@ export function Hero() {
           </div>
         </motion.div>
 
-        {/* Right — orbiting skills */}
         <motion.div
-          className="hidden lg:flex justify-center lg:justify-end"
+          className="hidden justify-center lg:flex lg:justify-end"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.3 }}
