@@ -83,13 +83,18 @@ export const aboutPageCertifications = [
 
 export const aboutPageEducation = [
   {
-    degree: "Master of Science, Computer Engineering",
-    school: "Pune University",
-    years: "2014 — 2016",
+    degree: "Системное и прикладное программное обеспечение",
+    school: "ITMO University",
+    years: "2023 — 2027",
   },
   {
-    degree: "Bachelor of Science, Computer Engineering",
-    school: "Pune University",
-    years: "2011 — 2014",
+    degree: "Java разработка",
+    school: "T-Banc Academy",
+    years: "2025-2026",
+  },
+  {
+    degree: "Frontend разработка",
+    school: "T-Banc Academy",
+    years: "2025",
   },
 ] as const;
