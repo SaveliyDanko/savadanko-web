@@ -1,7 +1,5 @@
 import {
-  ArrowRight,
   GitBranch,
-  Link2,
   Mail,
   Send,
   Sparkles,

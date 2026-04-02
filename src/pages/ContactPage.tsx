@@ -2,7 +2,6 @@ import { useState, type FormEvent, type ReactNode } from "react";
 import {
   ExternalLink,
   GitBranch,
-  Link2,
   Mail,
   MapPin,
   Send,

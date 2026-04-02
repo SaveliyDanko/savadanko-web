@@ -1,13 +1,14 @@
 {
   "name": "Savely Danko Portfolio",
   "short_name": "Savely Danko",
-  "start_url": "/",
+  "start_url": ".",
+  "scope": ".",
   "display": "standalone",
   "background_color": "#010105",
   "theme_color": "#010105",
   "icons": [
     {
-      "src": "/Logo.jpg",
+      "src": "Logo.jpg",
       "sizes": "512x512",
       "type": "image/jpeg"
     }

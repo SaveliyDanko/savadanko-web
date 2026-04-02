@@ -6,8 +6,19 @@
     <meta name="robots" content="noindex" />
     <title>Redirecting...</title>
     <script>
-      const redirectTarget = `${window.location.pathname}${window.location.search}${window.location.hash}`;
-      window.location.replace(`/?redirect=${encodeURIComponent(redirectTarget)}`);
+      const repoBasePath = "/savadanko-web/";
+      const isRepoDeployment =
+        window.location.pathname === repoBasePath.slice(0, -1) ||
+        window.location.pathname.startsWith(repoBasePath);
+      const basePath = isRepoDeployment ? repoBasePath : "/";
+      const routePath = isRepoDeployment
+        ? `/${window.location.pathname.slice(repoBasePath.length).replace(/^\/+/, "")}`
+        : window.location.pathname || "/";
+      const redirectTarget = `${routePath}${window.location.search}${window.location.hash}`;
+
+      window.location.replace(
+        `${basePath}?redirect=${encodeURIComponent(redirectTarget)}`,
+      );
     </script>
   </head>
   <body></body>

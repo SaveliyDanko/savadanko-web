@@ -4,6 +4,7 @@ import { Menu, Moon, Sun, X } from "lucide-react";
 import { NAV_LINKS } from "@/constants/navigation";
 import { cn } from "@/utils";
 import { useTheme, useTranslation, useLanguage } from "@/app/providers";
+import { withBasePath } from "@/config/site";
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -17,7 +18,7 @@ export function Header() {
         <Link to="/" className="group flex items-center gap-2.5">
           <span className="flex h-12 w-12 overflow-hidden rounded-lg border border-card-border bg-surface-light transition-transform duration-200 group-hover:scale-110">
             <img
-              src="/Logo.jpg"
+              src={withBasePath("Logo.jpg")}
               alt={t.header.brand}
               className="h-full w-full object-cover"
             />

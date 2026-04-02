@@ -19,6 +19,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { projects } from "@/data/projects";
 import { useTranslation } from "@/app/providers";
+import { withBasePath } from "@/config/site";
 
 const techIcons: Record<string, LucideIcon> = {
   Noir: ShieldCheck,
@@ -48,7 +49,7 @@ function ProjectLogo({
     return (
       <div className="flex h-9 w-9 overflow-hidden rounded-full border border-card-border bg-white shadow-[0_8px_20px_rgba(99,102,241,0.12)]">
         <img
-          src="/Nexign.jpeg"
+          src={withBasePath("Nexign.jpeg")}
           alt="Nexign"
           className="h-full w-full object-cover"
         />

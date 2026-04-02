@@ -1,3 +1,5 @@
+import { withBasePath } from "@/config/site";
+
 export const aboutPageHero = {
   title: "About",
   subtitle:
@@ -10,8 +12,8 @@ export const aboutPageIntro = [
 ] as const;
 
 export const aboutPageAssets = {
-  photoSrc: "/about/profile-photo.jpg",
-  resumeSrc: "/savely-danko-resume.pdf",
+  photoSrc: withBasePath("about/profile-photo.jpg"),
+  resumeSrc: withBasePath("savely-danko-resume.pdf"),
   resumeDownloadName: "Savely-Danko-Resume.pdf",
 } as const;
 

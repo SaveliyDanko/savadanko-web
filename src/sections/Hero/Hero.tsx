@@ -69,10 +69,10 @@ export function Hero() {
           </span>
 
           <h1 className="mt-6 text-7xl font-bold leading-[1.1] tracking-tight sm:text-8xl lg:text-9xl">
-            Sava
+            Савелий
             <br />
             <span className="animate-shimmer bg-[length:200%_200%] bg-gradient-to-br from-primary-light via-[#c084fc] to-primary bg-clip-text text-transparent">
-              Danko
+              Данько
             </span>
           </h1>
 
