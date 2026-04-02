@@ -3,6 +3,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { Header, Footer } from "@/components/layout";
 import {
   AboutPage,
+  BlogArticlePage,
   BlogPage,
   ContactPage,
   HomePage,
@@ -42,6 +43,7 @@ export function App() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/work" element={<WorkPage />} />
           <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog/:slug" element={<BlogArticlePage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>

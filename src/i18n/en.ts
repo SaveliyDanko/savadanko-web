@@ -144,7 +144,11 @@ export const en = {
       "I'm a Software Architect with over a decade of experience building production systems across healthcare, logistics, banking, ecommerce, and blockchain. My work sits at the intersection of backend architecture, cloud infrastructure, and product engineering.",
       "Currently at Vanderlande, I lead AI-driven features on enterprise platforms using RAG pipelines, Databricks, and Azure services. Outside of work, I build Web3 products from zero-knowledge compliance infrastructure to compliant crypto exchanges.",
     ],
-    resumeButtons: ["Resume (Web2)", "Resume (Web3)"],
+    resumeLabel: "Resume",
+    resumeDescription:
+      "One PDF with my current experience, projects, and education.",
+    resumeDownload: "Download PDF",
+    photoAlt: "Portrait of Savely Danko",
     principlesTitle: "How I Think About Architecture",
     principles: [
       {
@@ -173,29 +177,10 @@ export const en = {
   },
   blog: {
     title: "Blog",
-    subtitle: "Writing about architecture, systems design, AI, and Web3.",
-    posts: [
-      {
-        title: "Designing a Zero-Knowledge Compliance Stack for India",
-        excerpt:
-          "How I architected SatyaStack, a privacy-preserving KYC/AML platform using PLONK proofs, Noir circuits, and a trust boundary model where PII never crosses the backend boundary.",
-      },
-      {
-        title: "Scaling to 200K Signups per Minute with AWS Lambda",
-        excerpt:
-          "Architecture deep-dive into the Bitcoin India Conference registration platform: Lambda concurrency, Redis OTP deduplication, SQS fan-out pipelines, and how CloudFront plus Turnstile absorbed a traffic spike 40x beyond projections.",
-      },
-      {
-        title: "Building an Enterprise RAG Pipeline on Azure Databricks",
-        excerpt:
-          "How I designed a retrieval-augmented generation pipeline at Vanderlande: Unity Catalog governance, vectorization strategies, chunking trade-offs, and why we chose Azure AI Search over Pinecone.",
-      },
-      {
-        title: "Zero-Downtime Keycloak Migration: v16 to v22 on Azure",
-        excerpt:
-          "Migrating a production IAM system serving 40,000 users from legacy Keycloak to containerized v22 on Azure App Service: Bicep IaC, database schema evolution, session continuity, and the rollback strategy that saved us.",
-      },
-    ],
+    subtitle:
+      "One placeholder article for now, with a simple data-driven structure for all future posts.",
+    openArticle: "Open article",
+    backToBlog: "Back to blog",
   },
   contact: {
     title: "Contact",

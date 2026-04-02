@@ -9,10 +9,11 @@ export const aboutPageIntro = [
   "Currently at Vanderlande, I lead AI-driven features on enterprise platforms using RAG pipelines, Databricks, and Azure services. Outside of work, I build Web3 products from zero-knowledge compliance infrastructure to compliant crypto exchanges.",
 ] as const;
 
-export const aboutPageResumeButtons = [
-  { label: "Resume (Web2)" },
-  { label: "Resume (Web3)" },
-] as const;
+export const aboutPageAssets = {
+  photoSrc: "/about/profile-photo.jpg",
+  resumeSrc: "/savely-danko-resume.pdf",
+  resumeDownloadName: "Savely-Danko-Resume.pdf",
+} as const;
 
 export const aboutPagePrinciples = [
   {

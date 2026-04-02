@@ -1,47 +1,126 @@
-export interface BlogPost {
-  id: string;
+type BlogLanguage = "en" | "ru";
+
+interface BlogArticleSection {
+  title: string;
+  paragraphs: string[];
+  bullets?: string[];
+}
+
+interface BlogArticleContent {
+  label: string;
   title: string;
   excerpt: string;
   publishedAt: string;
   readingTime: string;
-  tags: string[];
+  lead: string;
+  sections: BlogArticleSection[];
 }
 
-export const blogPosts: BlogPost[] = [
+export interface BlogArticle {
+  slug: string;
+  tags: string[];
+  content: Record<BlogLanguage, BlogArticleContent>;
+}
+
+// Add a new article by appending an item here.
+// Each unique slug automatically gets its own page at /blog/<slug>.
+export const blogArticles: BlogArticle[] = [
   {
-    id: "zk-compliance-stack",
-    title: "Designing a Zero-Knowledge Compliance Stack for India",
-    excerpt:
-      "How I architected SatyaStack, a privacy-preserving KYC/AML platform using PLONK proofs, Noir circuits, and a trust boundary model where PII never crosses the backend boundary.",
-    publishedAt: "March 14, 2026",
-    readingTime: "4 min read",
-    tags: ["architecture", "web3", "zero-knowledge", "privacy", "compliance"],
-  },
-  {
-    id: "scaling-lambda-signups",
-    title: "Scaling to 200K Signups per Minute with AWS Lambda",
-    excerpt:
-      "Architecture deep-dive into the Bitcoin India Conference registration platform: Lambda concurrency, Redis OTP deduplication, SQS fan-out pipelines, and how CloudFront plus Turnstile absorbed a traffic spike 40x beyond projections.",
-    publishedAt: "February 20, 2026",
-    readingTime: "5 min read",
-    tags: ["architecture", "aws", "serverless", "scaling", "performance"],
-  },
-  {
-    id: "enterprise-rag-pipeline",
-    title: "Building an Enterprise RAG Pipeline on Azure Databricks",
-    excerpt:
-      "How I designed a retrieval-augmented generation pipeline at Vanderlande: Unity Catalog governance, vectorization strategies, chunking trade-offs, and why we chose Azure AI Search over Pinecone.",
-    publishedAt: "January 28, 2026",
-    readingTime: "6 min read",
-    tags: ["architecture", "ai", "rag", "azure", "enterprise"],
-  },
-  {
-    id: "keycloak-migration",
-    title: "Zero-Downtime Keycloak Migration: v16 to v22 on Azure",
-    excerpt:
-      "Migrating a production IAM system serving 40,000 users from legacy Keycloak to containerized v22 on Azure App Service: Bicep IaC, database schema evolution, session continuity, and the rollback strategy that saved us.",
-    publishedAt: "December 15, 2025",
-    readingTime: "6 min read",
-    tags: ["architecture", "azure", "iam", "migration", "devops"],
+    slug: "article-1",
+    tags: ["blog", "notes", "placeholder"],
+    content: {
+      en: {
+        label: "Placeholder article",
+        title: "article-1: Building the foundation for future blog posts",
+        excerpt:
+          "This is the first placeholder article. It also demonstrates how the blog is now structured: every post lives in one typed registry and automatically gets its own route.",
+        publishedAt: "April 2, 2026",
+        readingTime: "3 min read",
+        lead:
+          "The blog now uses a single source of truth for article content. Add a new object with a unique slug, fill in the localized content, and the card plus the article page will appear automatically.",
+        sections: [
+          {
+            title: "What is already set up",
+            paragraphs: [
+              "The /blog page is driven by a typed article registry instead of hardcoded cards.",
+              "Every article has its own slug, so opening a card takes you to a dedicated page like /blog/article-1.",
+            ],
+            bullets: [
+              "One data file for list content and full article content",
+              "Automatic route pattern for every new slug",
+              "Localized text support for English and Russian",
+            ],
+          },
+          {
+            title: "How to add the next article",
+            paragraphs: [
+              "Duplicate this object inside blogArticles and change the slug to something unique.",
+              "Then update the title, excerpt, metadata, tags, and the section content for both languages.",
+            ],
+            bullets: [
+              "Set slug: 'article-2' or any readable URL-safe value",
+              "Fill en and ru content blocks",
+              "Save the file and the new article will appear in the list automatically",
+            ],
+          },
+          {
+            title: "What can be improved later",
+            paragraphs: [
+              "If you want, the next step can be adding cover images, a related articles block, or markdown-based authoring. The current structure is intentionally simple so updates stay easy.",
+            ],
+          },
+        ],
+      },
+      ru: {
+        label: "Заглушка",
+        title: "article-1: основа для будущих статей блога",
+        excerpt:
+          "Это первая статья-заглушка. Одновременно она показывает новую структуру блога: каждая публикация живёт в одном типизированном реестре и автоматически получает собственный маршрут.",
+        publishedAt: "2 апреля 2026",
+        readingTime: "3 мин чтения",
+        lead:
+          "Теперь блог использует единый источник данных для карточки статьи и её полной страницы. Достаточно добавить новый объект с уникальным slug, заполнить локализованный контент, и статья сразу появится в списке и откроется по отдельному адресу.",
+        sections: [
+          {
+            title: "Что уже настроено",
+            paragraphs: [
+              "Страница /blog теперь строится из типизированного реестра статей, а не из жёстко зашитых карточек.",
+              "У каждой статьи есть свой slug, поэтому при клике по карточке открывается отдельная страница вида /blog/article-1.",
+            ],
+            bullets: [
+              "Один data-файл для карточек и полного содержимого статьи",
+              "Автоматический маршрут для каждого нового slug",
+              "Поддержка локализованного текста на русском и английском",
+            ],
+          },
+          {
+            title: "Как добавить следующую статью",
+            paragraphs: [
+              "Скопируй этот объект внутри blogArticles и замени slug на уникальный.",
+              "После этого обнови заголовок, excerpt, метаданные, теги и секции контента для обеих локалей.",
+            ],
+            bullets: [
+              "Задай slug: 'article-2' или другой читаемый URL-safe идентификатор",
+              "Заполни блоки en и ru",
+              "Сохрани файл, и новая статья автоматически появится в списке",
+            ],
+          },
+          {
+            title: "Что можно улучшить позже",
+            paragraphs: [
+              "Следующим шагом сюда можно добавить обложки, блок похожих статей или markdown-авторинг. Текущая структура специально сделана простой, чтобы статьи было удобно обновлять.",
+            ],
+          },
+        ],
+      },
+    },
   },
 ];
+
+export function getBlogArticleBySlug(slug: string) {
+  return blogArticles.find((article) => article.slug === slug);
+}
+
+export function getBlogArticlePath(slug: string) {
+  return `/blog/${slug}`;
+}
