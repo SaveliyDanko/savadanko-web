@@ -19,7 +19,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      VITE_BASE_PATH: /savadanko-web/
       VITE_SITE_URL: https://saveliydanko.github.io/savadanko-web
       VITE_SITE_NAME: Savely Danko
       VITE_SITE_TITLE: Savely Danko — Full Stack Developer

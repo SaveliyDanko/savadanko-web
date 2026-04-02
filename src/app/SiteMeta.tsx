@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useLanguage, useTranslation } from "@/app/providers";
 import { getBlogArticleBySlug } from "@/data/blog";
-import { getAbsoluteUrl, siteConfig } from "@/config/site";
+import { getAbsoluteUrl, siteConfig, withBasePath } from "@/config/site";
 
 type MetaTagKey = "name" | "property";
 
@@ -105,7 +105,7 @@ export function SiteMeta() {
 
   useEffect(() => {
     const canonicalUrl = getAbsoluteUrl(pathname);
-    const socialImageUrl = getAbsoluteUrl(siteConfig.socialImage);
+    const socialImageUrl = getAbsoluteUrl(withBasePath(siteConfig.socialImage));
     const locale = language === "ru" ? "ru_RU" : "en_US";
     const robots = pageMeta.indexable ? "index,follow" : "noindex,nofollow";
 

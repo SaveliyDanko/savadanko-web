@@ -1,33 +1,38 @@
 const FALLBACK_SITE_URL = "https://example.com";
+const REPOSITORY_BASE_PATH = "/savadanko-web";
 
 function normalizeSiteUrl(url: string) {
   return url.replace(/\/+$/, "");
 }
 
-function normalizeBasePath(basePath: string) {
-  if (!basePath || basePath === "/") {
-    return "/";
+export function getRuntimeBasePath(pathname?: string) {
+  const currentPathname =
+    pathname ??
+    (typeof window !== "undefined" ? window.location.pathname : "/");
+
+  if (
+    currentPathname === REPOSITORY_BASE_PATH ||
+    currentPathname.startsWith(`${REPOSITORY_BASE_PATH}/`)
+  ) {
+    return REPOSITORY_BASE_PATH;
   }
 
-  const withLeadingSlash = basePath.startsWith("/") ? basePath : `/${basePath}`;
-  return withLeadingSlash.endsWith("/")
-    ? withLeadingSlash
-    : `${withLeadingSlash}/`;
+  return "";
 }
-
-const siteBasePath = normalizeBasePath(import.meta.env.BASE_URL ?? "/");
 
 export function withBasePath(pathname = "") {
   if (/^(?:[a-z]+:)?\/\//i.test(pathname)) {
     return pathname;
   }
 
+  const basePath = getRuntimeBasePath();
+
   if (!pathname || pathname === "/") {
-    return siteBasePath;
+    return basePath || "/";
   }
 
   const normalizedPath = pathname.replace(/^\/+/, "");
-  return `${siteBasePath}${normalizedPath}`;
+  return `${basePath}/${normalizedPath}`.replace(/\/+/g, "/");
 }
 
 export const siteConfig = {
@@ -41,9 +46,8 @@ export const siteConfig = {
   siteUrl: normalizeSiteUrl(
     import.meta.env.VITE_SITE_URL ?? FALLBACK_SITE_URL,
   ),
-  basePath: siteBasePath,
   themeColor: "#010105",
-  socialImage: "/Logo.jpg",
+  socialImage: "Logo.jpg",
 } as const;
 
 export function getAbsoluteUrl(pathname = "/") {
