@@ -9,21 +9,21 @@ export const en = {
     brand: "savadanko.dev",
   },
   hero: {
-    badge: "Frontend Developer",
+    badge: "Full Stack Developer",
     descriptionStart: "I design and build ",
     bold1: "modern web applications",
     comma1: ", ",
     bold2: "responsive interfaces",
     comma2: ", and ",
-    bold3: "interactive SPAs",
+    bold3: "scalable solutions",
     descriptionEnd:
       ". Focused on performance, clean code, and quality user experience.",
     ctaPrimary: "View my Work",
     ctaSecondary: "Get in Touch",
     stats: [
-      { value: 2, suffix: "+", label: "Years building" },
+      { value: 3, suffix: "+", label: "Years building" },
       { value: 10, suffix: "+", label: "Projects" },
-      { value: 5, suffix: "+", label: "Technologies" },
+      { value: 30, suffix: "+", label: "Technologies" },
     ],
   },
   about: {
@@ -31,14 +31,13 @@ export const en = {
     title: "About Me",
     readMore: "Read more",
     intro: [
-      "I'm a frontend developer building modern interfaces with a focus on clarity, motion, and responsive user experience across landing pages, dashboards, and interactive applications.",
-      "My work sits at the intersection of React architecture, component systems, and visual polish. I enjoy translating ideas into fast, accessible, and production-ready web experiences.",
-      "Right now I'm deepening my frontend toolkit through hands-on projects, refining animation details, and shipping portfolio work that balances personality with clean implementation.",
+      "I am a student at ITMO University, studying Software Engineering with an advanced specialization in systems programming and software development.",
+      "I work at a telecommunications company, where I focus on billing solutions and the implementation of software products. I am interested in software architecture, application development, and current IT trends. In my free time, I play volleyball. I live in Saint Petersburg and strive to balance professional and personal growth."
     ],
     stats: [
-      { value: "2+", label: "Years building" },
+      { value: "3+", label: "Years building" },
       { value: "10+", label: "Projects shipped" },
-      { value: "5", label: "Core technologies" },
+      { value: "30", label: "Core technologies" },
       { value: "3", label: "Focus areas" },
     ],
     profile: [

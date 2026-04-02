@@ -14,8 +14,8 @@ export const aboutProfile = [
 ] as const;
 
 export const aboutStats = [
-  { value: "2+", label: "Years building" },
+  { value: "3+", label: "Years building" },
   { value: "10+", label: "Projects shipped" },
-  { value: "5", label: "Core technologies" },
+  { value: "30", label: "Core technologies" },
   { value: "3", label: "Focus areas" },
 ] as const;

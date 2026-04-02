@@ -6,24 +6,24 @@ export interface FeaturedWorkProject {
   technologies: string[];
   extraTechnologies: number;
   href: string;
-  logo: "satyastack" | "artistskonnect" | "audel";
+  logo: "nexign" | "modula";
 }
 
 export const projects: FeaturedWorkProject[] = [
   {
-    id: "satyastack",
-    title: "SatyaStack",
+    id: "nexign",
+    title: "Nexign",
     category: "Web3",
     description:
       "Privacy-preserving zero-knowledge compliance infrastructure for India",
     technologies: ["Noir", "Rust", "Spring Boot", "Flutter", "AWS", "Terraform"],
     extraTechnologies: 3,
     href: "#projects",
-    logo: "satyastack",
+    logo: "nexign",
   },
   {
-    id: "artistskonnect",
-    title: "ArtistsKonnect",
+    id: "modula",
+    title: "Modula",
     category: "Ecommerce",
     description:
       "Platform connecting artists and clients for bookings with real-time chat",
@@ -37,17 +37,6 @@ export const projects: FeaturedWorkProject[] = [
     ],
     extraTechnologies: 2,
     href: "#projects",
-    logo: "artistskonnect",
-  },
-  {
-    id: "audel-medical-logistics",
-    title: "Audel Medical Logistics",
-    category: "Healthcare",
-    description:
-      "Medical logistics and delivery app with offline capabilities and real-time tracking",
-    technologies: ["Java", "React", "Vite", "TypeScript", "Flutter", "Supabase"],
-    extraTechnologies: 1,
-    href: "#projects",
-    logo: "audel",
+    logo: "modula",
   },
 ];

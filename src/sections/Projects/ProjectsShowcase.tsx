@@ -43,9 +43,9 @@ const techIcons: Record<string, LucideIcon> = {
 function ProjectLogo({
   variant,
 }: {
-  variant: "satyastack" | "artistskonnect" | "audel";
+  variant: "nexign" | "modula";
 }) {
-  if (variant === "satyastack") {
+  if (variant === "nexign") {
     return (
       <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-[0_6px_18px_rgba(255,255,255,0.08)]">
         <div className="relative h-3.5 w-5 rounded-full border border-[#d3ddff] bg-[#f5f7ff]">
@@ -56,7 +56,7 @@ function ProjectLogo({
     );
   }
 
-  if (variant === "artistskonnect") {
+  if (variant === "modula") {
     return (
       <div className="rounded-full bg-[conic-gradient(from_180deg_at_50%_50%,#4cc9f0,#f472b6,#f59e0b,#4cc9f0)] p-px shadow-[0_10px_25px_rgba(76,201,240,0.12)]">
         <div className="flex h-9 w-9 items-center justify-center rounded-full bg-surface text-[10px] font-semibold text-heading/80">
