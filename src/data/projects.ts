@@ -15,8 +15,8 @@ export const projects: FeaturedWorkProject[] = [
     title: "Nexign",
     category: "Web3",
     description:
-      "Privacy-preserving zero-knowledge compliance infrastructure for India",
-    technologies: ["Noir", "Rust", "Spring Boot", "Flutter", "AWS", "Terraform"],
+      "Developer of high-tech enterprise solutions for various sectors of the economy.",
+    technologies: ["Rust", "Spring Boot", "Flutter", "AWS", "Terraform"],
     extraTechnologies: 3,
     href: "#projects",
     logo: "nexign",
@@ -26,7 +26,7 @@ export const projects: FeaturedWorkProject[] = [
     title: "Modula",
     category: "Ecommerce",
     description:
-      "Platform connecting artists and clients for bookings with real-time chat",
+      "No-code business process automation platform",
     technologies: [
       ".NET 10",
       "Next.js",

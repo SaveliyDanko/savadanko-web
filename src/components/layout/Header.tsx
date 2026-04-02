@@ -15,8 +15,12 @@ export function Header() {
     <header className="fixed inset-x-0 top-0 z-50 border-b border-border/50 bg-surface/80 backdrop-blur-md">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <Link to="/" className="group flex items-center gap-2.5">
-          <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/15 text-sm font-bold text-primary transition-transform duration-200 group-hover:scale-110">
-            SD
+          <span className="flex h-12 w-12 overflow-hidden rounded-lg border border-card-border bg-surface-light transition-transform duration-200 group-hover:scale-110">
+            <img
+              src="/Logo.jpg"
+              alt={t.header.brand}
+              className="h-full w-full object-cover"
+            />
           </span>
           <span className="text-xl text-text-muted transition-colors duration-200 group-hover:text-text">
             {t.header.brand}

@@ -70,7 +70,7 @@ export function CoreExpertise() {
                 whileHover={{ y: -4 }}
               >
                 <div className="flex items-start justify-between gap-4">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-[15px] border border-section-label/18 bg-[#11182f]/70 text-section-label shadow-[0_10px_30px_rgba(61,89,255,0.12)]">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-[15px] border border-section-label/16 bg-section-label/10 text-section-label shadow-[0_10px_24px_rgba(99,102,241,0.12)] backdrop-blur-sm">
                     <Icon size={18} strokeWidth={1.9} />
                   </div>
                   <span className="pt-0.5 font-mono text-[11px] tracking-[0.18em] text-heading/10">

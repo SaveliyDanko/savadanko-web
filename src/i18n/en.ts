@@ -105,17 +105,12 @@ export const en = {
       {
         category: "Web3",
         description:
-          "Privacy-preserving zero-knowledge compliance infrastructure for India",
+          "Developer of high-tech enterprise solutions for various sectors of the economy",
       },
       {
         category: "Ecommerce",
         description:
-          "Platform connecting artists and clients for bookings with real-time chat",
-      },
-      {
-        category: "Healthcare",
-        description:
-          "Medical logistics and delivery app with offline capabilities and real-time tracking",
+          "No-code business process automation platform",
       },
     ],
   },

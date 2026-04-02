@@ -60,17 +60,11 @@ function ProjectLogo({
     return (
       <div className="rounded-full bg-[conic-gradient(from_180deg_at_50%_50%,#4cc9f0,#f472b6,#f59e0b,#4cc9f0)] p-px shadow-[0_10px_25px_rgba(76,201,240,0.12)]">
         <div className="flex h-9 w-9 items-center justify-center rounded-full bg-surface text-[10px] font-semibold text-heading/80">
-          AK
+          M
         </div>
       </div>
     );
   }
-
-  return (
-    <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#2847b8] text-white shadow-[0_12px_30px_rgba(40,71,184,0.22)]">
-      <Truck size={16} strokeWidth={2} />
-    </div>
-  );
 }
 
 interface ProjectsShowcaseProps {
