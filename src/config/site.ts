@@ -39,7 +39,7 @@ export const siteConfig = {
   name: import.meta.env.VITE_SITE_NAME ?? "Savely Danko",
   title:
     import.meta.env.VITE_SITE_TITLE ??
-    "Savely Danko — Full Stack Developer",
+    "Savely Danko",
   description:
     import.meta.env.VITE_SITE_DESCRIPTION ??
     "Portfolio of Savely Danko, a full stack developer building responsive interfaces, scalable web applications, and modern digital products.",

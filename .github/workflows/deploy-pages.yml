@@ -21,7 +21,7 @@ jobs:
     env:
       VITE_SITE_URL: https://saveliydanko.github.io/savadanko-web
       VITE_SITE_NAME: Savely Danko
-      VITE_SITE_TITLE: Savely Danko — Full Stack Developer
+      VITE_SITE_TITLE: Savely Danko
       VITE_SITE_DESCRIPTION: Portfolio of Savely Danko, a full stack developer building responsive interfaces, scalable web applications, and modern digital products.
     steps:
       - name: Checkout
