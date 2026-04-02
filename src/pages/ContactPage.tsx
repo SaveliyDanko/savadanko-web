@@ -14,7 +14,6 @@ import { useTranslation } from "@/app/providers";
 
 const socialIcons = {
   github: GitBranch,
-  linkedin: Link2,
   x: Send,
   "stack-overflow": ExternalLink,
 } as const;

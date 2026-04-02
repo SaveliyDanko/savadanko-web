@@ -12,7 +12,6 @@ import {
   Database,
   ShieldCheck,
   Sprout,
-  Truck,
   Zap,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
@@ -47,11 +46,12 @@ function ProjectLogo({
 }) {
   if (variant === "nexign") {
     return (
-      <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-[0_6px_18px_rgba(255,255,255,0.08)]">
-        <div className="relative h-3.5 w-5 rounded-full border border-[#d3ddff] bg-[#f5f7ff]">
-          <span className="absolute left-1 top-[4px] h-1.5 w-1.5 rounded-full bg-[#6f87ff]" />
-          <span className="absolute right-1 top-[5px] h-1 w-2 rounded-full bg-[#c3cbe5]" />
-        </div>
+      <div className="flex h-9 w-9 overflow-hidden rounded-full border border-card-border bg-white shadow-[0_8px_20px_rgba(99,102,241,0.12)]">
+        <img
+          src="/Nexign.jpeg"
+          alt="Nexign"
+          className="h-full w-full object-cover"
+        />
       </div>
     );
   }

@@ -14,7 +14,6 @@ import { useTranslation } from "@/app/providers";
 
 const socialIconMap: Record<string, LucideIcon> = {
   github: GitBranch,
-  linkedin: Link2,
   send: Send,
 };
 
@@ -26,13 +25,7 @@ export function Footer() {
     pathname === "/about" || pathname === "/work" || pathname === "/blog";
 
   const contactLinks = [
-    { label: t.footer.sendMessage, href: "mailto:your@email.com", icon: Mail },
-    {
-      label: "LinkedIn",
-      href:
-        SOCIAL_LINKS.find((link) => link.label === "LinkedIn")?.url ?? "#",
-      icon: Link2,
-    },
+    { label: t.footer.sendMessage, href: "mailto:dankosaveliy.m@gmail.com", icon: Mail },
     {
       label: "GitHub",
       href:
@@ -72,23 +65,11 @@ export function Footer() {
 
               <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
                 <a
-                  href="mailto:your@email.com"
+                  href="mailto:dankosaveliy.m@gmail.com"
                   className="inline-flex min-w-[174px] items-center justify-center gap-2 rounded-full bg-[#6f8dfd] px-6 py-3.5 text-sm font-semibold text-[#0a0d18] shadow-[0_10px_28px_rgba(111,141,253,0.38)] transition-transform duration-300 hover:-translate-y-0.5"
                 >
                   <Mail size={16} />
                   {t.footer.ctaPrimary}
-                </a>
-                <a
-                  href={
-                    SOCIAL_LINKS.find((link) => link.label === "LinkedIn")
-                      ?.url ?? "#"
-                  }
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex min-w-[142px] items-center justify-center gap-2 rounded-full border border-section-label/20 bg-surface/90 px-6 py-3.5 text-sm font-semibold text-heading/80 transition-colors duration-300 hover:border-section-label/40 hover:text-heading"
-                >
-                  LinkedIn
-                  <ArrowRight size={16} />
                 </a>
               </div>
             </div>

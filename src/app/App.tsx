@@ -1,6 +1,7 @@
 import { useEffect, useLayoutEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { Header, Footer } from "@/components/layout";
+import { SiteMeta } from "@/app/SiteMeta";
 import {
   AboutPage,
   BlogArticlePage,
@@ -36,6 +37,7 @@ export function App() {
   return (
     <div className="relative flex min-h-screen flex-col">
       <ScrollManager />
+      <SiteMeta />
       <Header />
       <main className="flex-1 pt-16">
         <Routes>

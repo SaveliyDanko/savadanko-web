@@ -7,7 +7,7 @@ export const contactPageHero = {
 } as const;
 
 export const contactPageMeta = {
-  email: "your@email.com",
+  email: "dankosaveliy.m@gmail.com",
   location: "Remote / Worldwide",
 } as const;
 
@@ -18,19 +18,9 @@ export const contactPageSocials = [
     icon: "github",
   },
   {
-    label: "LinkedIn",
-    href: SOCIAL_LINKS.find((link) => link.label === "LinkedIn")?.url ?? "#",
-    icon: "linkedin",
-  },
-  {
-    label: "X",
-    href: "#",
+    label: "Telegram",
+    href: SOCIAL_LINKS.find((link) => link.label === "Telegram")?.url ?? "#",
     icon: "x",
-  },
-  {
-    label: "Stack Overflow",
-    href: "#",
-    icon: "stack-overflow",
   },
 ] as const;
 

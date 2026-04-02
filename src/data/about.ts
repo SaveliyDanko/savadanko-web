@@ -8,8 +8,7 @@ export const aboutProfile = [
   { label: "name", value: "Sava Danko" },
   { label: "role", value: "Frontend Developer" },
   { label: "location", value: "Remote / Worldwide" },
-  { label: "experience", value: "2+ years" },
-  { label: "stack", value: "React + TypeScript + Tailwind" },
+  { label: "experience", value: "3+ years" },
   { label: "focus", value: "UX, motion, performance" },
 ] as const;
 

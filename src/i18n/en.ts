@@ -44,8 +44,7 @@ export const en = {
       { label: "name", value: "Sava Danko" },
       { label: "role", value: "Frontend Developer" },
       { label: "location", value: "Remote / Worldwide" },
-      { label: "experience", value: "2+ years" },
-      { label: "stack", value: "React + TypeScript + Tailwind" },
+      { label: "experience", value: "3+ years" },
       { label: "focus", value: "UX, motion, performance" },
     ],
   },
@@ -141,7 +140,7 @@ export const en = {
     ],
     resumeLabel: "Resume",
     resumeDescription:
-      "One PDF with my current experience, projects, and education.",
+      "with my current experience, projects, and education.",
     resumeDownload: "Download PDF",
     photoAlt: "Portrait of Savely Danko",
     principlesTitle: "How I Think About Architecture",
@@ -173,7 +172,7 @@ export const en = {
   blog: {
     title: "Blog",
     subtitle:
-      "One placeholder article for now, with a simple data-driven structure for all future posts.",
+      "A personal blog about backend development, architecture, system design and software engineering.",
     openArticle: "Open article",
     backToBlog: "Back to blog",
   },
@@ -207,7 +206,7 @@ export const en = {
     contactLabel: "Contact",
     sendMessage: "Send a message",
     footerDescription:
-      "Frontend developer building across responsive interfaces, product systems, and interactive web experiences.",
+      "Design and build modern web applications, responsive interfaces, and scalable solutions.",
     copyright: "Sava Danko. All rights reserved.",
     builtWith: "Built with React + Vite + Tailwind",
   },

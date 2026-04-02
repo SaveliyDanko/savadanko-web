@@ -16,7 +16,7 @@ export const projects: FeaturedWorkProject[] = [
     category: "Web3",
     description:
       "Developer of high-tech enterprise solutions for various sectors of the economy.",
-    technologies: ["Rust", "Spring Boot", "Flutter", "AWS", "Terraform"],
+    technologies: ["Java", "Spring Boot", "React", "PostgreSQL"],
     extraTechnologies: 3,
     href: "#projects",
     logo: "nexign",
@@ -27,14 +27,7 @@ export const projects: FeaturedWorkProject[] = [
     category: "Ecommerce",
     description:
       "No-code business process automation platform",
-    technologies: [
-      ".NET 10",
-      "Next.js",
-      "Flutter",
-      "PostgreSQL",
-      "Supabase Auth",
-      "Cloudflare R2",
-    ],
+    technologies: ["PostgreSQL", "React"],
     extraTechnologies: 2,
     href: "#projects",
     logo: "modula",

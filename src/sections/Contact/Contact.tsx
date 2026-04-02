@@ -16,7 +16,7 @@ export function Contact() {
         </p>
         <div className="flex gap-4">
           <Button
-            onClick={() => (window.location.href = "mailto:your@email.com")}
+            onClick={() => (window.location.href = "mailto:dankosaveliy.m@gmail.com")}
           >
             <Mail size={18} />
             Write me
