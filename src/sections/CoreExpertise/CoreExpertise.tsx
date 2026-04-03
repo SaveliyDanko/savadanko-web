@@ -63,11 +63,15 @@ export function CoreExpertise() {
               <motion.article
                 key={item.id}
                 className="group min-h-[152px] rounded-[24px] border border-card-border bg-card-gradient px-5 py-5 shadow-card transition-colors duration-300 hover:border-card-hover"
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.45, delay: index * 0.06 }}
-                whileHover={{ y: -4 }}
+                initial={{ opacity: 0, y: 32, scale: 0.96 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{
+                  duration: 0.6,
+                  delay: index * 0.08,
+                  ease: [0.25, 0.46, 0.45, 0.94],
+                }}
+                whileHover={{ y: -6, transition: { duration: 0.25, ease: "easeOut" } }}
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex h-10 w-10 items-center justify-center rounded-[15px] border border-section-label/16 bg-section-label/10 text-section-label shadow-[0_10px_24px_rgba(99,102,241,0.12)] backdrop-blur-sm">
