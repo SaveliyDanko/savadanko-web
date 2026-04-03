@@ -71,7 +71,7 @@ export function Header() {
           <Link to="/" className="group flex items-center gap-2.5">
             <span className="flex h-12 w-12 overflow-hidden rounded-lg border border-card-border bg-surface-light transition-transform duration-200 group-hover:scale-110">
               <img
-                src={withBasePath("Logo.jpg")}
+                src={withBasePath("Logo.webp")}
                 alt={t.header.brand}
                 className="h-full w-full object-cover"
               />
@@ -194,7 +194,7 @@ export function Header() {
               >
                 <span className="flex h-11 w-11 shrink-0 overflow-hidden rounded-2xl border border-card-border bg-surface-light">
                   <img
-                    src={withBasePath("Logo.jpg")}
+                    src={withBasePath("Logo.webp")}
                     alt={t.header.brand}
                     className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />

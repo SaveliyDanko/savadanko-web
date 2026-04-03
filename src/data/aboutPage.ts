@@ -12,7 +12,7 @@ export const aboutPageIntro = [
 ] as const;
 
 export const aboutPageAssets = {
-  photoSrc: withBasePath("about/profile-photo.jpg"),
+  photoSrc: withBasePath("about/profile-photo.webp"),
   resumeSrc: withBasePath("savely-danko-resume.pdf"),
   resumeDownloadName: "Savely-Danko-Resume.pdf",
 } as const;

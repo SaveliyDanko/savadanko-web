@@ -47,7 +47,7 @@ export const siteConfig = {
     import.meta.env.VITE_SITE_URL ?? FALLBACK_SITE_URL,
   ),
   themeColor: "#010105",
-  socialImage: "Logo.jpg",
+  socialImage: "Logo.webp",
 } as const;
 
 export function getAbsoluteUrl(pathname = "/") {

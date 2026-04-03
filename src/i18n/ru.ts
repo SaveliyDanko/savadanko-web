@@ -47,7 +47,7 @@ export const ru: Translations = {
       { label: "роль", value: "Full Stack разработчик" },
       { label: "локация", value: "Санкт-Петербург, Россия" },
       { label: "опыт", value: "3+ года" },
-      { label: "фокус", value: "Architecture, Cloud, AI, Web3" },
+      { label: "фокус", value: "Архитектура, ИИ, Веб" },
     ],
   },
   coreExpertise: {
@@ -68,32 +68,32 @@ export const ru: Translations = {
       {
         title: "Бэкенд-платформы",
         description:
-          ".NET, Java, Spring Boot, Node.js и GraphQL-сервисы.",
+          "Java, Spring Framework и надёжная серверная разработка.",
       },
       {
-        title: "Идентификация и безопасность",
+        title: "Telecom Solutions",
         description:
-          "OAuth2, OIDC, SSO, шифрование и безопасная доставка.",
+          "BSS-домен, биллинг, конфигурация сервисов и интеграции для телеком-продуктов.",
       },
       {
         title: "ИИ и системы данных",
         description:
-          "RAG-пайплайны, Databricks, векторный поиск и прикладные ИИ-воркфлоу.",
+          "RAG-пайплайны, векторный поиск и прикладные ИИ-воркфлоу.",
       },
       {
-        title: "Web3 и блокчейн",
+        title: "Process Automation",
         description:
-          "Solidity, экосистемы EVM, инструменты для блокчейна и смарт-контракты.",
+          "Автоматизация бизнес-процессов, no-code платформы и подключение внешних сервисов.",
       },
       {
         title: "DevOps и платформа",
         description:
-          "Docker, CI/CD, Terraform, мониторинг и платформенные операции.",
+          "CI/CD и инженерная поддержка релизного контура.",
       },
       {
-        title: "Продуктовая разработка",
+        title: "Product Interfaces",
         description:
-          "React, Next.js, TypeScript и сквозная продуктовая доставка.",
+          "Frontend-разработка, адаптивные интерфейсы и full-stack решения для web-продуктов.",
       },
     ],
   },
