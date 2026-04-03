@@ -8,6 +8,7 @@ import { withBasePath } from "@/config/site";
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const reopenGuardUntilRef = useRef(0);
   const location = useLocation();
   const { theme, toggleTheme } = useTheme();
@@ -29,6 +30,17 @@ export function Header() {
 
   useEffect(() => {
     setMenuOpen(false);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    const updateProgress = () => {
+      const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+      setScrollProgress(scrollHeight <= clientHeight ? 0 : scrollTop / (scrollHeight - clientHeight));
+    };
+
+    updateProgress();
+    window.addEventListener("scroll", updateProgress, { passive: true });
+    return () => window.removeEventListener("scroll", updateProgress);
   }, [location.pathname]);
 
   useEffect(() => {
@@ -54,7 +66,7 @@ export function Header() {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-border/50 bg-surface/80 backdrop-blur-md">
+      <header className="fixed inset-x-0 top-0 z-50 bg-surface/80 backdrop-blur-md">
         <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link to="/" className="group flex items-center gap-2.5">
             <span className="flex h-12 w-12 overflow-hidden rounded-lg border border-card-border bg-surface-light transition-transform duration-200 group-hover:scale-110">
@@ -136,6 +148,12 @@ export function Header() {
             </button>
           </div>
         </nav>
+        <div className="h-px w-full bg-border/50">
+          <div
+            className="h-full bg-gradient-to-r from-primary via-section-label to-primary-light transition-[width] duration-150 ease-out"
+            style={{ width: `${scrollProgress * 100}%` }}
+          />
+        </div>
       </header>
 
       <div

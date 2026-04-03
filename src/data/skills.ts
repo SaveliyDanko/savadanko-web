@@ -63,8 +63,8 @@ export const techStackCategories: TechStackCategory[] = [
       { label: "TypeScript", icon: "braces" },
       { label: "SQL", icon: "sql" },
       { label: "Bash", icon: "code" },
-      { label: "Russian (Native)", icon: "code" },
-      { label: "English (B2)", icon: "code" },
+      // { label: "Russian (Native)", icon: "code" },
+      // { label: "English (B2)", icon: "code" },
     ],
   },
   {
