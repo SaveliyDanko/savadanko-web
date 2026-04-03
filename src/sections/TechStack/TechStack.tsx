@@ -13,10 +13,10 @@ import {
   Hexagon,
   Server,
   Shield,
-  SquareStack,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Section } from "@/components/layout";
+import { TechnologyBadge } from "@/components/ui";
 import {
   marqueeRows,
   techStackCategories,
@@ -28,7 +28,6 @@ const iconMap: Record<TechBadge["icon"], LucideIcon> = {
   braces: Braces,
   hexagon: Hexagon,
   server: Server,
-  azure: SquareStack,
   aws: Cloud,
   cloud: CloudCog,
   docker: Container,
@@ -43,17 +42,6 @@ const iconMap: Record<TechBadge["icon"], LucideIcon> = {
   sql: Database,
   git: GitBranch,
 };
-
-function TechPill({ item }: { item: TechBadge }) {
-  const Icon = iconMap[item.icon];
-
-  return (
-    <span className="inline-flex shrink-0 items-center gap-2 rounded-full border border-card-border bg-surface/95 px-4 py-2 text-sm text-body">
-      <Icon size={13} strokeWidth={1.8} />
-      {item.label}
-    </span>
-  );
-}
 
 export function TechStack() {
   const [showAll, setShowAll] = useState(false);
@@ -85,17 +73,21 @@ export function TechStack() {
           </p>
         </div>
 
-        <div className="mt-12 space-y-4 overflow-hidden">
+        <div className="mt-12 -my-2 space-y-2 overflow-hidden py-2">
           {marqueeRows.map((row, rowIndex) => {
             const repeated = [...row, ...row];
             const animationClass =
               rowIndex === 0 ? "animate-marquee-left" : "animate-marquee-right";
 
             return (
-              <div key={`row-${rowIndex}`} className="overflow-hidden">
-                <div className={`flex w-max gap-3 ${animationClass}`}>
+              <div key={`row-${rowIndex}`} className="overflow-hidden py-2">
+                <div className={`flex w-max items-center gap-3 ${animationClass}`}>
                   {repeated.map((item, index) => (
-                    <TechPill key={`${item.label}-${index}`} item={item} />
+                    <TechnologyBadge
+                      key={`${item.label}-${index}`}
+                      label={item.label}
+                      fallbackIcon={iconMap[item.icon]}
+                    />
                   ))}
                 </div>
               </div>
@@ -115,7 +107,11 @@ export function TechStack() {
 
               <div className="mt-5 flex flex-wrap gap-2.5">
                 {category.items.map((item) => (
-                  <TechPill key={item.label} item={item} />
+                  <TechnologyBadge
+                    key={item.label}
+                    label={item.label}
+                    fallbackIcon={iconMap[item.icon]}
+                  />
                 ))}
               </div>
             </div>

@@ -63,7 +63,7 @@ export const ru: Translations = {
       {
         title: "Облачная инфраструктура",
         description:
-          "Azure, AWS, GCP, мультиоблачный дизайн и инфраструктура как код.",
+          "Мультиоблачный дизайн и инфраструктура как код.",
       },
       {
         title: "Бэкенд-платформы",
@@ -118,18 +118,19 @@ export const ru: Translations = {
   techStack: {
     label: "Инструменты",
     title: "Технологический стек",
-    description: "Технологии и инструменты, с которыми я регулярно работаю",
-    showAll: "Показать все 8 категорий",
+    description: "Технологии, инструменты и инженерные практики, которые я реально использую",
+    showAll: "Показать все категории",
     showLess: "Показать меньше категорий",
     categories: {
-      languages: "Языки",
-      "backend-frameworks": "Бэкенд и фреймворки",
-      "cloud-infra": "Облако и инфраструктура",
-      "devops-tooling": "DevOps и инструменты",
-      "ai-data": "ИИ и данные",
-      frontend: "Фронтенд",
-      security: "Безопасность и идентификация",
-      blockchain: "Блокчейн",
+      "programming-languages": "Языки программирования",
+      "backend-data": "Бэкенд и данные",
+      "build-messaging": "Сборка и брокеры сообщений",
+      "devops-observability": "DevOps и наблюдаемость",
+      "api-contracts": "API и контракты",
+      "testing-quality": "Тестирование и качество",
+      "frontend-vcs": "Фронтенд и VCS",
+      "architecture-principles": "Архитектурные принципы",
+      "spoken-languages": "Разговорные языки",
     } as Record<string, string>,
   },
   aboutPage: {

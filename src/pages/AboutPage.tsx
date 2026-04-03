@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Download } from "lucide-react";
+import { CalendarDays, Download, GraduationCap } from "lucide-react";
 import { motion } from "framer-motion";
 import { Section } from "@/components/layout";
 import { aboutPageAssets, aboutPageEducation } from "@/data/aboutPage";
@@ -97,55 +97,59 @@ export function AboutPage() {
         </motion.div>
 
         <motion.div
-          className="mt-28"
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, delay: 0.12 }}
-        >
-          <h2 className="text-[42px] font-bold tracking-[-0.04em] text-heading sm:text-[52px] lg:text-[58px]">
-            {t.aboutPage.principlesTitle}
-          </h2>
-
-          <div className="mt-12 grid gap-4 lg:grid-cols-2 lg:gap-5">
-            {t.aboutPage.principles.map((principle) => (
-              <motion.article
-                key={principle.title}
-                className="group rounded-[22px] border border-card-border bg-card-gradient px-5 py-5 shadow-card transition-colors duration-300 hover:border-section-label/35 hover:shadow-[0_16px_40px_rgba(79,103,216,0.18)] sm:px-6 sm:py-6"
-                whileHover={{ y: -6, scale: 1.01 }}
-                transition={{ type: "spring", stiffness: 260, damping: 18 }}
-              >
-                <h3 className="text-[17px] font-semibold tracking-[-0.02em] text-heading/92 transition-colors duration-300 group-hover:text-section-label">
-                  {principle.title}
-                </h3>
-                <p className="mt-3 max-w-[95%] text-[15px] leading-7 text-body sm:text-[16px]">
-                  {principle.description}
-                </p>
-              </motion.article>
-            ))}
-          </div>
-        </motion.div>
-
-        <motion.div
           className="mt-28 pb-4"
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.16 }}
         >
-          <h2 className="text-[42px] font-bold tracking-[-0.04em] text-heading sm:text-[52px] lg:text-[58px]">
-            {t.aboutPage.educationTitle}
-          </h2>
+          <div className="max-w-3xl">
+            <h2 className="text-[42px] font-bold tracking-[-0.04em] text-heading sm:text-[52px] lg:text-[58px]">
+              {t.aboutPage.educationTitle}
+            </h2>
+            <div className="mt-5 h-px w-full max-w-xl bg-gradient-to-r from-section-label/55 via-section-label/20 to-transparent" />
+          </div>
 
-          <div className="mt-12 space-y-8">
-            {aboutPageEducation.map((item) => (
-              <article key={item.degree}>
-                <h3 className="text-[17px] font-medium tracking-[-0.02em] text-heading/92 sm:text-[18px]">
-                  {item.degree}
-                </h3>
-                <p className="mt-1 text-[15px] text-body sm:text-[16px]">
-                  {item.school} · {item.years}
-                </p>
-              </article>
-            ))}
+          <div className="relative mt-12">
+            <div className="pointer-events-none absolute bottom-6 left-5 top-6 hidden w-px bg-gradient-to-b from-section-label/35 via-section-label/18 to-transparent sm:block" />
+
+            <div className="space-y-5">
+              {aboutPageEducation.map((item, index) => (
+                <motion.article
+                  key={item.degree}
+                  className="group relative overflow-hidden rounded-[28px] border border-card-border bg-card-gradient p-5 shadow-card transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-1 hover:border-section-label/30 hover:shadow-[0_18px_45px_rgba(79,103,216,0.14)] sm:p-6 sm:pl-18"
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.35 }}
+                  transition={{ duration: 0.45, delay: index * 0.08 }}
+                  whileHover={{ scale: 1.01 }}
+                >
+                  <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(111,135,255,0.14),transparent_42%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+
+                  <div className="absolute left-5 top-6 hidden sm:flex sm:h-10 sm:w-10 sm:items-center sm:justify-center sm:rounded-2xl sm:border sm:border-section-label/18 sm:bg-section-label/10 sm:text-section-label sm:shadow-[0_10px_24px_rgba(79,103,216,0.12)]">
+                    <GraduationCap size={18} strokeWidth={2} />
+                  </div>
+
+                  <div className="relative z-10 flex flex-wrap items-center gap-2.5">
+                    <span className="inline-flex items-center gap-2 rounded-full border border-section-label/18 bg-section-label/8 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-section-label">
+                      <CalendarDays size={12} strokeWidth={2} />
+                      {item.years}
+                    </span>
+                    <span className="inline-flex rounded-full border border-card-border bg-surface-light/70 px-3 py-1 text-[12px] font-medium text-body">
+                      {item.school}
+                    </span>
+                  </div>
+
+                  <div className="relative z-10 mt-5">
+                    <h3 className="text-[19px] font-semibold tracking-[-0.03em] text-heading transition-colors duration-300 group-hover:text-section-label sm:text-[22px]">
+                      {item.degree}
+                    </h3>
+                    <p className="mt-3 max-w-2xl text-[15px] leading-7 text-body sm:text-[16px]">
+                      {item.school} · {item.years}
+                    </p>
+                  </div>
+                </motion.article>
+              ))}
+            </div>
           </div>
         </motion.div>
       </div>

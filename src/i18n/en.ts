@@ -61,7 +61,7 @@ export const en = {
       {
         title: "Cloud Infrastructure",
         description:
-          "Azure, AWS, GCP, multi-cloud design, and infrastructure as code.",
+          "Multi-cloud design, and infrastructure as code.",
       },
       {
         title: "Backend Platforms",
@@ -116,18 +116,19 @@ export const en = {
   techStack: {
     label: "Tools",
     title: "Tech Stack",
-    description: "Technologies and tools I work with regularly",
-    showAll: "Show all 8 categories",
+    description: "Technologies, tooling, and engineering practices I actually use",
+    showAll: "Show all categories",
     showLess: "Show fewer categories",
     categories: {
-      languages: "Languages",
-      "backend-frameworks": "Backend & Frameworks",
-      "cloud-infra": "Cloud & Infrastructure",
-      "devops-tooling": "DevOps & Tooling",
-      "ai-data": "AI & Data",
-      frontend: "Frontend",
-      security: "Security & Identity",
-      blockchain: "Blockchain",
+      "programming-languages": "Programming Languages",
+      "backend-data": "Backend & Data",
+      "build-messaging": "Build & Messaging",
+      "devops-observability": "DevOps & Observability",
+      "api-contracts": "API & Contracts",
+      "testing-quality": "Testing & Quality",
+      "frontend-vcs": "Frontend & VCS",
+      "architecture-principles": "Architecture Principles",
+      "spoken-languages": "Spoken Languages",
     } as Record<string, string>,
   },
   aboutPage: {
@@ -136,7 +137,7 @@ export const en = {
       "Software Architect bridging enterprise systems, cloud infrastructure, AI, and Web3.",
     intro: [
       "I'm a Software Architect with over a decade of experience building production systems across healthcare, logistics, banking, ecommerce, and blockchain. My work sits at the intersection of backend architecture, cloud infrastructure, and product engineering.",
-      "Currently at Vanderlande, I lead AI-driven features on enterprise platforms using RAG pipelines, Databricks, and Azure services. Outside of work, I build Web3 products from zero-knowledge compliance infrastructure to compliant crypto exchanges.",
+      "Currently at Vanderlande, I lead AI-driven features on enterprise platforms using RAG pipelines, Databricks. Outside of work, I build Web3 products from zero-knowledge compliance infrastructure to compliant crypto exchanges.",
     ],
     resumeLabel: "Resume",
     resumeDescription:

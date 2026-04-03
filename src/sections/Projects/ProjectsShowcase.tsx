@@ -1,44 +1,10 @@
-import {
-  AppWindow,
-  ArrowRight,
-  ArrowUpRight,
-  Atom,
-  Boxes,
-  Braces,
-  Cloud,
-  CloudCog,
-  Coffee,
-  Cpu,
-  Database,
-  ShieldCheck,
-  Sprout,
-  Zap,
-} from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Braces } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { TechnologyBadge } from "@/components/ui";
 import { projects } from "@/data/projects";
 import { useTranslation } from "@/app/providers";
 import { withBasePath } from "@/config/site";
-
-const techIcons: Record<string, LucideIcon> = {
-  Noir: ShieldCheck,
-  Rust: Cpu,
-  "Spring Boot": Sprout,
-  Flutter: AppWindow,
-  AWS: Cloud,
-  Terraform: Boxes,
-  ".NET 10": Braces,
-  "Next.js": ArrowUpRight,
-  PostgreSQL: Database,
-  "Supabase Auth": ShieldCheck,
-  "Cloudflare R2": CloudCog,
-  Java: Coffee,
-  React: Atom,
-  Vite: Zap,
-  TypeScript: Braces,
-  Supabase: Database,
-};
 
 function ProjectLogo({
   variant,
@@ -57,15 +23,13 @@ function ProjectLogo({
     );
   }
 
-  if (variant === "modula") {
-    return (
-      <div className="rounded-full bg-[conic-gradient(from_180deg_at_50%_50%,#4cc9f0,#f472b6,#f59e0b,#4cc9f0)] p-px shadow-[0_10px_25px_rgba(76,201,240,0.12)]">
-        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-surface text-[10px] font-semibold text-heading/80">
-          M
-        </div>
+  return (
+    <div className="rounded-full bg-[conic-gradient(from_180deg_at_50%_50%,#4cc9f0,#f472b6,#f59e0b,#4cc9f0)] p-px shadow-[0_10px_25px_rgba(76,201,240,0.12)]">
+      <div className="flex h-9 w-9 items-center justify-center rounded-full bg-surface text-[10px] font-semibold text-heading/80">
+        M
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 interface ProjectsShowcaseProps {
@@ -132,21 +96,16 @@ export function ProjectsShowcase({
                   </p>
 
                   <div className="mt-5 flex flex-wrap items-center gap-2.5">
-                    {project.technologies.map((technology) => {
-                      const Icon = techIcons[technology] ?? Braces;
+                    {project.technologies.map((technology) => (
+                      <TechnologyBadge
+                        key={technology}
+                        label={technology}
+                        fallbackIcon={Braces}
+                        size="sm"
+                      />
+                    ))}
 
-                      return (
-                        <span
-                          key={technology}
-                          className="inline-flex items-center gap-1.5 rounded-full border border-card-border bg-surface/95 px-3 py-1.5 text-[12px] text-body"
-                        >
-                          <Icon size={12} strokeWidth={1.8} />
-                          {technology}
-                        </span>
-                      );
-                    })}
-
-                    <span className="ml-1 text-sm text-body">
+                    <span className="inline-flex shrink-0 items-center rounded-full border border-card-border bg-surface/80 px-3 py-1.5 text-[12px] text-body/80">
                       +{project.extraTechnologies}
                     </span>
                   </div>

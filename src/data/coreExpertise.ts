@@ -25,7 +25,7 @@ export const coreExpertiseItems: CoreExpertiseItem[] = [
   {
     id: "02",
     title: "Cloud Infrastructure",
-    description: "Azure, AWS, GCP, multi-cloud design, and infrastructure as code.",
+    description: "Multi-cloud design, and infrastructure as code.",
     icon: "cloud",
   },
   {
