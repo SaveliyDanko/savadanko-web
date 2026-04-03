@@ -12,7 +12,8 @@ type TechnologyVisual =
   | {
       kind: "badge";
       text: string;
-      className?: string;
+      light: string;
+      dark: string;
     };
 
 const technologyVisuals: Record<string, TechnologyVisual> = {
@@ -54,67 +55,80 @@ const technologyVisuals: Record<string, TechnologyVisual> = {
   SQL: {
     kind: "badge",
     text: "SQL",
-    className: "bg-[#dbeafe] text-[#1d4ed8] ring-[#bfdbfe]",
+    light: "bg-[#dbeafe] text-[#1d4ed8] ring-[#bfdbfe]",
+    dark: "bg-[#1e3a5f]/40 text-[#60a5fa] ring-[#1e3a5f]",
   },
   "REST API": {
     kind: "badge",
     text: "API",
-    className: "bg-[#dcfce7] text-[#15803d] ring-[#bbf7d0]",
+    light: "bg-[#dcfce7] text-[#15803d] ring-[#bbf7d0]",
+    dark: "bg-[#14332a]/40 text-[#4ade80] ring-[#14332a]",
   },
   gRPC: {
     kind: "badge",
     text: "gRPC",
-    className: "bg-[#ede9fe] text-[#6d28d9] ring-[#ddd6fe]",
+    light: "bg-[#ede9fe] text-[#6d28d9] ring-[#ddd6fe]",
+    dark: "bg-[#2e1a5e]/40 text-[#a78bfa] ring-[#2e1a5e]",
   },
   JSON: {
     kind: "badge",
     text: "{}",
-    className: "bg-[#f3f4f6] text-[#374151] ring-[#e5e7eb]",
+    light: "bg-[#f3f4f6] text-[#374151] ring-[#e5e7eb]",
+    dark: "bg-[#1f2937]/40 text-[#9ca3af] ring-[#1f2937]",
   },
   Protobuf: {
     kind: "badge",
     text: "PB",
-    className: "bg-[#dbeafe] text-[#1d4ed8] ring-[#bfdbfe]",
+    light: "bg-[#dbeafe] text-[#1d4ed8] ring-[#bfdbfe]",
+    dark: "bg-[#1e3a5f]/40 text-[#60a5fa] ring-[#1e3a5f]",
   },
   Mockito: {
     kind: "badge",
     text: "M",
-    className: "bg-[#fef3c7] text-[#b45309] ring-[#fde68a]",
+    light: "bg-[#fef3c7] text-[#b45309] ring-[#fde68a]",
+    dark: "bg-[#3d2e0a]/40 text-[#fbbf24] ring-[#3d2e0a]",
   },
   Testcontainers: {
     kind: "badge",
     text: "TC",
-    className: "bg-[#dbeafe] text-[#1d4ed8] ring-[#bfdbfe]",
+    light: "bg-[#dbeafe] text-[#1d4ed8] ring-[#bfdbfe]",
+    dark: "bg-[#1e3a5f]/40 text-[#60a5fa] ring-[#1e3a5f]",
   },
   "SOLID and GRASP": {
     kind: "badge",
     text: "SG",
-    className: "bg-[#ede9fe] text-[#6d28d9] ring-[#ddd6fe]",
+    light: "bg-[#ede9fe] text-[#6d28d9] ring-[#ddd6fe]",
+    dark: "bg-[#2e1a5e]/40 text-[#a78bfa] ring-[#2e1a5e]",
   },
   "Design Patterns": {
     kind: "badge",
     text: "DP",
-    className: "bg-[#fce7f3] text-[#be185d] ring-[#fbcfe8]",
+    light: "bg-[#fce7f3] text-[#be185d] ring-[#fbcfe8]",
+    dark: "bg-[#4a1942]/40 text-[#f472b6] ring-[#4a1942]",
   },
   OOD: {
     kind: "badge",
     text: "OOD",
-    className: "bg-[#e0f2fe] text-[#0369a1] ring-[#bae6fd]",
+    light: "bg-[#e0f2fe] text-[#0369a1] ring-[#bae6fd]",
+    dark: "bg-[#0c3547]/40 text-[#38bdf8] ring-[#0c3547]",
   },
   DDD: {
     kind: "badge",
     text: "DDD",
-    className: "bg-[#ede9fe] text-[#6d28d9] ring-[#ddd6fe]",
+    light: "bg-[#ede9fe] text-[#6d28d9] ring-[#ddd6fe]",
+    dark: "bg-[#2e1a5e]/40 text-[#a78bfa] ring-[#2e1a5e]",
   },
   "Russian (Native)": {
     kind: "badge",
     text: "RU",
-    className: "bg-[#dbeafe] text-[#1d4ed8] ring-[#bfdbfe]",
+    light: "bg-[#dbeafe] text-[#1d4ed8] ring-[#bfdbfe]",
+    dark: "bg-[#1e3a5f]/40 text-[#60a5fa] ring-[#1e3a5f]",
   },
   "English (B2)": {
     kind: "badge",
     text: "EN",
-    className: "bg-[#fee2e2] text-[#b91c1c] ring-[#fecaca]",
+    light: "bg-[#fee2e2] text-[#b91c1c] ring-[#fecaca]",
+    dark: "bg-[#4a1c1c]/40 text-[#f87171] ring-[#4a1c1c]",
   },
 };
 
@@ -186,7 +200,7 @@ export function TechnologyBadge({
           className={cn(
             "relative z-10 inline-flex shrink-0 items-center justify-center rounded-[6px] font-bold uppercase tracking-[0.04em] ring-1",
             badgeClassName,
-            visual.className ?? "bg-[#e5e7eb] text-[#111827] ring-[#d1d5db]",
+            theme === "dark" ? visual.dark : visual.light,
           )}
         >
           {visual.text}

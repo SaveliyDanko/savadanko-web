@@ -5,7 +5,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { NAV_LINKS } from "@/constants/navigation";
 import { SOCIAL_LINKS } from "@/constants/socials";
 import { useTranslation } from "@/app/providers";
@@ -122,13 +122,13 @@ export function Footer() {
               </p>
               <div className="mt-5 space-y-3 text-[15px] text-body">
                 {NAV_LINKS.map((link) => (
-                  <a
+                  <Link
                     key={link.key}
-                    href={link.href}
+                    to={link.href}
                     className="block transition-colors duration-300 hover:text-heading"
                   >
                     {t.nav[link.key as keyof typeof t.nav]}
-                  </a>
+                  </Link>
                 ))}
               </div>
             </div>

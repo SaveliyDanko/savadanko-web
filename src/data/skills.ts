@@ -63,7 +63,7 @@ export const techStackCategories: TechStackCategory[] = [
       { label: "TypeScript", icon: "braces" },
       { label: "SQL", icon: "sql" },
       { label: "Bash", icon: "code" },
-      // { label: "Russian (Native)", icon: "code" },
+      { label: "Russian (Native)", icon: "code" },
       // { label: "English (B2)", icon: "code" },
     ],
   },
@@ -71,7 +71,7 @@ export const techStackCategories: TechStackCategory[] = [
     id: "backend-frameworks",
     title: "Backend & Frameworks",
     items: [
-      { label: "Spring", icon: "server" },
+      // { label: "Spring", icon: "server" },
       { label: "Spring Boot", icon: "server" },
       { label: "JPA/Hibernate", icon: "database" },
       { label: "JUnit 5", icon: "shield" },
