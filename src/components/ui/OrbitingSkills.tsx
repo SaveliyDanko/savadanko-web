@@ -1,4 +1,4 @@
-import React, { useEffect, useState, memo } from "react";
+import React, { useState, memo } from "react";
 
 // --- Type Definitions ---
 type IconType = "spring" | "postgres" | "javascript" | "react" | "java" | "docker";
@@ -9,20 +9,22 @@ interface SkillIconProps {
   type: IconType;
 }
 
-interface SkillConfig {
+interface SkillDef {
   id: string;
-  orbitRadius: number;
   size: number;
-  speed: number;
   iconType: IconType;
-  phaseShift: number;
-  glowColor: GlowColor;
+  phaseDeg: number;
   label: string;
 }
 
-interface OrbitingSkillProps {
-  config: SkillConfig;
-  angle: number;
+interface OrbitDef {
+  radius: number;
+  period: number;
+  direction: "normal" | "reverse";
+  counterDirection: "normal" | "reverse";
+  glowColor: GlowColor;
+  glowDelay: number;
+  skills: SkillDef[];
 }
 
 interface GlowingOrbitPathProps {
@@ -131,112 +133,72 @@ const SkillIcon = memo(({ type }: SkillIconProps) => {
 SkillIcon.displayName = "SkillIcon";
 
 // --- Configuration ---
-const skillsConfig: SkillConfig[] = [
-  // Inner Orbit
+const INNER_PERIOD = 2 * Math.PI; // ~6.28s (speed 1 rad/s)
+const OUTER_PERIOD = (2 * Math.PI) / 0.6; // ~10.47s (speed 0.6 rad/s)
+
+const orbits: OrbitDef[] = [
   {
-    id: "spring",
-    orbitRadius: 138,
-    size: 40,
-    speed: 1,
-    iconType: "spring",
-    phaseShift: 0,
+    radius: 138,
+    period: INNER_PERIOD,
+    direction: "normal",
+    counterDirection: "reverse",
     glowColor: "cyan",
-    label: "Spring",
+    glowDelay: 0,
+    skills: [
+      { id: "spring", size: 40, iconType: "spring", phaseDeg: 0, label: "Spring" },
+      { id: "postgres", size: 45, iconType: "postgres", phaseDeg: 120, label: "Postgres" },
+      { id: "javascript", size: 40, iconType: "javascript", phaseDeg: 240, label: "JavaScript" },
+    ],
   },
   {
-    id: "postgres",
-    orbitRadius: 138,
-    size: 45,
-    speed: 1,
-    iconType: "postgres",
-    phaseShift: (2 * Math.PI) / 3,
-    glowColor: "cyan",
-    label: "Postgres",
-  },
-  {
-    id: "javascript",
-    orbitRadius: 138,
-    size: 40,
-    speed: 1,
-    iconType: "javascript",
-    phaseShift: (4 * Math.PI) / 3,
-    glowColor: "cyan",
-    label: "JavaScript",
-  },
-  // Outer Orbit
-  {
-    id: "react",
-    orbitRadius: 242,
-    size: 50,
-    speed: -0.6,
-    iconType: "react",
-    phaseShift: 0,
+    radius: 242,
+    period: OUTER_PERIOD,
+    direction: "reverse",
+    counterDirection: "normal",
     glowColor: "purple",
-    label: "React",
-  },
-  {
-    id: "java",
-    orbitRadius: 242,
-    size: 45,
-    speed: -0.6,
-    iconType: "java",
-    phaseShift: (2 * Math.PI) / 3,
-    glowColor: "purple",
-    label: "Java",
-  },
-  {
-    id: "docker",
-    orbitRadius: 242,
-    size: 40,
-    speed: -0.6,
-    iconType: "docker",
-    phaseShift: (4 * Math.PI) / 3,
-    glowColor: "purple",
-    label: "Docker",
+    glowDelay: 1.5,
+    skills: [
+      { id: "react", size: 50, iconType: "react", phaseDeg: 0, label: "React" },
+      { id: "java", size: 45, iconType: "java", phaseDeg: 120, label: "Java" },
+      { id: "docker", size: 40, iconType: "docker", phaseDeg: 240, label: "Docker" },
+    ],
   },
 ];
 
-// --- Memoized Orbiting Skill Component ---
-const OrbitingSkill = memo(({ config, angle }: OrbitingSkillProps) => {
-  const [isHovered, setIsHovered] = useState(false);
-  const { orbitRadius, size, iconType, label } = config;
+// --- Skill Content Component (hover only, no per-frame updates) ---
+const SkillContent = memo(
+  ({ iconType, label }: { iconType: IconType; label: string }) => {
+    const [isHovered, setIsHovered] = useState(false);
 
-  const x = Math.cos(angle) * orbitRadius;
-  const y = Math.sin(angle) * orbitRadius;
-
-  return (
-    <div
-      className="absolute left-1/2 top-1/2 transition-all duration-300 ease-out"
-      style={{
-        width: `${size}px`,
-        height: `${size}px`,
-        transform: `translate(calc(${x}px - 50%), calc(${y}px - 50%))`,
-        zIndex: isHovered ? 20 : 10,
-      }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
+    return (
       <div
-        className={`relative flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-surface-lighter/90 p-2 backdrop-blur-sm transition-all duration-300 ${isHovered ? "scale-125 shadow-2xl" : "shadow-lg hover:shadow-xl"}`}
-        style={{
-          boxShadow: isHovered
-            ? `0 0 30px ${iconComponents[iconType]?.color}40, 0 0 60px ${iconComponents[iconType]?.color}20`
-            : undefined,
-        }}
+        className="relative h-full w-full"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        style={{ zIndex: isHovered ? 20 : 10 }}
       >
-        <SkillIcon type={iconType} />
+        <div
+          className={`flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-surface-lighter p-2 transition-all duration-300 ${isHovered ? "scale-125" : "shadow-lg"}`}
+          style={{
+            boxShadow: isHovered
+              ? `0 0 20px ${iconComponents[iconType]?.color}40, 0 0 40px ${iconComponents[iconType]?.color}20`
+              : undefined,
+          }}
+        >
+          <SkillIcon type={iconType} />
+        </div>
         {isHovered && (
-          <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-surface/95 px-2 py-1 text-xs text-text backdrop-blur-sm">
+          <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-surface/95 px-2 py-1 text-xs text-text">
             {label}
           </div>
         )}
       </div>
-    </div>
-  );
-});
-OrbitingSkill.displayName = "OrbitingSkill";
+    );
+  },
+);
+SkillContent.displayName = "SkillContent";
 
-// --- Orbit Path Component ---
+// --- Orbit Path Component (reduced blur/shadow for performance) ---
 const GlowingOrbitPath = memo(
   ({ radius, glowColor = "cyan", animationDelay = 0 }: GlowingOrbitPathProps) => {
     const glowColors = {
@@ -266,7 +228,7 @@ const GlowingOrbitPath = memo(
           className="absolute inset-0 animate-pulse rounded-full"
           style={{
             background: `radial-gradient(circle, transparent 30%, ${colors.secondary} 70%, ${colors.primary} 100%)`,
-            boxShadow: `0 0 60px ${colors.primary}, inset 0 0 60px ${colors.secondary}`,
+            boxShadow: `0 0 20px ${colors.primary}, inset 0 0 20px ${colors.secondary}`,
             animationDelay: `${animationDelay}s`,
           }}
         />
@@ -274,7 +236,7 @@ const GlowingOrbitPath = memo(
           className="absolute inset-0 rounded-full"
           style={{
             border: `1px solid ${colors.border}`,
-            boxShadow: `inset 0 0 20px ${colors.secondary}`,
+            boxShadow: `inset 0 0 10px ${colors.secondary}`,
           }}
         />
       </div>
@@ -285,35 +247,8 @@ GlowingOrbitPath.displayName = "GlowingOrbitPath";
 
 // --- Main Component ---
 export function OrbitingSkills() {
-  const [time, setTime] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-
-  useEffect(() => {
-    if (isPaused) return;
-
-    let animationFrameId: number;
-    let lastTime = performance.now();
-
-    const animate = (currentTime: number) => {
-      const deltaTime = (currentTime - lastTime) / 1000;
-      lastTime = currentTime;
-
-      setTime((prev) => prev + deltaTime);
-      animationFrameId = requestAnimationFrame(animate);
-    };
-
-    animationFrameId = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animationFrameId);
-  }, [isPaused]);
-
-  const orbitConfigs: Array<{
-    radius: number;
-    glowColor: GlowColor;
-    delay: number;
-  }> = [
-    { radius: 138, glowColor: "cyan", delay: 0 },
-    { radius: 242, glowColor: "purple", delay: 1.5 },
-  ];
+  const playState = isPaused ? ("paused" as const) : ("running" as const);
 
   return (
     <div className="flex w-full items-center justify-center">
@@ -324,9 +259,9 @@ export function OrbitingSkills() {
       >
         {/* Central icon */}
         <div className="relative z-10 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-surface-lighter to-surface shadow-2xl">
-          <div className="absolute inset-0 animate-pulse rounded-full bg-cyan-500/20 blur-xl" />
+          <div className="absolute inset-0 animate-pulse rounded-full bg-cyan-500/20 blur-md" />
           <div
-            className="absolute inset-0 animate-pulse rounded-full bg-primary/15 blur-2xl"
+            className="absolute inset-0 animate-pulse rounded-full bg-primary/15 blur-lg"
             style={{ animationDelay: "1s" }}
           />
           <div className="relative z-10">
@@ -360,22 +295,62 @@ export function OrbitingSkills() {
         </div>
 
         {/* Orbit paths */}
-        {orbitConfigs.map((config) => (
+        {orbits.map((orbit) => (
           <GlowingOrbitPath
-            key={`path-${config.radius}`}
-            radius={config.radius}
-            glowColor={config.glowColor}
-            animationDelay={config.delay}
+            key={orbit.radius}
+            radius={orbit.radius}
+            glowColor={orbit.glowColor}
+            animationDelay={orbit.glowDelay}
           />
         ))}
 
-        {/* Orbiting icons */}
-        {skillsConfig.map((config) => {
-          const angle = time * config.speed + config.phaseShift;
-          return (
-            <OrbitingSkill key={config.id} config={config} angle={angle} />
-          );
-        })}
+        {/* Orbiting skills — pure CSS rotation */}
+        {orbits.map((orbit) => (
+          <div
+            key={`ring-${orbit.radius}`}
+            className="absolute left-1/2 top-1/2"
+            style={{
+              animation: `orbit-spin ${orbit.period.toFixed(2)}s linear infinite ${orbit.direction}`,
+              animationPlayState: playState,
+              willChange: "transform",
+            }}
+          >
+            {orbit.skills.map((skill) => (
+              <div
+                key={skill.id}
+                className="absolute"
+                style={{
+                  width: `${skill.size}px`,
+                  height: `${skill.size}px`,
+                  marginLeft: `-${skill.size / 2}px`,
+                  marginTop: `-${skill.size / 2}px`,
+                  transform: `rotate(${skill.phaseDeg}deg) translateX(${orbit.radius}px)`,
+                }}
+              >
+                {/* Counter-rotate to keep icons upright */}
+                <div
+                  className="h-full w-full"
+                  style={{
+                    animation: `orbit-spin ${orbit.period.toFixed(2)}s linear infinite ${orbit.counterDirection}`,
+                    animationPlayState: playState,
+                    willChange: "transform",
+                  }}
+                >
+                  {/* Undo the static phase rotation */}
+                  <div
+                    className="h-full w-full"
+                    style={{ transform: `rotate(${-skill.phaseDeg}deg)` }}
+                  >
+                    <SkillContent
+                      iconType={skill.iconType}
+                      label={skill.label}
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ))}
       </div>
     </div>
   );

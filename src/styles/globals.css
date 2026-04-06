@@ -112,6 +112,11 @@ html[data-theme="light"] {
   100% { transform: translateX(0); }
 }
 
+@keyframes orbit-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 /* ─── Utilities ─── */
 @utility animate-shimmer {
   animation: shimmer 6s ease-in-out infinite;
