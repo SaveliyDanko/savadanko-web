@@ -1,11 +1,8 @@
-import { lazy, Suspense, useEffect, useLayoutEffect } from "react";
+import { lazy, Suspense, useLayoutEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { Header, Footer } from "@/components/layout";
 import { SiteMeta } from "@/app/SiteMeta";
-
-const HomePage = lazy(() =>
-  import("@/pages/HomePage").then((m) => ({ default: m.HomePage })),
-);
+import { HomePage } from "@/pages/HomePage";
 const AboutPage = lazy(() =>
   import("@/pages/AboutPage").then((m) => ({ default: m.AboutPage })),
 );
@@ -30,19 +27,8 @@ const NotFoundPage = lazy(() =>
 function ScrollManager() {
   const { pathname } = useLocation();
 
-  useEffect(() => {
-    if (!("scrollRestoration" in window.history)) return;
-
-    const previous = window.history.scrollRestoration;
-    window.history.scrollRestoration = "manual";
-
-    return () => {
-      window.history.scrollRestoration = previous;
-    };
-  }, []);
-
   useLayoutEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
   }, [pathname]);
 
   return null;
@@ -55,7 +41,7 @@ export function App() {
       <SiteMeta />
       <Header />
       <main className="flex-1 pt-16">
-        <Suspense>
+        <Suspense fallback={<div className="min-h-screen" />}>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/about" element={<AboutPage />} />
