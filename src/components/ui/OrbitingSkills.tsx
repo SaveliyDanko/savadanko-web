@@ -1,4 +1,4 @@
-import React, { useState, memo } from "react";
+import React, { useState, useEffect, memo } from "react";
 
 // --- Type Definitions ---
 type IconType = "spring" | "postgres" | "javascript" | "react" | "java" | "docker";
@@ -248,7 +248,14 @@ GlowingOrbitPath.displayName = "GlowingOrbitPath";
 // --- Main Component ---
 export function OrbitingSkills() {
   const [isPaused, setIsPaused] = useState(false);
-  const playState = isPaused ? ("paused" as const) : ("running" as const);
+  const [isReady, setIsReady] = useState(false);
+
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setIsReady(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
+
+  const playState = isReady && !isPaused ? ("running" as const) : ("paused" as const);
 
   return (
     <div className="flex w-full items-center justify-center">
@@ -312,7 +319,6 @@ export function OrbitingSkills() {
             style={{
               animation: `orbit-spin ${orbit.period.toFixed(2)}s linear infinite ${orbit.direction}`,
               animationPlayState: playState,
-              willChange: "transform",
             }}
           >
             {orbit.skills.map((skill) => (
@@ -333,8 +339,7 @@ export function OrbitingSkills() {
                   style={{
                     animation: `orbit-spin ${orbit.period.toFixed(2)}s linear infinite ${orbit.counterDirection}`,
                     animationPlayState: playState,
-                    willChange: "transform",
-                  }}
+                        }}
                 >
                   {/* Undo the static phase rotation */}
                   <div
