@@ -251,8 +251,8 @@ export function OrbitingSkills() {
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    const id = requestAnimationFrame(() => setIsReady(true));
-    return () => cancelAnimationFrame(id);
+    const id = setTimeout(() => setIsReady(true), 400);
+    return () => clearTimeout(id);
   }, []);
 
   const playState = isReady && !isPaused ? ("running" as const) : ("paused" as const);
