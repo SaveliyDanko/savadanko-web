@@ -1,4 +1,4 @@
-import React, { useState, useEffect, memo } from "react";
+import React, { useState, memo } from "react";
 
 // --- Type Definitions ---
 type IconType = "spring" | "postgres" | "javascript" | "react" | "java" | "docker";
@@ -248,14 +248,8 @@ GlowingOrbitPath.displayName = "GlowingOrbitPath";
 // --- Main Component ---
 export function OrbitingSkills() {
   const [isPaused, setIsPaused] = useState(false);
-  const [isReady, setIsReady] = useState(false);
 
-  useEffect(() => {
-    const id = setTimeout(() => setIsReady(true), 400);
-    return () => clearTimeout(id);
-  }, []);
-
-  const playState = isReady && !isPaused ? ("running" as const) : ("paused" as const);
+  const playState = isPaused ? ("paused" as const) : ("running" as const);
 
   return (
     <div className="flex w-full items-center justify-center">

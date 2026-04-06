@@ -1,4 +1,4 @@
-import { lazy, Suspense, useLayoutEffect } from "react";
+import { lazy, Suspense, useEffect, useLayoutEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { Header, Footer } from "@/components/layout";
 import { SiteMeta } from "@/app/SiteMeta";
@@ -34,7 +34,21 @@ function ScrollManager() {
   return null;
 }
 
+function useDismissPreloader() {
+  useEffect(() => {
+    const el = document.getElementById("preloader");
+    if (!el) return;
+    const id = setTimeout(() => {
+      el.classList.add("fade-out");
+      el.addEventListener("transitionend", () => el.remove(), { once: true });
+    }, 600);
+    return () => clearTimeout(id);
+  }, []);
+}
+
 export function App() {
+  useDismissPreloader();
+
   return (
     <div className="relative flex min-h-screen flex-col">
       <ScrollManager />

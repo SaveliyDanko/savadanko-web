@@ -20,9 +20,21 @@
     <link rel="apple-touch-icon" href="./Logo.jpg" />
     <link rel="manifest" href="./site.webmanifest" />
     <title>Savely Danko</title>
+    <style>
+      #preloader{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:#010105;transition:opacity .5s ease,visibility .5s ease}
+      #preloader.fade-out{opacity:0;visibility:hidden}
+      #preloader svg{width:48px;height:48px;animation:preloader-pulse 1.8s ease-in-out infinite}
+      @keyframes preloader-pulse{0%,100%{opacity:.6;filter:drop-shadow(0 0 8px rgba(139,92,246,.3))}50%{opacity:1;filter:drop-shadow(0 0 20px rgba(139,92,246,.6))}}
+    </style>
   </head>
   <body>
-    <script>history.scrollRestoration="manual";window.scrollTo(0,0);</script>
+    <script>history.scrollRestoration="manual";window.scrollTo(0,0);if(localStorage.getItem("theme")==="light"){document.getElementById("preloader").style.background="#fafbfe"}</script>
+    <div id="preloader">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="url(#pg)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <defs><linearGradient id="pg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#06B6D4"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient></defs>
+        <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+      </svg>
+    </div>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
