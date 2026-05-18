@@ -1,3 +1,10 @@
+# Site metadata (written to .env.production before build)
+site_name: Savely Danko
+site_title: Savely Danko
+site_description: >-
+  Portfolio of Savely Danko, a full stack developer building responsive
+  interfaces, scalable web applications, and modern digital products.
+
 # Domain and repo settings
 domain: dankosava.ru
 repo_url: https://github.com/SaveliyDanko/savadanko-web.git
