@@ -64,10 +64,39 @@
     state: absent
   notify: Reload nginx
 
-- name: Obtain SSL certificate
+- name: Create webroot for ACME challenges
+  ansible.builtin.file:
+    path: /var/www/certbot
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: "0755"
+
+- name: Check if SSL certificate already exists
+  ansible.builtin.stat:
+    path: /etc/letsencrypt/live/{{ domain }}/fullchain.pem
+  register: ssl_cert
+  when: enable_ssl
+
+- name: Obtain SSL certificate via Certbot
   ansible.builtin.command:
     cmd: >
-      certbot --nginx -d {{ domain }} -d www.{{ domain }}
+      certbot certonly --nginx
+      -d {{ domain }} -d www.{{ domain }}
       --non-interactive --agree-tos -m {{ certbot_email }}
-  when: enable_ssl
+  when: enable_ssl and not ssl_cert.stat.exists
   changed_when: true
+  notify: Reload nginx
+
+- name: Renew SSL certificate (if already exists)
+  ansible.builtin.command:
+    cmd: certbot renew --quiet
+  when: enable_ssl and ssl_cert.stat.exists
+  changed_when: false
+
+- name: Enable certbot auto-renew via systemd timer
+  ansible.builtin.systemd:
+    name: certbot.timer
+    enabled: true
+    state: started
+  when: enable_ssl

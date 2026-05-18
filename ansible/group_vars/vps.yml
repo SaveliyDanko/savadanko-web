@@ -11,5 +11,5 @@ nginx_conf_name: savadanko
 node_version: "22"
 
 # Enable HTTPS via Certbot (requires valid domain pointing to server)
-enable_ssl: false
+enable_ssl: true
 certbot_email: dankosaveliy.m@gmail.com
