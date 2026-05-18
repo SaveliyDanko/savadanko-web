@@ -1,93 +1,159 @@
-# Deployment Guide
+# Deploy Guide — VPS + Ansible
 
-This repository is prepared for production deployment on both a custom domain and GitHub Pages.
+Сайт деплоится на VPS через Ansible: репозиторий клонируется на сервер,
+собирается `dist/`, Nginx раздаёт статику, Certbot выпускает SSL-сертификат.
 
-## What is already configured
+---
 
-- Vite `base` support via `VITE_BASE_PATH`
-- `BrowserRouter` SPA routes with `basename`
-- `public/404.html` redirect fallback for static hosting without rewrites
-- `public/_redirects` for Netlify-style rewrites
-- `vercel.json` rewrites for Vercel
-- `public/robots.txt`
-- `public/site.webmanifest`
-- `public/favicon.svg`
-- route-aware document title and meta tags via `src/app/SiteMeta.tsx`
-- configurable production site URL via `.env.production`
-- GitHub Actions workflow for GitHub Pages deployment
+## Требования
 
-## Before publishing
+**Локально:**
+- `ansible` ≥ 2.14 — `pip install ansible`
+- SSH-ключ, добавленный на сервер
 
-1. Copy `.env.production.example` to `.env.production`.
-2. Replace `https://your-domain.com` with your real domain.
-3. Set `VITE_BASE_PATH=/` for a custom domain or your own server.
-4. Keep `VITE_BASE_PATH=/savadanko-web/` for the default GitHub Pages URL.
+**VPS:**
+- Ubuntu 22.04 / 24.04
+- Открытые порты **80** и **443**
+- DNS-записи `dankosava.ru` и `www.dankosava.ru` указывают на IP сервера
 
-Example:
+---
+
+## Структура Ansible-проекта
+
+```
+ansible/
+├── deploy.yml                        # Точка входа
+├── inventory/
+│   └── hosts.ini                     # IP сервера и SSH-настройки
+├── group_vars/
+│   └── vps.yml                       # Домен, ветка, метаданные, SSL
+└── roles/webapp/
+    ├── tasks/main.yml                # Шаги деплоя
+    ├── handlers/main.yml             # Reload nginx
+    ├── templates/nginx-http.conf.j2  # Временный HTTP-конфиг для ACME
+    └── templates/nginx.conf.j2      # Финальный конфиг: HTTPS, SPA, gzip
+```
+
+---
+
+## Первый деплой
+
+### 1. Указать IP сервера
+
+Открыть `ansible/inventory/hosts.ini` и заменить `your_server_ip`:
+
+```ini
+[vps]
+1.2.3.4 ansible_user=root ansible_ssh_private_key_file=~/.ssh/id_rsa
+```
+
+Если пользователь не `root` — поменяй `ansible_user` и убедись, что у него есть `sudo`.
+
+### 2. Проверить переменные
+
+`ansible/group_vars/vps.yml` — всё уже настроено для `dankosava.ru`:
+
+```yaml
+site_name: Savely Danko
+site_title: Savely Danko
+site_description: ...
+
+domain: dankosava.ru
+repo_url: https://github.com/SaveliyDanko/savadanko-web.git
+repo_branch: main
+enable_ssl: true
+certbot_email: dankosaveliy.m@gmail.com
+```
+
+### 3. Проверить SSH-доступ
+
+```bash
+ssh -i ~/.ssh/id_rsa root@<IP>
+```
+
+### 4. Запустить плейбук
+
+Из корня репозитория:
+
+```bash
+ansible-playbook -i ansible/inventory/hosts.ini ansible/deploy.yml
+```
+
+Плейбук выполнит:
+1. Установку пакетов (git, nginx, nodejs, certbot)
+2. Клонирование репозитория в `/var/www/savadanko`
+3. Генерацию `.env.production` из переменных `group_vars/vps.yml`
+4. `npm ci && npm run build`
+5. Настройку Nginx с редиректом HTTP → HTTPS
+6. Выпуск SSL-сертификата через Let's Encrypt (`--webroot`, не трогает чужие конфиги)
+7. Включение автопродления сертификата (systemd timer)
+
+После завершения сайт доступен по **https://dankosava.ru**.
+
+---
+
+## Повторный деплой (обновление сайта)
+
+Запуши изменения в `main` и выполни ту же команду:
+
+```bash
+git push origin main
+ansible-playbook -i ansible/inventory/hosts.ini ansible/deploy.yml
+```
+
+Ansible подтянет новые коммиты, пересоберёт `dist/` и перезагрузит Nginx.
+Сертификат повторно не запрашивается.
+
+---
+
+## Сосуществование с другими сайтами
+
+Плейбук безопасен при наличии других сайтов на том же VPS:
+
+- Создаёт только свой файл `/etc/nginx/sites-available/savadanko`
+- Удаляет дефолтный nginx-сайт **только если он единственный** в `sites-enabled` (чистый VPS)
+- Certbot использует режим `--webroot` — не редактирует чужие конфиги Nginx
+- Единственное условие: у других сайтов не должно быть `server_name dankosava.ru`
+
+---
+
+## Переменные окружения
+
+Переменные сборки описаны в `.env.production.example`. При деплое через Ansible
+`.env.production` генерируется автоматически из `group_vars/vps.yml`.
+
+Для локальной сборки:
 
 ```bash
 cp .env.production.example .env.production
-```
-
-## Build
-
-```bash
+# отредактировать при необходимости
 npm run build
 ```
 
-The production files will be generated in `dist/`.
+| Переменная             | Описание                        | Дефолт                  |
+|------------------------|---------------------------------|-------------------------|
+| `VITE_SITE_NAME`       | Имя сайта                       | `Savely Danko`          |
+| `VITE_SITE_TITLE`      | Title в `<head>`                | `Savely Danko`          |
+| `VITE_SITE_DESCRIPTION`| Description для SEO             | текст из `site.ts`      |
+| `VITE_SITE_URL`        | Канонический URL (нужен для SEO)| `https://example.com`   |
 
-## Deploy options
+---
 
-### GitHub Pages
+## Диагностика
 
-The repository now includes `.github/workflows/deploy-pages.yml`.
+```bash
+# Статус Nginx
+ssh root@<IP> "systemctl status nginx"
 
-1. Open repository settings on GitHub.
-2. Go to `Settings -> Pages`.
-3. Set `Source` to `GitHub Actions`.
-4. Push to `main` and wait for the workflow to publish `dist/`.
+# Логи Nginx
+ssh root@<IP> "tail -50 /var/log/nginx/error.log"
 
-The workflow already builds with `VITE_BASE_PATH=/savadanko-web/` and `VITE_SITE_URL=https://saveliydanko.github.io/savadanko-web`.
-If you later connect a custom domain, update those values.
+# Проверить конфиг Nginx
+ssh root@<IP> "nginx -t"
 
-### Vercel
+# Статус сертификата
+ssh root@<IP> "certbot certificates"
 
-The repository already contains `vercel.json` rewrites for SPA routes.
-
-### Netlify
-
-The repository already contains `public/_redirects`.
-
-### Nginx / your own VPS
-
-Configure all non-file requests to return `index.html`.
-
-Example idea:
-
-```nginx
-location / {
-  try_files $uri $uri/ /index.html;
-}
+# Тест продления сертификата
+ssh root@<IP> "certbot renew --dry-run"
 ```
-
-## Custom domain checklist
-
-1. Point your domain DNS to your hosting provider.
-2. Enable HTTPS.
-3. Upload the contents of `dist/`.
-4. Verify direct opening of routes like `/about` and `/blog/article-1`.
-5. Check favicon, manifest, and metadata in the browser.
-
-## SEO notes
-
-`src/app/SiteMeta.tsx` updates:
-
-- `title`
-- `description`
-- canonical URL
-- Open Graph tags
-- Twitter tags
-- robots meta
-
-For best results, set the real production domain in `.env.production` before building.
