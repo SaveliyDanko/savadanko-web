@@ -1,0 +1,1032 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Savadanko Brand Concept · v1.0.0</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ─── Tokens (inlined) ──────────────────────────────────────────── */
+    :root {
+      --brand-primary: #8b5cf6;
+      --brand-primary-light: #a78bfa;
+      --brand-primary-dark: #7c3aed;
+      --brand-accent-cyan: #06b6d4;
+      --brand-accent-green: #34d399;
+      --brand-section-label: #6f87ff;
+
+      --surface-base:    #010105;
+      --surface-raised:  #111113;
+      --surface-higher:  #1a1a1f;
+      --surface-card:    #0f0f13;
+
+      --text-heading:        #ffffff;
+      --text-body:           #f0f0f3;
+      --text-body-secondary: #656c89;
+      --text-muted:          #71717a;
+      --text-tertiary:       #4f5672;
+
+      --border-default: #1e1e24;
+      --border-strong:  #27272a;
+      --border-card:    rgba(255,255,255,0.04);
+      --border-input:   rgba(255,255,255,0.08);
+      --border-focus:   #3453a8;
+
+      --card-from: rgba(8,10,19,0.78);
+      --card-to:   rgba(4,5,11,0.96);
+
+      --gradient-brand: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);
+      --gradient-hero:  linear-gradient(135deg, #a78bfa 0%, #c084fc 50%, #8b5cf6 100%);
+
+      --shadow-card-hover: 0 10px 24px rgba(99,102,241,0.14);
+      --shadow-primary-btn: 0 10px 25px -5px rgba(139,92,246,0.25);
+      --shadow-glow-soft: 0 0 24px rgba(111,141,253,0.15);
+
+      --glow-opacity: 1;
+
+      --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+      --font-mono: "JetBrains Mono", ui-monospace, monospace;
+    }
+
+    html[data-theme="light"] {
+      --surface-base:   #fafbfe;
+      --surface-raised: #f0f1f6;
+      --surface-higher: #e6e8f0;
+      --surface-card:   #f4f5fa;
+      --text-heading:        #111827;
+      --text-body:           #1e2030;
+      --text-body-secondary: #64748b;
+      --text-muted:          #64748b;
+      --text-tertiary:       #94a3b8;
+      --border-default: #d4d8e8;
+      --border-strong:  #c0c6d8;
+      --border-card:    #e2e5f0;
+      --border-input:   #d4d8e8;
+      --card-from: #ffffff;
+      --card-to:   #fafbfe;
+      --glow-opacity: 0.5;
+    }
+
+    /* ─── Reset & base ──────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      background: var(--surface-base);
+      color: var(--text-body);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transition: background-color 500ms linear, color 500ms linear;
+    }
+    ::selection { background: rgba(139,92,246,0.3); color: #fff; }
+    *::-webkit-scrollbar { width: 6px; height: 6px; }
+    *::-webkit-scrollbar-track { background: transparent; }
+    *::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 9999px; }
+    *::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+    h1, h2, h3, h4 { color: var(--text-heading); margin: 0; letter-spacing: -0.025em; line-height: 1.1; }
+    p { margin: 0; line-height: 1.5; }
+    code { font-family: var(--font-mono); font-size: 0.85em; }
+
+    .container { max-width: 1152px; margin: 0 auto; padding: 0 24px; }
+
+    /* ─── Header ───────────────────────────────────────────────────── */
+    .site-header {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(1,1,5,0.8);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    html[data-theme="light"] .site-header { background: rgba(250,251,254,0.8); }
+    .site-header nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 24px; max-width: 1152px; margin: 0 auto;
+    }
+    .brand-mark {
+      display: inline-flex; align-items: center; gap: 10px;
+      text-decoration: none; color: var(--text-heading); font-weight: 600;
+    }
+    .brand-mark .glyph {
+      width: 36px; height: 36px;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: var(--gradient-brand);
+      border-radius: 10px;
+      font-family: var(--font-mono); font-weight: 700; color: white;
+    }
+    .header-actions { display: flex; align-items: center; gap: 8px; }
+    .pill-btn {
+      background: transparent; border: 1px solid var(--border-card);
+      color: var(--text-muted); padding: 6px 12px; border-radius: 999px;
+      font-family: var(--font-sans); font-size: 12px; font-weight: 500;
+      cursor: pointer; transition: all 200ms ease-out;
+    }
+    .pill-btn:hover { color: var(--text-heading); border-color: rgba(111,141,253,0.4); }
+    .progress-bar {
+      height: 1px; background: rgba(30,30,36,0.5); position: relative;
+    }
+    .progress-bar::after {
+      content: ""; position: absolute; left: 0; top: 0; height: 100%;
+      background: linear-gradient(90deg, var(--brand-primary), var(--brand-section-label), var(--brand-primary-light));
+      width: var(--scroll, 0%);
+      transition: width 150ms ease-out;
+    }
+
+    /* ─── Hero ─────────────────────────────────────────────────────── */
+    .hero {
+      position: relative; overflow: hidden;
+      padding: 120px 24px 80px; text-align: left;
+      max-width: 1152px; margin: 0 auto;
+    }
+    .hero .glow-1 {
+      position: absolute; top: 10%; left: -200px;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: rgba(139,92,246,0.05);
+      filter: blur(120px);
+      pointer-events: none; opacity: var(--glow-opacity);
+    }
+    .hero .glow-2 {
+      position: absolute; bottom: 10%; right: -200px;
+      width: 400px; height: 400px; border-radius: 50%;
+      background: rgba(6,182,212,0.04);
+      filter: blur(100px);
+      pointer-events: none; opacity: var(--glow-opacity);
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 20px; border-radius: 999px;
+      background: rgba(111,135,255,0.05);
+      border: 1px solid rgba(111,135,255,0.2);
+      color: var(--brand-section-label);
+      font-size: 14px; font-weight: 500;
+    }
+    .eyebrow .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--brand-section-label);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+    .hero h1 {
+      margin-top: 24px;
+      font-size: clamp(56px, 9vw, 112px);
+      font-weight: 700; letter-spacing: -0.025em;
+      line-height: 1.05;
+    }
+    .hero h1 .gradient-word {
+      background: var(--gradient-hero);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: shimmer 6s ease-in-out infinite;
+    }
+    @keyframes shimmer {
+      0% { background-position: 200% 0%; }
+      100% { background-position: -200% 100%; }
+    }
+    .hero p.lead {
+      max-width: 640px; margin-top: 24px;
+      font-size: 18px; line-height: 1.6;
+      color: var(--text-body-secondary);
+    }
+    .hero p.lead strong { color: var(--text-heading); font-weight: 600; }
+
+    .hero-meta {
+      margin-top: 48px; display: flex; flex-wrap: wrap; gap: 32px;
+      font-family: var(--font-mono); font-size: 13px;
+      color: var(--text-muted);
+    }
+    .hero-meta span { display: inline-flex; align-items: center; gap: 8px; }
+    .hero-meta strong { color: var(--text-heading); font-weight: 500; }
+
+    /* ─── Section pattern ───────────────────────────────────────────── */
+    section.block { padding: 80px 0; position: relative; }
+    @media (min-width: 640px) { section.block { padding: 112px 0; } }
+
+    .section-eyebrow {
+      font-family: var(--font-mono); font-size: 12px; font-weight: 600;
+      letter-spacing: 0.04em; text-transform: uppercase;
+      color: var(--brand-section-label); margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(28px, 4vw, 36px); font-weight: 700; letter-spacing: -0.025em;
+      margin-bottom: 12px;
+    }
+    .section-subtitle {
+      color: var(--text-muted); font-size: 16px; max-width: 560px;
+      margin-bottom: 48px;
+    }
+
+    /* ─── Color swatches ────────────────────────────────────────────── */
+    .color-grid {
+      display: grid; gap: 16px;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+    .swatch {
+      background: linear-gradient(180deg, var(--card-from), var(--card-to));
+      border: 1px solid var(--border-card);
+      border-radius: 16px; padding: 20px;
+      transition: transform 200ms ease-out, box-shadow 200ms ease-out, border-color 200ms ease-out;
+      cursor: pointer; position: relative; overflow: hidden;
+    }
+    .swatch:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-card-hover);
+      border-color: rgba(111,141,253,0.25);
+    }
+    .swatch .chip {
+      width: 100%; aspect-ratio: 16/9;
+      border-radius: 10px; margin-bottom: 16px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), inset 0 0 0 1px rgba(0,0,0,0.2);
+    }
+    .swatch .chip.brand { background: var(--gradient-brand); }
+    .swatch .chip.hero  { background: var(--gradient-hero); }
+    .swatch h4 {
+      font-size: 14px; font-weight: 600; margin-bottom: 4px;
+    }
+    .swatch .label {
+      font-family: var(--font-mono); font-size: 12px; color: var(--text-muted);
+      display: block; margin-bottom: 2px;
+    }
+    .swatch .role {
+      font-size: 12px; color: var(--text-tertiary); line-height: 1.4;
+    }
+    .swatch .copy-tag {
+      position: absolute; top: 12px; right: 12px;
+      background: rgba(255,255,255,0.05); border: 1px solid var(--border-card);
+      padding: 2px 8px; border-radius: 999px;
+      font-size: 10px; font-family: var(--font-mono); color: var(--text-muted);
+      opacity: 0; transition: opacity 200ms;
+    }
+    .swatch:hover .copy-tag { opacity: 1; }
+    .swatch.copied .copy-tag { opacity: 1; background: rgba(52,211,153,0.15); color: var(--brand-accent-green); border-color: rgba(52,211,153,0.3); }
+
+    /* ─── Type scale ────────────────────────────────────────────────── */
+    .type-row {
+      display: grid; grid-template-columns: 90px 1fr; gap: 24px; align-items: baseline;
+      padding: 20px 0; border-bottom: 1px solid var(--border-card);
+    }
+    .type-row:last-child { border-bottom: none; }
+    .type-row .meta {
+      font-family: var(--font-mono); font-size: 12px; color: var(--text-muted);
+      letter-spacing: 0;
+    }
+    .type-row .sample { color: var(--text-heading); }
+    .t-9xl  { font-size: 96px; font-weight: 700; letter-spacing: -0.025em; line-height: 1.05; }
+    .t-7xl  { font-size: 72px; font-weight: 700; letter-spacing: -0.025em; line-height: 1.1; }
+    .t-4xl  { font-size: 36px; font-weight: 700; letter-spacing: -0.025em; line-height: 1.2; }
+    .t-2xl  { font-size: 24px; font-weight: 600; letter-spacing: -0.02em;  line-height: 1.3; }
+    .t-xl   { font-size: 20px; font-weight: 600; line-height: 1.4; }
+    .t-lg   { font-size: 18px; font-weight: 400; line-height: 1.6; color: var(--text-body-secondary); }
+    .t-base { font-size: 16px; font-weight: 400; line-height: 1.5; color: var(--text-body); }
+    .t-sm   { font-size: 14px; font-weight: 500; line-height: 1.4; color: var(--text-body); }
+    .t-xs-caps {
+      font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+      font-family: var(--font-mono); color: var(--brand-section-label);
+    }
+
+    .font-pair {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+      margin-bottom: 32px;
+    }
+    @media (max-width: 640px) { .font-pair { grid-template-columns: 1fr; } }
+    .font-card {
+      background: linear-gradient(180deg, var(--card-from), var(--card-to));
+      border: 1px solid var(--border-card); border-radius: 16px;
+      padding: 24px;
+    }
+    .font-card .name {
+      font-size: 11px; font-family: var(--font-mono); color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .font-card .display {
+      font-size: 56px; font-weight: 700; letter-spacing: -0.025em;
+      margin: 16px 0 8px; color: var(--text-heading);
+    }
+    .font-card.mono .display { font-family: var(--font-mono); font-size: 44px; font-weight: 600; }
+    .font-card .desc { font-size: 13px; color: var(--text-muted); }
+
+    /* ─── Components showcase ───────────────────────────────────────── */
+    .component-grid {
+      display: grid; gap: 24px; grid-template-columns: 1fr 1fr;
+    }
+    @media (max-width: 768px) { .component-grid { grid-template-columns: 1fr; } }
+
+    .demo-card {
+      background: linear-gradient(180deg, var(--card-from), var(--card-to));
+      border: 1px solid var(--border-card);
+      border-radius: 16px; padding: 28px;
+    }
+    .demo-card .demo-label {
+      font-family: var(--font-mono); font-size: 11px;
+      color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;
+      margin-bottom: 16px;
+    }
+    .demo-stage {
+      display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
+      padding: 24px; background: var(--surface-base);
+      border-radius: 12px; margin-bottom: 16px;
+      border: 1px solid var(--border-card);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      font-family: var(--font-sans); font-size: 14px; font-weight: 500;
+      padding: 10px 20px; border-radius: 8px; border: none;
+      cursor: pointer; transition: all 200ms ease-out;
+      text-decoration: none;
+    }
+    .btn:focus-visible { outline: 2px solid rgba(139,92,246,0.5); outline-offset: 2px; }
+    .btn-primary {
+      background: var(--brand-primary); color: white;
+      box-shadow: var(--shadow-primary-btn);
+    }
+    .btn-primary:hover { background: var(--brand-primary-dark); transform: scale(1.04); box-shadow: 0 0 30px rgba(139,92,246,0.4); }
+    .btn-primary-pill {
+      background: linear-gradient(90deg, var(--brand-primary), var(--brand-primary-dark));
+      color: white; padding: 14px 28px; border-radius: 999px;
+      box-shadow: var(--shadow-primary-btn);
+    }
+    .btn-primary-pill:hover { transform: scale(1.04); box-shadow: 0 0 30px rgba(139,92,246,0.4); }
+    .btn-secondary {
+      background: var(--surface-raised); color: var(--text-body);
+      border: 1px solid var(--border-default);
+    }
+    .btn-secondary:hover { background: var(--surface-higher); }
+    .btn-ghost {
+      background: transparent; color: var(--text-muted);
+    }
+    .btn-ghost:hover { color: var(--text-heading); background: var(--surface-raised); }
+    .btn-outline-pill {
+      background: transparent; color: var(--text-muted);
+      border: 1px solid var(--border-strong);
+      border-radius: 999px; padding: 14px 28px;
+    }
+    .btn-outline-pill:hover { color: var(--text-heading); border-color: rgba(139,92,246,0.4); transform: scale(1.04); }
+
+    /* Badges */
+    .badge {
+      display: inline-block; padding: 4px 12px; border-radius: 999px;
+      font-size: 12px; font-weight: 500;
+      background: rgba(139,92,246,0.1); color: var(--brand-primary-light);
+    }
+    .badge-success {
+      background: rgba(52,211,153,0.1); color: var(--brand-accent-green);
+    }
+    .badge-blue {
+      background: rgba(111,135,255,0.1); color: var(--brand-section-label);
+    }
+    .tech-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 16px; border-radius: 999px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border-card);
+      color: var(--text-body-secondary);
+      font-size: 14px; transition: all 200ms ease-out;
+      cursor: default;
+    }
+    .tech-pill:hover {
+      transform: translateY(-2px) scale(1.03);
+      border-color: rgba(111,141,253,0.3);
+      color: var(--text-heading);
+      background: rgba(255,255,255,0.04);
+      box-shadow: var(--shadow-card-hover);
+    }
+    .tech-pill .ico {
+      width: 18px; height: 18px;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: rgba(255,255,255,0.06); border-radius: 4px;
+      font-family: var(--font-mono); font-size: 9px; font-weight: 700;
+    }
+
+    /* Project card */
+    .project-card {
+      background: linear-gradient(180deg, var(--card-from), var(--card-to));
+      border: 1px solid var(--border-card); border-radius: 16px;
+      padding: 28px; transition: all 250ms ease-out;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
+    }
+    .project-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(58,92,184,0.3);
+      box-shadow: var(--shadow-card-hover);
+    }
+    .project-card .meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .project-card .stack { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+    .project-card h3 { font-size: 18px; margin-bottom: 8px; }
+    .project-card p { font-size: 14px; color: var(--text-muted); line-height: 1.5; }
+
+    /* Forms */
+    .form-row { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+    .form-row label {
+      font-size: 12px; font-weight: 500; color: var(--text-muted);
+    }
+    .form-row input, .form-row textarea {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border-input);
+      color: var(--text-body);
+      padding: 12px 16px; border-radius: 8px;
+      font-family: var(--font-sans); font-size: 14px;
+      transition: border-color 200ms, box-shadow 200ms;
+    }
+    .form-row input:focus, .form-row textarea:focus {
+      outline: none; border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(52,83,168,0.15);
+    }
+
+    /* ─── Spacing/Radius/Shadow visual rulers ──────────────────────── */
+    .ruler-grid {
+      display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    }
+    .ruler-item {
+      background: linear-gradient(180deg, var(--card-from), var(--card-to));
+      border: 1px solid var(--border-card); border-radius: 12px;
+      padding: 20px; text-align: center;
+    }
+    .ruler-item .visual {
+      display: inline-block; margin-bottom: 12px;
+      background: var(--brand-primary); opacity: 0.85;
+    }
+    .ruler-item .name {
+      font-family: var(--font-mono); font-size: 11px; color: var(--text-heading);
+      margin-bottom: 2px;
+    }
+    .ruler-item .val { font-size: 11px; color: var(--text-muted); }
+
+    .radius-item .visual {
+      width: 64px; height: 64px;
+      background: var(--gradient-brand);
+    }
+
+    .shadow-item {
+      background: var(--surface-raised); border: 1px solid var(--border-card);
+      border-radius: 12px; padding: 28px; text-align: center;
+    }
+    .shadow-item .preview {
+      width: 100%; aspect-ratio: 4/3;
+      background: var(--surface-card);
+      border-radius: 8px; margin-bottom: 12px;
+    }
+
+    /* ─── Voice section ────────────────────────────────────────────── */
+    .voice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    @media (max-width: 768px) { .voice-grid { grid-template-columns: 1fr; } }
+    .voice-card {
+      border-radius: 16px; padding: 24px; border: 1px solid var(--border-card);
+      background: linear-gradient(180deg, var(--card-from), var(--card-to));
+    }
+    .voice-card.do { border-left: 3px solid var(--brand-accent-green); }
+    .voice-card.dont { border-left: 3px solid #ef4444; }
+    .voice-card .title {
+      font-family: var(--font-mono); font-size: 11px;
+      letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 16px;
+    }
+    .voice-card.do .title { color: var(--brand-accent-green); }
+    .voice-card.dont .title { color: #ef4444; }
+    .voice-card blockquote {
+      margin: 0 0 12px; padding: 12px 16px;
+      background: var(--surface-base); border-radius: 8px;
+      font-size: 14px; line-height: 1.5; color: var(--text-body-secondary);
+      border: 1px solid var(--border-card);
+    }
+    .voice-card blockquote:last-child { margin-bottom: 0; }
+
+    /* ─── Code block ───────────────────────────────────────────────── */
+    .code-block {
+      font-family: var(--font-mono); font-size: 13px; line-height: 1.6;
+      background: var(--surface-card); border: 1px solid var(--border-card);
+      border-radius: 12px; padding: 20px;
+      color: var(--text-body); overflow-x: auto;
+      white-space: pre;
+    }
+    .code-block .comment { color: var(--text-tertiary); }
+    .code-block .key { color: var(--brand-section-label); }
+    .code-block .val { color: var(--brand-accent-green); }
+
+    /* ─── Footer ───────────────────────────────────────────────────── */
+    footer {
+      padding: 48px 0; border-top: 1px solid var(--border-card);
+      background: radial-gradient(circle at top, rgba(89,109,255,0.08), transparent 36%),
+                  linear-gradient(180deg, rgba(11,13,24,0.96), rgba(6,7,14,0.98));
+    }
+    html[data-theme="light"] footer {
+      background: radial-gradient(circle at top, rgba(99,102,241,0.06), transparent 36%),
+                  linear-gradient(180deg, #f0f0ff, #eaecfc);
+    }
+    footer .container {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 16px;
+    }
+    footer .meta {
+      font-family: var(--font-mono); font-size: 12px; color: var(--text-muted);
+    }
+    footer .meta strong { color: var(--text-heading); font-weight: 500; }
+
+    /* ─── TOC ──────────────────────────────────────────────────────── */
+    .toc {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      padding: 24px; margin-top: 32px;
+      background: linear-gradient(180deg, var(--card-from), var(--card-to));
+      border: 1px solid var(--border-card); border-radius: 16px;
+    }
+    .toc a {
+      font-family: var(--font-mono); font-size: 12px;
+      padding: 6px 12px; border-radius: 999px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border-card);
+      color: var(--text-muted); text-decoration: none;
+      transition: all 200ms ease-out;
+    }
+    .toc a:hover {
+      color: var(--text-heading); border-color: rgba(111,141,253,0.3);
+      background: rgba(111,141,253,0.05);
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ─── Sticky header ─────────────────────────────────────────────── -->
+  <header class="site-header">
+    <nav>
+      <a href="#" class="brand-mark">
+        <span class="glyph">&#60;/&#62;</span>
+        <span>Savadanko Brand</span>
+      </a>
+      <div class="header-actions">
+        <button class="pill-btn" id="theme-toggle" aria-label="Toggle theme">
+          <span id="theme-icon">☾</span>&nbsp;<span id="theme-label">Dark</span>
+        </button>
+        <a href="#tokens" class="pill-btn">Tokens</a>
+      </div>
+    </nav>
+    <div class="progress-bar"></div>
+  </header>
+
+  <!-- ─── Hero ──────────────────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="glow-1"></div>
+    <div class="glow-2"></div>
+
+    <span class="eyebrow">
+      <span class="dot"></span>
+      Brand Concept · v1.0.0
+    </span>
+
+    <h1>
+      Refined
+      <br>
+      <span class="gradient-word">dark portfolio.</span>
+    </h1>
+
+    <p class="lead">
+      Disciplined typography, ultra-dark surfaces, a single confident
+      <strong>violet</strong>, and a signature <strong>cyan→purple</strong>
+      gradient reserved for brand moments. This page is the brand,
+      not a description of it.
+    </p>
+
+    <div class="hero-meta">
+      <span><strong>—</strong> Inter / JetBrains Mono</span>
+      <span><strong>—</strong> Tailwind v4 · React 19</span>
+      <span><strong>—</strong> Dark default · light supported</span>
+      <span><strong>—</strong> 8-pt grid · 1152px container</span>
+    </div>
+
+    <div class="toc" aria-label="Sections">
+      <a href="#colors">colors</a>
+      <a href="#typography">typography</a>
+      <a href="#spacing">spacing</a>
+      <a href="#radius">radius</a>
+      <a href="#shadows">shadows</a>
+      <a href="#components">components</a>
+      <a href="#voice">voice</a>
+      <a href="#tokens">tokens</a>
+    </div>
+  </section>
+
+  <!-- ─── Colors ────────────────────────────────────────────────────── -->
+  <section class="block container" id="colors">
+    <div class="section-eyebrow">01 — Color</div>
+    <h2 class="section-title">Eighty percent restraint, twenty percent signature.</h2>
+    <p class="section-subtitle">
+      The brand only works when the violet is rare. Surface stays near-black, text stays neutral —
+      then a single accent does the heavy lifting.
+    </p>
+
+    <h3 style="font-size:14px; font-family:var(--font-mono); text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted); margin-bottom:16px;">Brand</h3>
+    <div class="color-grid">
+      <div class="swatch" data-copy="#8b5cf6">
+        <div class="chip" style="background:#8b5cf6"></div>
+        <span class="copy-tag">click to copy</span>
+        <h4>Primary</h4>
+        <span class="label">#8b5cf6</span>
+        <span class="role">CTAs, focus rings, key accents.</span>
+      </div>
+      <div class="swatch" data-copy="#a78bfa">
+        <div class="chip" style="background:#a78bfa"></div>
+        <span class="copy-tag">click to copy</span>
+        <h4>Primary Light</h4>
+        <span class="label">#a78bfa</span>
+        <span class="role">Hover, gradient stops.</span>
+      </div>
+      <div class="swatch" data-copy="#7c3aed">
+        <div class="chip" style="background:#7c3aed"></div>
+        <span class="copy-tag">click to copy</span>
+        <h4>Primary Dark</h4>
+        <span class="label">#7c3aed</span>
+        <span class="role">Pressed state, button gradient.</span>
+      </div>
+      <div class="swatch" data-copy="#06b6d4">
+        <div class="chip" style="background:#06b6d4"></div>
+        <span class="copy-tag">click to copy</span>
+        <h4>Accent Cyan</h4>
+        <span class="label">#06b6d4</span>
+        <span class="role">Only in the brand gradient.</span>
+      </div>
+      <div class="swatch" data-copy="#6f87ff">
+        <div class="chip" style="background:#6f87ff"></div>
+        <span class="copy-tag">click to copy</span>
+        <h4>Section Label</h4>
+        <span class="label">#6f87ff</span>
+        <span class="role">Eyebrows, active nav, glows.</span>
+      </div>
+      <div class="swatch" data-copy="#34d399">
+        <div class="chip" style="background:#34d399"></div>
+        <span class="copy-tag">click to copy</span>
+        <h4>Accent Green</h4>
+        <span class="label">#34d399</span>
+        <span class="role">Status, "available", success.</span>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px; font-family:var(--font-mono); text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted); margin:48px 0 16px;">Surface (dark default)</h3>
+    <div class="color-grid">
+      <div class="swatch" data-copy="#010105">
+        <div class="chip" style="background:#010105; border:1px solid #1e1e24"></div>
+        <span class="copy-tag">click to copy</span>
+        <h4>Base</h4>
+        <span class="label">#010105</span>
+        <span class="role">Page background.</span>
+      </div>
+      <div class="swatch" data-copy="#111113">
+        <div class="chip" style="background:#111113"></div>
+        <span class="copy-tag">click to copy</span>
+        <h4>Raised</h4>
+        <span class="label">#111113</span>
+        <span class="role">Cards, header.</span>
+      </div>
+      <div class="swatch" data-copy="#1a1a1f">
+        <div class="chip" style="background:#1a1a1f"></div>
+        <span class="copy-tag">click to copy</span>
+        <h4>Higher</h4>
+        <span class="label">#1a1a1f</span>
+        <span class="role">Hover, dropdowns.</span>
+      </div>
+      <div class="swatch" data-copy="#0f0f13">
+        <div class="chip" style="background:#0f0f13"></div>
+        <span class="copy-tag">click to copy</span>
+        <h4>Card</h4>
+        <span class="label">#0f0f13</span>
+        <span class="role">Card surface base.</span>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px; font-family:var(--font-mono); text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted); margin:48px 0 16px;">Signature gradients</h3>
+    <div class="color-grid">
+      <div class="swatch" data-copy="linear-gradient(135deg, #06b6d4, #8b5cf6)">
+        <div class="chip brand"></div>
+        <span class="copy-tag">click to copy</span>
+        <h4>Brand</h4>
+        <span class="label">cyan → purple</span>
+        <span class="role">Logo, preloader, hero punctuation. Use sparingly.</span>
+      </div>
+      <div class="swatch" data-copy="linear-gradient(135deg, #a78bfa, #c084fc, #8b5cf6)">
+        <div class="chip hero"></div>
+        <span class="copy-tag">click to copy</span>
+        <h4>Hero text</h4>
+        <span class="label">purple shimmer</span>
+        <span class="role">bg-clip:text on hero word-mark.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Typography ────────────────────────────────────────────────── -->
+  <section class="block container" id="typography">
+    <div class="section-eyebrow">02 — Typography</div>
+    <h2 class="section-title">Tight tracking. Calm body.</h2>
+    <p class="section-subtitle">
+      Inter for everything human; JetBrains Mono for the technical. Headings always
+      tighten by -2.5%, body always relaxes to 1.5–1.6 line-height.
+    </p>
+
+    <div class="font-pair">
+      <div class="font-card">
+        <div class="name">Sans · Inter</div>
+        <div class="display">Aa Bb Cc</div>
+        <div class="desc">UI, headings, body. Weights 400 / 500 / 600 / 700.</div>
+      </div>
+      <div class="font-card mono">
+        <div class="name">Mono · JetBrains Mono</div>
+        <div class="display">{ &#62;_ }</div>
+        <div class="desc">Code, version numbers, eyebrow labels, technical micro-copy.</div>
+      </div>
+    </div>
+
+    <div class="type-row">
+      <div class="meta">9xl · 96 / -.025</div>
+      <div class="sample t-9xl">Sava Danko</div>
+    </div>
+    <div class="type-row">
+      <div class="meta">7xl · 72 / -.025</div>
+      <div class="sample t-7xl">Hero · mobile</div>
+    </div>
+    <div class="type-row">
+      <div class="meta">4xl · 36 / -.025</div>
+      <div class="sample t-4xl">Section heading</div>
+    </div>
+    <div class="type-row">
+      <div class="meta">2xl · 24 / -.02</div>
+      <div class="sample t-2xl">Card title large</div>
+    </div>
+    <div class="type-row">
+      <div class="meta">xl · 20 / 600</div>
+      <div class="sample t-xl">Project card title</div>
+    </div>
+    <div class="type-row">
+      <div class="meta">lg · 18 / 400</div>
+      <div class="sample t-lg">Lead paragraph — slightly muted, 1.6 line-height for breathing room.</div>
+    </div>
+    <div class="type-row">
+      <div class="meta">base · 16 / 400</div>
+      <div class="sample t-base">Body. The default reading size — never go smaller than this for paragraphs.</div>
+    </div>
+    <div class="type-row">
+      <div class="meta">sm · 14 / 500</div>
+      <div class="sample t-sm">UI labels, button text, captions on cards.</div>
+    </div>
+    <div class="type-row">
+      <div class="meta">xs caps · mono</div>
+      <div class="sample t-xs-caps">Section eyebrow · 0.04em</div>
+    </div>
+  </section>
+
+  <!-- ─── Spacing ───────────────────────────────────────────────────── -->
+  <section class="block container" id="spacing">
+    <div class="section-eyebrow">03 — Spacing</div>
+    <h2 class="section-title">Eight-point grid. One container.</h2>
+    <p class="section-subtitle">
+      All measurements come from a single 8-pt rhythm. The container is always 1152px max
+      with 24px side padding — never introduce a second width.
+    </p>
+
+    <div class="ruler-grid">
+      <div class="ruler-item"><span class="visual" style="width:4px; height:24px;"></span><div class="name">space-1</div><div class="val">4px</div></div>
+      <div class="ruler-item"><span class="visual" style="width:8px; height:24px;"></span><div class="name">space-2</div><div class="val">8px</div></div>
+      <div class="ruler-item"><span class="visual" style="width:12px; height:24px;"></span><div class="name">space-3</div><div class="val">12px</div></div>
+      <div class="ruler-item"><span class="visual" style="width:16px; height:24px;"></span><div class="name">space-4</div><div class="val">16px</div></div>
+      <div class="ruler-item"><span class="visual" style="width:24px; height:24px;"></span><div class="name">space-6 ★</div><div class="val">24px · gutter</div></div>
+      <div class="ruler-item"><span class="visual" style="width:32px; height:24px;"></span><div class="name">space-8</div><div class="val">32px</div></div>
+      <div class="ruler-item"><span class="visual" style="width:48px; height:24px;"></span><div class="name">space-12</div><div class="val">48px</div></div>
+      <div class="ruler-item"><span class="visual" style="width:80px; height:24px;"></span><div class="name">space-20 ★</div><div class="val">80px · py mobile</div></div>
+      <div class="ruler-item"><span class="visual" style="width:112px; height:24px;"></span><div class="name">space-28 ★</div><div class="val">112px · py sm+</div></div>
+    </div>
+  </section>
+
+  <!-- ─── Radius ───────────────────────────────────────────────────── -->
+  <section class="block container" id="radius">
+    <div class="section-eyebrow">04 — Radius</div>
+    <h2 class="section-title">Three families. No mixing.</h2>
+    <p class="section-subtitle">
+      Pick a family per screen and stay in it. Inputs and buttons get <code>lg</code>;
+      cards get <code>2xl</code>; pills and primary CTAs go fully round.
+    </p>
+
+    <div class="ruler-grid">
+      <div class="ruler-item radius-item"><span class="visual" style="border-radius:8px"></span><div class="name">lg</div><div class="val">8px · buttons, inputs</div></div>
+      <div class="ruler-item radius-item"><span class="visual" style="border-radius:12px"></span><div class="name">xl</div><div class="val">12px · subtle</div></div>
+      <div class="ruler-item radius-item"><span class="visual" style="border-radius:16px"></span><div class="name">2xl ★</div><div class="val">16px · cards</div></div>
+      <div class="ruler-item radius-item"><span class="visual" style="border-radius:24px"></span><div class="name">3xl</div><div class="val">24px · feature</div></div>
+      <div class="ruler-item radius-item"><span class="visual" style="border-radius:9999px"></span><div class="name">full ★</div><div class="val">pills, primary CTA</div></div>
+    </div>
+  </section>
+
+  <!-- ─── Shadows ──────────────────────────────────────────────────── -->
+  <section class="block container" id="shadows">
+    <div class="section-eyebrow">05 — Shadows &amp; glow</div>
+    <h2 class="section-title">Glow replaces depth.</h2>
+    <p class="section-subtitle">
+      No drop-shadows on a dark surface — they vanish. We use inset highlights, soft brand glows on hover,
+      and large blurred halos behind hero content.
+    </p>
+
+    <div class="component-grid" style="grid-template-columns: repeat(3, 1fr);">
+      <div class="shadow-item">
+        <div class="preview" style="box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);"></div>
+        <div class="name" style="font-family:var(--font-mono); font-size:11px; color:var(--text-heading); margin-bottom:4px;">card</div>
+        <div class="val" style="font-size:11px; color:var(--text-muted);">inset 1px white-2%</div>
+      </div>
+      <div class="shadow-item">
+        <div class="preview" style="box-shadow: 0 10px 24px rgba(99,102,241,0.20); border:1px solid rgba(111,141,253,0.25);"></div>
+        <div class="name" style="font-family:var(--font-mono); font-size:11px; color:var(--text-heading); margin-bottom:4px;">card-hover</div>
+        <div class="val" style="font-size:11px; color:var(--text-muted);">soft periwinkle glow</div>
+      </div>
+      <div class="shadow-item">
+        <div class="preview" style="box-shadow: 0 0 30px rgba(139,92,246,0.4); background: linear-gradient(90deg, var(--brand-primary), var(--brand-primary-dark));"></div>
+        <div class="name" style="font-family:var(--font-mono); font-size:11px; color:var(--text-heading); margin-bottom:4px;">primary-btn-hover</div>
+        <div class="val" style="font-size:11px; color:var(--text-muted);">violet aura</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Components ───────────────────────────────────────────────── -->
+  <section class="block container" id="components">
+    <div class="section-eyebrow">06 — Components</div>
+    <h2 class="section-title">Small surface, repeating language.</h2>
+    <p class="section-subtitle">
+      Every component reuses the same primitives: pill or 8px-corner, gradient-on-card background, soft glow on hover.
+    </p>
+
+    <div class="component-grid">
+
+      <div class="demo-card">
+        <div class="demo-label">Buttons</div>
+        <div class="demo-stage">
+          <button class="btn btn-primary-pill">View Projects →</button>
+          <button class="btn btn-outline-pill">Contact</button>
+        </div>
+        <div class="demo-stage">
+          <button class="btn btn-primary">Primary</button>
+          <button class="btn btn-secondary">Secondary</button>
+          <button class="btn btn-ghost">Ghost</button>
+        </div>
+      </div>
+
+      <div class="demo-card">
+        <div class="demo-label">Badges &amp; pills</div>
+        <div class="demo-stage">
+          <span class="badge">React 19</span>
+          <span class="badge-blue badge">TypeScript</span>
+          <span class="badge-success badge">● Available</span>
+          <span class="badge">Hire-me</span>
+        </div>
+        <div class="demo-stage">
+          <span class="tech-pill"><span class="ico">TS</span>TypeScript</span>
+          <span class="tech-pill"><span class="ico">JV</span>Java</span>
+          <span class="tech-pill"><span class="ico">KT</span>Kotlin</span>
+        </div>
+      </div>
+
+      <div class="demo-card">
+        <div class="demo-label">Project card · the hero pattern</div>
+        <div class="project-card">
+          <div class="meta">
+            <span style="font-family: var(--font-mono); font-size: 11px; color: var(--text-muted);">2024 · Backend</span>
+            <span class="badge-success badge">Production</span>
+          </div>
+          <h3>Distributed payment service</h3>
+          <p>Built a high-throughput payment gateway handling 12k req/s. Cut p99 latency from 340ms to 80ms.</p>
+          <div class="stack">
+            <span class="tech-pill"><span class="ico">JV</span>Java</span>
+            <span class="tech-pill"><span class="ico">KF</span>Kafka</span>
+            <span class="tech-pill"><span class="ico">PG</span>Postgres</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-card">
+        <div class="demo-label">Form input</div>
+        <div style="padding: 24px; background: var(--surface-base); border-radius: 12px; border: 1px solid var(--border-card);">
+          <div class="form-row">
+            <label for="demo-email">Email</label>
+            <input id="demo-email" type="email" placeholder="you@company.com" />
+          </div>
+          <div class="form-row">
+            <label for="demo-msg">Message</label>
+            <textarea id="demo-msg" rows="3" placeholder="What are you working on?"></textarea>
+          </div>
+          <button class="btn btn-primary" style="width: 100%; margin-top: 8px;">Send →</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── Voice ────────────────────────────────────────────────────── -->
+  <section class="block container" id="voice">
+    <div class="section-eyebrow">07 — Voice</div>
+    <h2 class="section-title">Senior engineer, calibration interview.</h2>
+    <p class="section-subtitle">
+      Precise, evidence-led, light. Numbers when you have them. Active voice. No emoji rocket ships.
+    </p>
+
+    <div class="voice-grid">
+      <div class="voice-card do">
+        <div class="title">Do</div>
+        <blockquote>"Backend engineer. I build distributed systems in Java and Kotlin and care about the parts that don't break at 3am."</blockquote>
+        <blockquote>"Cut p99 latency from 340ms to 80ms by switching to a streaming model."</blockquote>
+        <blockquote>"Built X to solve Y. Result: Z."</blockquote>
+      </div>
+      <div class="voice-card dont">
+        <div class="title">Don't</div>
+        <blockquote>"🚀 Passionate full-stack ninja crafting amazing experiences with cutting-edge tech."</blockquote>
+        <blockquote>"Leveraging synergistic blockchain solutions to disrupt the paradigm."</blockquote>
+        <blockquote>"Coding rockstar 🎸 building the future ✨"</blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Tokens ───────────────────────────────────────────────────── -->
+  <section class="block container" id="tokens">
+    <div class="section-eyebrow">08 — Tokens</div>
+    <h2 class="section-title">Drop-in for any new project.</h2>
+    <p class="section-subtitle">
+      Three artefacts ship with this brand: <code>tokens.json</code>, <code>tokens.css</code>,
+      and a Tailwind v4 <code>@theme</code> block. Pick the one that matches your stack and start.
+    </p>
+
+    <div class="component-grid">
+      <div class="demo-card">
+        <div class="demo-label">tokens.css · CSS variables</div>
+<pre class="code-block"><span class="comment">/* Drop into any project, then: */</span>
+<span class="key">.button</span> {
+  <span class="key">background:</span> <span class="val">var(--brand-primary)</span>;
+  <span class="key">color:</span> <span class="val">white</span>;
+  <span class="key">border-radius:</span> <span class="val">var(--radius-lg)</span>;
+  <span class="key">box-shadow:</span> <span class="val">var(--shadow-primary-btn)</span>;
+}</pre>
+      </div>
+
+      <div class="demo-card">
+        <div class="demo-label">Tailwind v4 · @theme block</div>
+<pre class="code-block"><span class="key">@theme</span> {
+  <span class="key">--color-primary:</span> <span class="val">#8b5cf6</span>;
+  <span class="key">--color-section-label:</span> <span class="val">#6f87ff</span>;
+  <span class="key">--color-surface:</span> <span class="val">#010105</span>;
+  <span class="key">--color-heading:</span> <span class="val">#ffffff</span>;
+  <span class="key">--font-sans:</span> <span class="val">"Inter"</span>;
+  <span class="comment">/* …see tokens.css for full block */</span>
+}</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Footer ───────────────────────────────────────────────────── -->
+  <footer>
+    <div class="container">
+      <div class="meta">
+        <strong>Savadanko Brand Concept</strong> · v1.0.0
+      </div>
+      <div class="meta">
+        Source: <strong>github.com/SaveliyDanko/savadanko-web</strong>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Theme toggle
+    const themeBtn = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const themeLabel = document.getElementById('theme-label');
+    themeBtn.addEventListener('click', () => {
+      const html = document.documentElement;
+      const next = html.dataset.theme === 'dark' ? 'light' : 'dark';
+      html.dataset.theme = next;
+      themeIcon.textContent = next === 'dark' ? '☾' : '☀';
+      themeLabel.textContent = next === 'dark' ? 'Dark' : 'Light';
+    });
+
+    // Scroll progress bar
+    const updateProgress = () => {
+      const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+      const denom = scrollHeight - clientHeight;
+      const progress = denom <= 0 ? 0 : (scrollTop / denom) * 100;
+      document.documentElement.style.setProperty('--scroll', progress + '%');
+    };
+    updateProgress();
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('resize', updateProgress);
+
+    // Click-to-copy on swatches
+    document.querySelectorAll('.swatch').forEach(el => {
+      el.addEventListener('click', async () => {
+        const value = el.dataset.copy;
+        try {
+          await navigator.clipboard.writeText(value);
+          const tag = el.querySelector('.copy-tag');
+          if (tag) tag.textContent = 'copied!';
+          el.classList.add('copied');
+          setTimeout(() => {
+            el.classList.remove('copied');
+            if (tag) tag.textContent = 'click to copy';
+          }, 1400);
+        } catch (e) { /* noop */ }
+      });
+    });
+  </script>
+</body>
+</html>
