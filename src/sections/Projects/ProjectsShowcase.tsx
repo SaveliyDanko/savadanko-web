@@ -9,7 +9,7 @@ import { withBasePath } from "@/config/site";
 function ProjectLogo({
   variant,
 }: {
-  variant: "nexign" | "modula";
+  variant: "nexign" | "modula" | "danko-realty";
 }) {
   if (variant === "nexign") {
     return (
@@ -19,6 +19,16 @@ function ProjectLogo({
           alt="Nexign"
           className="h-full w-full object-cover"
         />
+      </div>
+    );
+  }
+
+  if (variant === "danko-realty") {
+    return (
+      <div className="rounded-full bg-[conic-gradient(from_180deg_at_50%_50%,#8b5cf6,#6366f1,#a78bfa,#8b5cf6)] p-px shadow-[0_10px_25px_rgba(139,92,246,0.15)]">
+        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-surface text-[10px] font-semibold text-heading/80">
+          DR
+        </div>
       </div>
     );
   }

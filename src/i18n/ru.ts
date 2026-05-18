@@ -113,6 +113,11 @@ export const ru: Translations = {
         description:
           "No-code платформа автоматизации бизнес-процессов",
       },
+      {
+        category: "Недвижимость",
+        description:
+          "Платформа для управления недвижимостью: объявления, клиенты и сделки",
+      },
     ],
   },
   techStack: {

@@ -6,7 +6,7 @@ export interface FeaturedWorkProject {
   technologies: string[];
   extraTechnologies: number;
   href: string;
-  logo: "nexign" | "modula";
+  logo: "nexign" | "modula" | "danko-realty";
 }
 
 export const projects: FeaturedWorkProject[] = [
@@ -38,5 +38,15 @@ export const projects: FeaturedWorkProject[] = [
     extraTechnologies: 5,
     href: "#projects",
     logo: "modula",
+  },
+  {
+    id: "danko-realty",
+    title: "Danko Realty",
+    category: "Real Estate",
+    description: "Full-stack real estate management platform for listings, clients, and deals",
+    technologies: ["React", "TypeScript", "Node.js", "PostgreSQL", "Docker"],
+    extraTechnologies: 3,
+    href: "http://realty.dankosava.ru/",
+    logo: "danko-realty",
   },
 ];

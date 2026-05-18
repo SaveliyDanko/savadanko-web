@@ -111,6 +111,11 @@ export const en = {
         description:
           "No-code business process automation platform",
       },
+      {
+        category: "Real Estate",
+        description:
+          "Full-stack real estate management platform for listings, clients, and deals",
+      },
     ],
   },
   techStack: {
