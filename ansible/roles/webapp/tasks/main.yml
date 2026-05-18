@@ -5,7 +5,7 @@
       - git
       - curl
       - nginx
-      - python3-certbot-nginx
+      - python3-certbot
     state: present
     update_cache: true
 
@@ -44,11 +44,29 @@
     chdir: "{{ app_dir }}"
   changed_when: true
 
-- name: Deploy nginx config
+- name: Create webroot for ACME challenges
+  ansible.builtin.file:
+    path: /var/www/certbot
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: "0755"
+
+# Deploy HTTP-only config first so Certbot can pass the ACME challenge
+- name: Deploy nginx config (HTTP only, pre-SSL)
+  ansible.builtin.template:
+    src: nginx-http.conf.j2
+    dest: /etc/nginx/sites-available/{{ nginx_conf_name }}
+    mode: "0644"
+  when: enable_ssl
+  notify: Reload nginx
+
+- name: Deploy nginx config (HTTP only, SSL disabled)
   ansible.builtin.template:
     src: nginx.conf.j2
     dest: /etc/nginx/sites-available/{{ nginx_conf_name }}
     mode: "0644"
+  when: not enable_ssl
   notify: Reload nginx
 
 - name: Enable nginx site
@@ -58,19 +76,8 @@
     state: link
   notify: Reload nginx
 
-- name: Remove default nginx site
-  ansible.builtin.file:
-    path: /etc/nginx/sites-enabled/default
-    state: absent
-  notify: Reload nginx
-
-- name: Create webroot for ACME challenges
-  ansible.builtin.file:
-    path: /var/www/certbot
-    state: directory
-    owner: www-data
-    group: www-data
-    mode: "0755"
+- name: Flush handlers to apply nginx config before Certbot
+  ansible.builtin.meta: flush_handlers
 
 - name: Check if SSL certificate already exists
   ansible.builtin.stat:
@@ -78,21 +85,25 @@
   register: ssl_cert
   when: enable_ssl
 
-- name: Obtain SSL certificate via Certbot
+# certonly --webroot never touches other nginx configs
+- name: Obtain SSL certificate via Certbot (webroot)
   ansible.builtin.command:
     cmd: >
-      certbot certonly --nginx
+      certbot certonly --webroot
+      -w /var/www/certbot
       -d {{ domain }} -d www.{{ domain }}
       --non-interactive --agree-tos -m {{ certbot_email }}
   when: enable_ssl and not ssl_cert.stat.exists
   changed_when: true
-  notify: Reload nginx
 
-- name: Renew SSL certificate (if already exists)
-  ansible.builtin.command:
-    cmd: certbot renew --quiet
-  when: enable_ssl and ssl_cert.stat.exists
-  changed_when: false
+# Deploy final HTTPS config only after certificate exists
+- name: Deploy nginx config (HTTPS)
+  ansible.builtin.template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/sites-available/{{ nginx_conf_name }}
+    mode: "0644"
+  when: enable_ssl
+  notify: Reload nginx
 
 - name: Enable certbot auto-renew via systemd timer
   ansible.builtin.systemd:

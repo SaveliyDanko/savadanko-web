@@ -83,6 +83,18 @@ Ansible подтянет новые коммиты, пересоберёт `dist
 
 ---
 
+## Сосуществование с другими сайтами на том же VPS
+
+Плейбук **не трогает** чужие конфиги Nginx:
+
+- Создаёт только свой файл `/etc/nginx/sites-available/savadanko` и симлинк в `sites-enabled/`
+- **Не удаляет** `default` и другие сайты
+- Certbot использует режим `--webroot` (не `--nginx`), поэтому он не редактирует никакие конфиги Nginx самостоятельно
+
+Единственное условие — у других сайтов не должно быть `server_name dankosava.ru` или `server_name www.dankosava.ru` в их конфигах, иначе Nginx выберет один из них непредсказуемо.
+
+---
+
 ## Диагностика
 
 ### Проверить статус Nginx
@@ -129,5 +141,6 @@ ansible/
 └── roles/webapp/
     ├── tasks/main.yml                # Шаги деплоя
     ├── handlers/main.yml             # Reload nginx
-    └── templates/nginx.conf.j2      # Nginx: HTTP→HTTPS, SPA, gzip, HSTS
+    ├── templates/nginx-http.conf.j2  # Временный HTTP-конфиг для ACME-challenge
+    └── templates/nginx.conf.j2      # Финальный конфиг: HTTP→HTTPS, SPA, gzip, HSTS
 ```
