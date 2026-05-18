@@ -1,0 +1,7 @@
+---
+- name: Deploy SavaDanko website
+  hosts: vps
+  become: true
+
+  roles:
+    - webapp

@@ -1,0 +1,73 @@
+---
+- name: Install system packages
+  ansible.builtin.apt:
+    name:
+      - git
+      - curl
+      - nginx
+      - python3-certbot-nginx
+    state: present
+    update_cache: true
+
+- name: Install Node.js {{ node_version }} via nodesource
+  ansible.builtin.shell: |
+    curl -fsSL https://deb.nodesource.com/setup_{{ node_version }}.x | bash -
+    apt-get install -y nodejs
+  args:
+    creates: /usr/bin/node
+
+- name: Create app directory
+  ansible.builtin.file:
+    path: "{{ app_dir }}"
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: "0755"
+
+- name: Clone / update repository
+  ansible.builtin.git:
+    repo: "{{ repo_url }}"
+    dest: "{{ app_dir }}"
+    version: "{{ repo_branch }}"
+    force: true
+  notify: Reload nginx
+
+- name: Install npm dependencies
+  ansible.builtin.command:
+    cmd: npm ci --prefer-offline
+    chdir: "{{ app_dir }}"
+  changed_when: true
+
+- name: Build production bundle
+  ansible.builtin.command:
+    cmd: npm run build
+    chdir: "{{ app_dir }}"
+  changed_when: true
+
+- name: Deploy nginx config
+  ansible.builtin.template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/sites-available/{{ nginx_conf_name }}
+    mode: "0644"
+  notify: Reload nginx
+
+- name: Enable nginx site
+  ansible.builtin.file:
+    src: /etc/nginx/sites-available/{{ nginx_conf_name }}
+    dest: /etc/nginx/sites-enabled/{{ nginx_conf_name }}
+    state: link
+  notify: Reload nginx
+
+- name: Remove default nginx site
+  ansible.builtin.file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+  notify: Reload nginx
+
+- name: Obtain SSL certificate
+  ansible.builtin.command:
+    cmd: >
+      certbot --nginx -d {{ domain }} -d www.{{ domain }}
+      --non-interactive --agree-tos -m {{ certbot_email }}
+  when: enable_ssl
+  changed_when: true

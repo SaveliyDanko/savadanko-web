@@ -1,0 +1,15 @@
+# Domain and repo settings
+domain: dankosava.ru
+repo_url: https://github.com/SaveliyDanko/savadanko-web.git
+repo_branch: main
+
+# Paths on the server
+app_dir: /var/www/savadanko
+nginx_conf_name: savadanko
+
+# Node.js version (via nvm or nodesource)
+node_version: "22"
+
+# Enable HTTPS via Certbot (requires valid domain pointing to server)
+enable_ssl: false
+certbot_email: dankosaveliy.m@gmail.com
