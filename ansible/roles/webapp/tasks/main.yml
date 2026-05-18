@@ -52,6 +52,32 @@
     group: www-data
     mode: "0755"
 
+# Detect whether this is a clean VPS or one with existing sites.
+# "Clean" means sites-enabled contains only the stock nginx default symlink.
+- name: List enabled nginx sites
+  ansible.builtin.find:
+    paths: /etc/nginx/sites-enabled
+    file_type: any
+  register: enabled_sites
+
+- name: Determine if only the stock default site is present
+  ansible.builtin.set_fact:
+    only_default_present: >-
+      {{
+        enabled_sites.files | map(attribute='path') | list
+        | difference(['/etc/nginx/sites-enabled/default'])
+        | length == 0
+        and
+        enabled_sites.files | map(attribute='path') | select('equalto', '/etc/nginx/sites-enabled/default') | list | length > 0
+      }}
+
+- name: Remove stock default site (clean VPS — no other sites)
+  ansible.builtin.file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+  when: only_default_present
+  notify: Reload nginx
+
 # Deploy HTTP-only config first so Certbot can pass the ACME challenge
 - name: Deploy nginx config (HTTP only, pre-SSL)
   ansible.builtin.template:
