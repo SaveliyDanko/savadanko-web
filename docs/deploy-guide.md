@@ -9,12 +9,53 @@
 
 **Локально:**
 - `ansible` ≥ 2.14 — `pip install ansible`
-- SSH-ключ, добавленный на сервер
+- SSH-ключ для подключения к серверу
+- Deploy key для GitHub (см. раздел ниже)
 
 **VPS:**
 - Ubuntu 22.04 / 24.04
 - Открытые порты **80** и **443**
 - DNS-записи `dankosava.ru` и `www.dankosava.ru` указывают на IP сервера
+
+---
+
+## Настройка deploy key (приватный репозиторий)
+
+Deploy key — SSH-ключ, который даёт серверу доступ только к одному репозиторию.
+Ansible загружает приватную часть на VPS, публичную нужно добавить в GitHub вручную один раз.
+
+### 1. Сгенерировать ключ локально
+
+```bash
+ssh-keygen -t ed25519 -C "deploy@dankosava.ru" -f ~/.ssh/savadanko_deploy
+```
+
+Будет создано два файла:
+- `~/.ssh/savadanko_deploy` — приватный ключ (остаётся локально, Ansible загрузит его на сервер)
+- `~/.ssh/savadanko_deploy.pub` — публичный ключ (добавляется в GitHub)
+
+### 2. Добавить публичный ключ в GitHub
+
+```bash
+cat ~/.ssh/savadanko_deploy.pub
+```
+
+Скопировать вывод и добавить в репозиторий:
+**GitHub → репозиторий → Settings → Deploy keys → Add deploy key**
+
+- Title: `VPS deploy`
+- Key: вставить содержимое `.pub`
+- Allow write access: **не нужно** (только чтение)
+
+### 3. Проверить путь к ключу в настройках
+
+`ansible/group_vars/vps.yml`:
+
+```yaml
+deploy_key_local_path: ~/.ssh/savadanko_deploy
+```
+
+Если ключ лежит в другом месте — поменяй путь.
 
 ---
 

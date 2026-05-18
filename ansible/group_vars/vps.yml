@@ -7,8 +7,14 @@ site_description: >-
 
 # Domain and repo settings
 domain: dankosava.ru
-repo_url: https://github.com/SaveliyDanko/savadanko-web.git
+repo_url: git@github.com:SaveliyDanko/savadanko-web.git
 repo_branch: main
+
+# Deploy key — path to the PRIVATE key on your LOCAL machine.
+# The public key must be added to GitHub: repo → Settings → Deploy keys.
+# Generate with: ssh-keygen -t ed25519 -C "deploy@dankosava.ru" -f ~/.ssh/savadanko_deploy
+deploy_key_local_path: ~/.ssh/savadanko_deploy
+deploy_key_remote_path: /root/.ssh/savadanko_deploy
 
 # Paths on the server
 app_dir: /var/www/savadanko
