@@ -61,14 +61,20 @@ function AuthGuard({ children }: { children: React.ReactNode }) {
   const [authed, setAuthed] = useState(false);
 
   useEffect(() => {
+    console.log("AuthGuard: checking auth...");
     api.auth.me().then(({ authenticated }) => {
+      console.log("AuthGuard: authenticated =", authenticated);
       setAuthed(authenticated);
+      setChecking(false);
+    }).catch((e) => {
+      console.error("AuthGuard: error", e);
       setChecking(false);
     });
   }, []);
 
   if (checking) return <div style={{ padding: "32px", color: "#a1a1aa" }}>Loading...</div>;
-  if (!authed) return <Navigate to="/admin/login" replace />;
+  if (!authed) { console.log("AuthGuard: not authed, redirecting"); return <Navigate to="/admin/login" replace />; }
+  console.log("AuthGuard: authed, rendering children");
   return <>{children}</>;
 }
 
