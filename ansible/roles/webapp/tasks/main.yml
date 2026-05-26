@@ -189,3 +189,62 @@
     enabled: true
     state: started
   when: enable_ssl
+
+# ── Admin backend ──────────────────────────────────────────────────────────────
+
+- name: Install admin backend dependencies
+  ansible.builtin.command:
+    cmd: npm ci --prefer-offline
+    chdir: "{{ app_dir }}/admin/backend"
+  changed_when: true
+
+- name: Write admin backend .env
+  ansible.builtin.copy:
+    dest: "{{ app_dir }}/admin/backend/.env"
+    mode: "0640"
+    content: |
+      PORT={{ admin_port }}
+      JWT_SECRET={{ admin_jwt_secret }}
+      ADMIN_PASSWORD_HASH={{ admin_password_hash }}
+      SITE_DIR={{ app_dir }}
+      NODE_ENV=production
+
+- name: Install admin frontend dependencies
+  ansible.builtin.command:
+    cmd: npm ci --prefer-offline
+    chdir: "{{ app_dir }}/admin/frontend"
+  changed_when: true
+
+- name: Build admin frontend
+  ansible.builtin.command:
+    cmd: npm run build
+    chdir: "{{ app_dir }}/admin/frontend"
+  changed_when: true
+
+- name: Deploy admin backend systemd service
+  ansible.builtin.copy:
+    dest: /etc/systemd/system/savadanko-admin.service
+    mode: "0644"
+    content: |
+      [Unit]
+      Description=SavaDanko Admin Backend
+      After=network.target
+
+      [Service]
+      Type=simple
+      WorkingDirectory={{ app_dir }}/admin/backend
+      ExecStart=/usr/bin/node --import tsx/esm server.ts
+      Restart=on-failure
+      RestartSec=5
+      EnvironmentFile={{ app_dir }}/admin/backend/.env
+
+      [Install]
+      WantedBy=multi-user.target
+  notify: Reload systemd
+
+- name: Enable and start admin backend service
+  ansible.builtin.systemd:
+    name: savadanko-admin
+    enabled: true
+    state: started
+    daemon_reload: true

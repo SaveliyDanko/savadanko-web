@@ -13,8 +13,8 @@ repo_branch: main
 # Deploy key — path to the PRIVATE key on your LOCAL machine.
 # The public key must be added to GitHub: repo → Settings → Deploy keys.
 # Generate with: ssh-keygen -t ed25519 -C "deploy@dankosava.ru" -f ~/.ssh/savadanko_deploy
-deploy_key_local_path: ~/.ssh/savadanko_deploy
-deploy_key_remote_path: /root/.ssh/savadanko_deploy
+deploy_key_local_path: ~/.ssh/id_ed25519_github_personal
+deploy_key_remote_path: /root/.ssh/id_ed25519_github_personal
 
 # Paths on the server
 app_dir: /var/www/savadanko
@@ -26,3 +26,10 @@ node_version: "22"
 # Enable HTTPS via Certbot (requires valid domain pointing to server)
 enable_ssl: true
 certbot_email: dankosaveliy.m@gmail.com
+
+# Admin panel backend
+admin_port: 3001
+# Generate hash: node -e "const b=require('bcryptjs');console.log(b.hashSync('yourpassword',12))"
+admin_password_hash: ""
+# Generate: node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
+admin_jwt_secret: ""

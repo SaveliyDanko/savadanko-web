@@ -1,0 +1,38 @@
+[
+  {
+    "id": "nexign",
+    "title": "Nexign",
+    "category": "Web3",
+    "categoryRu": "Telecom",
+    "description": "Developer of high-tech enterprise solutions for various sectors of the economy.",
+    "descriptionRu": "Разработчик высокотехнологичных корпоративных решений для различных отраслей экономики",
+    "technologies": ["Java", "Apache Camel", "Postgres", "Jenkins", "Kubernetes", "Ansible", "Rabbit"],
+    "extraTechnologies": 7,
+    "href": "#projects",
+    "logo": "nexign"
+  },
+  {
+    "id": "modula",
+    "title": "Modula",
+    "category": "Ecommerce",
+    "categoryRu": "B2B",
+    "description": "No-code business process automation platform",
+    "descriptionRu": "No-code платформа автоматизации бизнес-процессов",
+    "technologies": ["Java", "Spring", "Docker", "React", "Kafka"],
+    "extraTechnologies": 5,
+    "href": "#projects",
+    "logo": "modula"
+  },
+  {
+    "id": "danko-realty",
+    "title": "Danko Realty",
+    "category": "Real Estate",
+    "categoryRu": "Недвижимость",
+    "description": "Full-stack real estate management platform for listings, clients, and deals",
+    "descriptionRu": "Платформа для управления недвижимостью: объявления, клиенты и сделки",
+    "technologies": ["React", "TypeScript", "Node.js", "PostgreSQL", "Docker"],
+    "extraTechnologies": 3,
+    "href": "http://realty.dankosava.ru/",
+    "logo": "danko-realty"
+  }
+]

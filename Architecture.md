@@ -8,7 +8,7 @@
 - **Tailwind CSS v4** — стили (утилитарный подход)
 - **Framer Motion** — анимации
 - **Lucide React** — иконки
-- **React Router DOM** — маршрутизация (подключена, но пока не задействована — сайт одностраничный)
+- **React Router DOM** — маршрутизация (7 маршрутов: /, /about, /work, /blog, /blog/:slug, /contact, /privacy)
 
 ## Архитектурный подход
 
@@ -30,6 +30,12 @@ src/
 │
 ├── pages/                  # Страницы (thin orchestrators)
 │   ├── HomePage.tsx        #   Главная — собирает секции
+│   ├── AboutPage.tsx       #   /about
+│   ├── WorkPage.tsx        #   /work
+│   ├── BlogPage.tsx        #   /blog
+│   ├── BlogArticlePage.tsx #   /blog/:slug
+│   ├── ContactPage.tsx     #   /contact
+│   ├── PrivacyPage.tsx     #   /privacy — политика обработки персональных данных
 │   └── NotFoundPage.tsx    #   404
 │
 ├── sections/               # Крупные блоки страницы
@@ -60,9 +66,12 @@ src/
 │   └── socials.ts          #   Соцсети
 │
 ├── data/                   # Контентные данные
-│   ├── projects.ts         #   Список проектов
-│   ├── experience.ts       #   Опыт работы
-│   └── skills.ts           #   Навыки/технологии
+│   ├── projects.ts         #   Список проектов (генерируется /api/publish)
+│   ├── blog.ts             #   Статьи блога (генерируется /api/publish)
+│   ├── skills.ts           #   Навыки/технологии
+│   ├── aboutPage.ts        #   Биография, образование
+│   ├── contactPage.ts      #   Email, локация, соцсети
+│   └── techIcons.ts        #   Маппинг технологий → иконки
 │
 ├── assets/                 # Статические ресурсы
 │   ├── images/             #   Фото, скриншоты
@@ -147,14 +156,15 @@ src/
 
 | Задача | Где делать |
 |---|---|
-| Новая страница | `pages/NewPage.tsx` + роут в `app/` |
+| Новая страница | `pages/NewPage.tsx` + роут в `app/App.tsx` + meta в `app/SiteMeta.tsx` |
 | Новая секция | `sections/NewSection/NewSection.tsx` + `index.ts` |
 | Новый UI-примитив | `components/ui/Component.tsx` + экспорт в `index.ts` |
 | Новый доменный компонент | `components/common/Component.tsx` + экспорт в `index.ts` |
 | Новый хук | `hooks/useHookName.ts` + экспорт в `index.ts` |
 | Новая утилита | `utils/utilName.ts` + экспорт в `index.ts` |
 | Новый тип | `types/index.ts` |
-| Изменить контент | Файлы в `data/` |
+| Изменить контент сайта | Файлы в `data/` или через админ-панель `/admin/` |
+| Изменить UI-тексты | `i18n/en.ts` и `i18n/ru.ts` |
 | Изменить тему | `styles/globals.css` → блок `@theme` |
 
 ## Именование

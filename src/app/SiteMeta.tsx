@@ -95,6 +95,15 @@ export function SiteMeta() {
       } as const;
     }
 
+    if (pathname === "/privacy") {
+      return {
+        title: `${t.privacy.title} | ${siteConfig.name}`,
+        description: t.privacy.edition,
+        indexable: false,
+        type: "website",
+      } as const;
+    }
+
     return {
       title: `404 | ${siteConfig.name}`,
       description: t.notFound.title,

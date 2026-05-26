@@ -16,7 +16,10 @@
 | `/blog` | `BlogPage` | Список статей с карточками |
 | `/blog/:slug` | `BlogArticlePage` | Отдельная статья по slug |
 | `/contact` | `ContactPage` | Форма (открывает mailto), email, соцсети |
+| `/privacy` | `PrivacyPage` | Политика обработки персональных данных (EN/RU) |
 | `*` | `NotFoundPage` | 404 |
+
+Ссылка на `/privacy` размещена в футере рядом с копирайтом.
 
 ---
 
@@ -97,7 +100,7 @@ src/
 | Компонент | Назначение |
 |-----------|-----------|
 | `Header.tsx` | Навигация, переключатели языка и темы, мобильное меню, прогресс-бар скролла |
-| `Footer.tsx` | Соцсети, копирайт |
+| `Footer.tsx` | Соцсети, копирайт, ссылка на политику конфиденциальности |
 | `Section.tsx` | Обёртка с единым padding для всех секций |
 
 ---
@@ -134,16 +137,63 @@ src/
 | Изменить биографию / образование | `src/data/aboutPage.ts` |
 | Изменить email / соцсети | `src/data/contactPage.ts` и `src/constants/socials.ts` |
 | Изменить технологии в стеке | `src/data/skills.ts` |
+| Редактировать политику конфиденциальности | `src/i18n/ru.ts` и `src/i18n/en.ts` → ключ `privacy` |
 | Добавить новую страницу | `src/pages/NewPage.tsx` + маршрут в `src/app/App.tsx` |
 | Добавить новую секцию | `src/sections/Name/Name.tsx` + `index.ts` |
 | Изменить цвета / шрифты | `src/styles/globals.css` (`@theme`) |
 | Изменить пункты навигации | `src/constants/navigation.ts` |
 | Задеплоить на VPS | см. `docs/deploy-guide.md` |
+| Открыть админ-панель | `/admin/` (локально: `http://localhost:5174/admin/`) → см. ниже |
+
+---
+
+---
+
+## Админ-панель (admin/)
+
+CMS-интерфейс для управления контентом без правки кода.
+
+```
+admin/
+├── backend/          # Express API + JWT auth (порт 3001)
+│   ├── server.ts     # Точка входа
+│   ├── routes/       # auth, projects, blog, publish
+│   ├── middleware/   # JWT-проверка
+│   ├── data/         # projects.json, blog.json — runtime-хранилище
+│   ├── store.ts      # Чтение/запись JSON-файлов
+│   └── types.ts      # Общие интерфейсы Project, BlogArticle
+└── frontend/         # React SPA (Vite, порт 5174, base: /admin/)
+    └── src/
+        ├── pages/    # Login, ProjectsPage, BlogPage
+        ├── components/
+        │   ├── forms/          # ProjectForm, BlogArticleForm
+        │   └── PublishButton   # Запускает сборку сайта
+        └── lib/api.ts          # Typed fetch-клиент
+```
+
+**Принцип работы:**
+1. Бэкенд читает/пишет JSON в `admin/backend/data/`
+2. Кнопка «Publish» вызывает `POST /api/publish` — генерирует `src/data/projects.ts`, `src/data/blog.ts`, обновляет `src/i18n/*.ts` и запускает `npm run build`
+3. Nginx раздаёт новую статику без рестарта
+
+**Локальный запуск:**
+```bash
+# Терминал 1
+cd admin/backend && cp .env.example .env  # заполнить пароль и JWT_SECRET
+npm run dev
+
+# Терминал 2
+cd admin/frontend && npm run dev
+# Открыть http://localhost:5174/admin/
+```
+
+**На продакшне** бэкенд работает как systemd-сервис `savadanko-admin`, фронтенд отдаётся Nginx как статика из `admin/frontend/dist/`. Подробнее — `docs/deploy-guide.md`.
 
 ---
 
 ## Связанные документы
 
 - `docs/blog-guide.md` — как добавлять и редактировать статьи блога
-- `docs/deploy-guide.md` — деплой на VPS через Ansible (Nginx + SSL)
+- `docs/deploy-guide.md` — деплой на VPS через Ansible (Nginx + SSL + admin panel)
 - `.env.production.example` — переменные окружения для продакшн-сборки
+- `admin/backend/.env.example` — переменные для бэкенда админ-панели

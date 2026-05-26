@@ -213,10 +213,133 @@ export const en = {
       "Design and build modern web applications, responsive interfaces, and scalable solutions.",
     copyright: "SavaDanko. All rights reserved.",
     builtWith: "Built with React + Vite + Tailwind",
+    privacyPolicy: "Privacy Policy",
   },
   notFound: {
     title: "Page not found",
     backHome: "Back to Home",
+  },
+  privacy: {
+    badge: "Legal document",
+    title: "Privacy Policy",
+    edition: "Edition dated May 26, 2026",
+    sections: [
+      {
+        heading: "1. General Provisions",
+        paragraphs: [
+          "This Privacy Policy (hereinafter — the \"Policy\") has been developed in accordance with Federal Law No. 152-FZ of July 27, 2006 \"On Personal Data\" and defines the procedure for processing personal data, purposes, legal bases, categories of data processed, rights of personal data subjects, and measures taken by the Operator to protect personal data.",
+          "The personal data operator is an individual: Saveliy Danko — administrator of the website dankosava.ru, processing personal data of users for the purposes of portfolio presentation and receiving feedback.",
+        ],
+        list: [
+          "Operator: Saveliy Danko;",
+          "Status: individual;",
+          "Email: dankosaveliy.m@gmail.com;",
+          "Website: https://dankosava.ru.",
+        ],
+      },
+      {
+        heading: "2. Key Definitions",
+        paragraphs: [],
+        list: [
+          "Personal data — any information relating directly or indirectly to an identified or identifiable individual (personal data subject).",
+          "Operator — the person organizing and/or processing personal data, defining the purposes and composition of data processed.",
+          "Processing of personal data — any action or set of actions with personal data: collection, recording, organization, accumulation, storage, clarification, retrieval, use, transfer, anonymization, blocking, deletion, destruction.",
+          "Cookies — small text files that the website stores in the user's browser for proper interface operation and analytics.",
+          "Personal data subject — the individual to whom the personal data relates.",
+        ],
+      },
+      {
+        heading: "3. Categories of Personal Data Subjects",
+        paragraphs: ["The Operator may process personal data of the following categories of subjects:"],
+        list: [
+          "Website visitors;",
+          "Users who submitted a request, inquiry, or message through the website form, email, messengers, or other communication channels;",
+          "Website visitors whose data is processed using cookies and web analytics services.",
+        ],
+      },
+      {
+        heading: "4. Categories of Personal Data Processed",
+        paragraphs: ["The Operator may process the following categories of personal data:"],
+        list: [
+          "Name;",
+          "Email address;",
+          "Telegram or other messenger username, if provided by the user;",
+          "Information provided by the user in a request or message;",
+          "Technical data automatically transmitted by the user's device: IP address, cookies, browser type and version, device type, operating system, referral source, date and time of visit, user actions on the website.",
+        ],
+      },
+      {
+        heading: "5. Purposes of Personal Data Processing",
+        paragraphs: ["The Operator processes personal data for the following purposes:"],
+        list: [
+          "Receiving and processing user requests, inquiries, and messages;",
+          "Providing feedback via email or Telegram;",
+          "Analyzing website traffic and improving its functionality;",
+          "Ensuring website security, preventing spam and abuse.",
+        ],
+      },
+      {
+        heading: "6. Legal Bases for Processing",
+        paragraphs: ["The Operator processes personal data on the following legal bases:"],
+        list: [
+          "Consent of the personal data subject;",
+          "Legitimate interests of the Operator, provided that the rights and freedoms of the personal data subject are not violated.",
+        ],
+      },
+      {
+        heading: "7. Transfer of Personal Data to Third Parties",
+        paragraphs: [
+          "The Operator may transfer personal data to third parties only if there is a legal basis and to the extent necessary to achieve the processing purposes.",
+          "The Operator does not sell personal data to third parties.",
+        ],
+        list: [
+          "Hosting provider and technical services ensuring website operation;",
+          "Web analytics services, including Yandex.Metrica, if used on the website;",
+          "Government authorities — in cases provided by the legislation of the Russian Federation.",
+        ],
+      },
+      {
+        heading: "8. Use of Cookies",
+        paragraphs: [
+          "The website uses cookies and similar technologies for proper interface operation, analysis of website traffic, and improving usability.",
+          "The user may disable cookies in their browser settings. In this case, certain website features may not work correctly.",
+        ],
+      },
+      {
+        heading: "9. Storage Periods",
+        paragraphs: [
+          "Personal data of users who submitted a request or inquiry is stored for no more than 12 months from the last interaction with the user.",
+          "Technical data and cookie data are stored for periods determined by the settings of the respective services and the user's browser.",
+        ],
+      },
+      {
+        heading: "10. Rights of Personal Data Subjects",
+        paragraphs: ["The personal data subject has the right to:"],
+        list: [
+          "Obtain information about the processing of their personal data;",
+          "Request correction, blocking, or destruction of their personal data;",
+          "Withdraw consent to personal data processing at any time;",
+          "Lodge a complaint with Roskomnadzor or in court.",
+        ],
+      },
+      {
+        heading: "11. Contact Information",
+        paragraphs: [
+          "For all questions related to personal data processing, including withdrawal of consent and exercising data subject rights, please contact the Operator:",
+        ],
+        list: [
+          "Operator: Saveliy Danko;",
+          "Email: dankosaveliy.m@gmail.com.",
+        ],
+      },
+      {
+        heading: "12. Policy Changes",
+        paragraphs: [
+          "The Operator reserves the right to make changes to this Policy. The new version of the Policy takes effect from the moment it is published on the website.",
+          "Users are recommended to periodically review the current version of the Policy.",
+        ],
+      },
+    ],
   },
 };
 

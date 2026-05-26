@@ -168,7 +168,15 @@ export function Footer() {
             <p>
               &copy; {year} {t.footer.copyright}
             </p>
-            <p>{t.footer.builtWith}</p>
+            <div className="flex items-center gap-5">
+              <Link
+                to="/privacy"
+                className="transition-colors duration-300 hover:text-body"
+              >
+                {t.footer.privacyPolicy}
+              </Link>
+              <p>{t.footer.builtWith}</p>
+            </div>
           </div>
         </div>
       </div>

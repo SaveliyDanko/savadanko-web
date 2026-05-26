@@ -5,3 +5,4 @@ export { BlogPage } from "./BlogPage";
 export { ContactPage } from "./ContactPage";
 export { NotFoundPage } from "./NotFoundPage";
 export { BlogArticlePage } from "./BlogArticlePage";
+export { PrivacyPage } from "./PrivacyPage";

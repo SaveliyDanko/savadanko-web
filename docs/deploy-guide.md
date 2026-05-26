@@ -67,12 +67,12 @@ ansible/
 ├── inventory/
 │   └── hosts.ini                     # IP сервера и SSH-настройки
 ├── group_vars/
-│   └── vps.yml                       # Домен, ветка, метаданные, SSL
+│   └── vps.yml                       # Домен, ветка, метаданные, SSL, admin panel
 └── roles/webapp/
-    ├── tasks/main.yml                # Шаги деплоя
-    ├── handlers/main.yml             # Reload nginx
+    ├── tasks/main.yml                # Шаги деплоя (включая admin panel)
+    ├── handlers/main.yml             # Reload nginx, reload systemd
     ├── templates/nginx-http.conf.j2  # Временный HTTP-конфиг для ACME
-    └── templates/nginx.conf.j2      # Финальный конфиг: HTTPS, SPA, gzip
+    └── templates/nginx.conf.j2      # Финальный конфиг: HTTPS, SPA, /api/, /admin/
 ```
 
 ---
@@ -92,18 +92,29 @@ ansible/
 
 ### 2. Проверить переменные
 
-`ansible/group_vars/vps.yml` — всё уже настроено для `dankosava.ru`:
+`ansible/group_vars/vps.yml` — всё уже настроено для `dankosava.ru`.
+
+Обязательно заполнить перед первым деплоем:
+
+```yaml
+# Пароль для входа в админ-панель (bcrypt-хэш)
+# Генерация: node -e "const b=require('bcryptjs');console.log(b.hashSync('yourpassword',12))"
+admin_password_hash: "$2b$12$..."
+
+# Секрет для подписи JWT-токенов
+# Генерация: node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
+admin_jwt_secret: "abc123..."
+```
+
+Остальные переменные уже настроены:
 
 ```yaml
 site_name: Savely Danko
-site_title: Savely Danko
-site_description: ...
-
 domain: dankosava.ru
-repo_url: https://github.com/SaveliyDanko/savadanko-web.git
 repo_branch: main
 enable_ssl: true
 certbot_email: dankosaveliy.m@gmail.com
+admin_port: 3001
 ```
 
 ### 3. Проверить SSH-доступ
@@ -124,12 +135,18 @@ ansible-playbook -i ansible/inventory/hosts.ini ansible/deploy.yml
 1. Установку пакетов (git, nginx, nodejs, certbot)
 2. Клонирование репозитория в `/var/www/savadanko`
 3. Генерацию `.env.production` из переменных `group_vars/vps.yml`
-4. `npm ci && npm run build`
+4. `npm ci && npm run build` основного сайта
 5. Настройку Nginx с редиректом HTTP → HTTPS
 6. Выпуск SSL-сертификата через Let's Encrypt (`--webroot`, не трогает чужие конфиги)
 7. Включение автопродления сертификата (systemd timer)
+8. `npm ci` для `admin/backend` и `admin/frontend`
+9. Сборку `admin/frontend` (`npm run build`)
+10. Создание файла `.env` для бэкенда с паролем и JWT-секретом из `group_vars/vps.yml`
+11. Регистрацию и запуск systemd-сервиса `savadanko-admin` (порт 3001)
 
-После завершения сайт доступен по **https://dankosava.ru**.
+После завершения:
+- Сайт доступен по **https://dankosava.ru**
+- Админ-панель доступна по **https://dankosava.ru/admin/**
 
 ---
 
@@ -197,4 +214,13 @@ ssh root@<IP> "certbot certificates"
 
 # Тест продления сертификата
 ssh root@<IP> "certbot renew --dry-run"
+
+# Статус admin backend
+ssh root@<IP> "systemctl status savadanko-admin"
+
+# Логи admin backend
+ssh root@<IP> "journalctl -u savadanko-admin -n 50 --no-pager"
+
+# Перезапуск admin backend
+ssh root@<IP> "systemctl restart savadanko-admin"
 ```
