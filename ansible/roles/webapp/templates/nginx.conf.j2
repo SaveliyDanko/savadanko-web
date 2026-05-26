@@ -34,7 +34,7 @@ server {
     index index.html;
 
     # Admin API — proxy to Node.js backend
-    location /api/ {
+    location ^~ /api/ {
         proxy_pass http://127.0.0.1:{{ admin_port }}/api/;
         proxy_http_version 1.1;
         proxy_set_header Host $host;
@@ -43,10 +43,24 @@ server {
         proxy_set_header X-Forwarded-Proto $scheme;
     }
 
-    # Admin panel SPA
-    location /admin/ {
-        root {{ app_dir }}/admin/frontend;
-        try_files $uri $uri/ /admin/index.html;
+    # Admin panel static assets — ^~ wins over regex location below
+    location ^~ /admin/assets/ {
+        alias {{ app_dir }}/admin/frontend/dist/assets/;
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+        access_log off;
+    }
+
+    # Admin panel SPA — named fallback serves index.html for all /admin/* routes
+    location ^~ /admin {
+        alias {{ app_dir }}/admin/frontend/dist;
+        index index.html;
+        try_files $uri $uri/ @admin_fallback;
+    }
+
+    location @admin_fallback {
+        root {{ app_dir }}/admin/frontend/dist;
+        rewrite ^ /index.html break;
     }
 
     # SPA fallback (main site)

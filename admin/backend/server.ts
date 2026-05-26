@@ -11,6 +11,7 @@ import { requireAuth } from "./middleware/auth.js";
 const app = express();
 const PORT = Number(process.env.PORT) || 3001;
 
+app.set("trust proxy", 1);
 app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
 app.use(cookieParser());

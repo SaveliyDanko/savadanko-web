@@ -30,6 +30,6 @@ certbot_email: dankosaveliy.m@gmail.com
 # Admin panel backend
 admin_port: 3001
 # Generate hash: node -e "const b=require('bcryptjs');console.log(b.hashSync('yourpassword',12))"
-admin_password_hash: ""
+admin_password_hash: "$2a$12$LlEMSNWVf7VZyGM68IhWOuz7RAf7oT2CXZd0bxTCjbLqo6YlnS126"
 # Generate: node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
-admin_jwt_secret: ""
+admin_jwt_secret: "d0904bc0974858fa55435c2734f9c29c91cc4febcee9559d0393d5e57dc3b46b2ce6ce871adb58305a5ee034567b807a92df4271f7333674a58fa4077334fdfb"

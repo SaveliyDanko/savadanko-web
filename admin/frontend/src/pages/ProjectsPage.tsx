@@ -43,6 +43,15 @@ export function ProjectsPage() {
     }
   }
 
+  if (error) {
+    return (
+      <div style={{ padding: "24px", color: "#f87171", background: "#1c0a0a", borderRadius: "8px", border: "1px solid #7f1d1d" }}>
+        <strong>Error loading projects:</strong> {error}
+        <br /><button style={{ marginTop: "12px", ...buttonStyle }} onClick={() => { setError(""); load(); }}>Retry</button>
+      </div>
+    );
+  }
+
   if (editing !== null) {
     return (
       <ProjectForm
@@ -60,8 +69,6 @@ export function ProjectsPage() {
         <PublishButton />
         <button style={buttonStyle} onClick={() => setEditing("new")}>+ Add project</button>
       </div>
-
-      {error && <p style={{ color: "#f87171", marginBottom: "16px" }}>{error}</p>}
 
       <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
         {projects.map((p) => (

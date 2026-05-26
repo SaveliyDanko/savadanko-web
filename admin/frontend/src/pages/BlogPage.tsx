@@ -43,6 +43,15 @@ export function BlogPage() {
     }
   }
 
+  if (error) {
+    return (
+      <div style={{ padding: "24px", color: "#f87171", background: "#1c0a0a", borderRadius: "8px", border: "1px solid #7f1d1d" }}>
+        <strong>Error loading articles:</strong> {error}
+        <br /><button style={{ marginTop: "12px", ...buttonStyle }} onClick={() => { setError(""); load(); }}>Retry</button>
+      </div>
+    );
+  }
+
   if (editing !== null) {
     return (
       <BlogArticleForm
