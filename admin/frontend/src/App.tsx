@@ -47,9 +47,9 @@ function Layout() {
       </nav>
       <main style={{ flex: 1, padding: "32px 24px" }}>
         <Routes>
-          <Route path="/admin/projects" element={<ProjectsPage />} />
-          <Route path="/admin/blog" element={<BlogPage />} />
-          <Route path="/admin" element={<Navigate to="/admin/projects" replace />} />
+          <Route path="projects" element={<ProjectsPage />} />
+          <Route path="blog" element={<BlogPage />} />
+          <Route path="*" element={<Navigate to="/admin/projects" replace />} />
         </Routes>
       </main>
     </div>
@@ -61,20 +61,16 @@ function AuthGuard({ children }: { children: React.ReactNode }) {
   const [authed, setAuthed] = useState(false);
 
   useEffect(() => {
-    console.log("AuthGuard: checking auth...");
     api.auth.me().then(({ authenticated }) => {
-      console.log("AuthGuard: authenticated =", authenticated);
       setAuthed(authenticated);
       setChecking(false);
-    }).catch((e) => {
-      console.error("AuthGuard: error", e);
+    }).catch(() => {
       setChecking(false);
     });
   }, []);
 
   if (checking) return <div style={{ padding: "32px", color: "#a1a1aa" }}>Loading...</div>;
-  if (!authed) { console.log("AuthGuard: not authed, redirecting"); return <Navigate to="/admin/login" replace />; }
-  console.log("AuthGuard: authed, rendering children");
+  if (!authed) return <Navigate to="/admin/login" replace />;
   return <>{children}</>;
 }
 

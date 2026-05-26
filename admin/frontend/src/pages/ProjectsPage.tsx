@@ -11,11 +11,8 @@ export function ProjectsPage() {
 
   async function load() {
     try {
-      const data = await api.projects.list();
-      console.log("projects loaded:", data);
-      setProjects(data);
+      setProjects(await api.projects.list());
     } catch (e) {
-      console.error("projects error:", e);
       setError(String(e));
     }
   }
