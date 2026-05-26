@@ -23,7 +23,7 @@ function Layout() {
   });
 
   return (
-    <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+    <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", color: "#e4e4e7", background: "#09090b" }}>
       <nav style={{
         display: "flex", alignItems: "center", gap: "8px",
         padding: "12px 24px", borderBottom: "1px solid #27272a",
